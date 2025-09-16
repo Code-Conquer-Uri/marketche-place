@@ -1,19 +1,24 @@
+import { Repository } from "@/core/repositories/repository";
 import { Organization } from "../../enterprise/entities/organization";
 
-export abstract class OrganizationRepository {
-  abstract create(organization: Organization): Promise<void>;
+export type OrganizationPaginationParams = {
+  page: number;
+  perPage: number;
 
-  abstract findById(id: string): Promise<Organization | null>;
+  orderBy?: "createdAt" | "updatedAt" | "name" | "email";
+  orderDirection?: "asc" | "desc";
 
+  search?: string;
+};
+
+export abstract class OrganizationRepository extends Repository<Organization> {
   abstract findBySlug(slug: string): Promise<Organization | null>;
-
-  abstract findAll(): Promise<Organization[]>;
-
-  abstract findManyByIds(ids: string[]): Promise<Organization[]>;
 
   abstract findManyBySlugs(slugs: string[]): Promise<Organization[]>;
 
-  abstract save(organization: Organization): Promise<void>;
-
-  abstract delete(organization: Organization): Promise<void>;
+  abstract findPaginated(props: OrganizationPaginationParams): Promise<{
+    organizations: Organization[];
+    total: number;
+    pages: number;
+  }>;
 }
