@@ -1,0 +1,26 @@
+{
+  "extends": "@repo/tsconfig/next-js.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/public/*": ["./public/*"],
+      "@/sanity/*": ["./sanity/*"]
+    },
+    "target": "ES2017",
+    "allowImportingTsExtensions": true,
+    "strict": true,
+    "strictNullChecks": true
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "sanity.types.ts",
+    "next.config.ts",
+    "reset.d.ts"
+  ],
+  "exclude": ["node_modules"]
+}

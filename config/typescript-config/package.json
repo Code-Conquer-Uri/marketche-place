@@ -1,0 +1,14 @@
+{
+  "name": "@repo/tsconfig",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "files": [
+    "next-js.json",
+    "sanity.json",
+    "node.json"
+  ],
+  "devDependencies": {
+    "@total-typescript/ts-reset": "^0.6.1"
+  }
+}

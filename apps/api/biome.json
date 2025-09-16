@@ -1,0 +1,22 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.2.2/schema.json",
+  "extends": ["../../biome.json"],
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": "on",
+        "recommended": true
+      }
+    }
+  },
+  "linter": {
+    "rules": {
+      "recommended": true,
+      "style": {
+        "recommended": true,
+        "useImportType": "off"
+      }
+    }
+  }
+}

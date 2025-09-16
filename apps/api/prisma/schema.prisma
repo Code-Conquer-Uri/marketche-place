@@ -1,0 +1,260 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id   String @id
+  name String
+
+  email         String
+  emailVerified Boolean
+
+  image String?
+
+  createdAt DateTime
+  updatedAt DateTime
+
+  role String?
+
+  // BAN
+  banned     Boolean?
+  banReason  String?
+  banExpires DateTime?
+
+  // Relations
+  sessions    Session[]
+  accounts    Account[]
+  members     Member[]
+  invitations Invitation[]
+  Following   Following[]
+  Product     Product[]
+  Promotion   Promotion[]
+  Coupon      Coupon[]
+  UserCoupons UserCoupons[]
+
+  @@unique([email])
+  @@index([id, name, email], map: "user_search_idx")
+  @@map("user")
+}
+
+model Session {
+  id                   String   @id
+  expiresAt            DateTime
+  token                String
+  createdAt            DateTime
+  updatedAt            DateTime
+  ipAddress            String?
+  userAgent            String?
+  userId               String
+  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  activeOrganizationId String?
+  impersonatedBy       String?
+
+  @@unique([token])
+  @@map("session")
+}
+
+model Account {
+  id         String @id
+  accountId  String
+  providerId String
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  accessToken  String?
+  refreshToken String?
+
+  idToken String?
+
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime
+  updatedAt             DateTime
+
+  @@map("account")
+}
+
+model Verification {
+  id String @id
+
+  identifier String
+  value      String
+
+  expiresAt DateTime
+  createdAt DateTime?
+  updatedAt DateTime?
+
+  @@map("verification")
+}
+
+model Organization {
+  id String @id
+
+  name String
+  slug String?
+  logo String?
+
+  createdAt DateTime
+  updatedAt DateTime @updatedAt
+  metadata  String?
+
+  members     Member[]
+  invitations Invitation[]
+  Following   Following[]
+  StoreFront  StoreFront?
+  Product     Product[]
+
+  @@unique([slug])
+  @@map("organization")
+}
+
+model Member {
+  id             String       @id
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  role      String
+  createdAt DateTime
+  updatedAt DateTime @updatedAt
+
+  @@map("member")
+}
+
+model Invitation {
+  id String @id
+
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  email String
+
+  role   String?
+  status String
+
+  expiresAt DateTime
+  inviterId String
+  user      User     @relation(fields: [inviterId], references: [id], onDelete: Cascade)
+
+  @@map("invitation")
+}
+
+model Following {
+  id String @id @default(ulid())
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  organizationId String
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, organizationId])
+  @@map("Invitation")
+}
+
+enum Theme {
+  DEFAULT
+  AMETHYST_HAZE
+  SOLAR_DUSK
+}
+
+model StoreFront {
+  id String @id @default(ulid())
+
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  organizationId String       @unique
+
+  logoImage   Bytes @db.ByteA
+  bannerImgae Bytes @db.ByteA
+
+  theme Theme @default(DEFAULT)
+
+  @@map("store_front")
+}
+
+model Product {
+  id String @id @default(ulid())
+
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  organizationId String
+
+  image Bytes @db.ByteA
+
+  title       String
+  description String
+
+  price Decimal @db.Decimal(10, 2)
+
+  createdBy User   @relation(fields: [userId], references: [id])
+  userId    String
+
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  Promotion Promotion[]
+  Coupon    Coupon[]
+
+  @@map("product")
+}
+
+model Promotion {
+  id String @id @default(ulid())
+
+  discountPercentage Int
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+
+  createdBy User   @relation(fields: [userId], references: [id])
+  userId    String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("promotion")
+}
+
+model Coupon {
+  id String @id @default(ulid())
+
+  discountPercentage Int
+
+  maxQuantity     Int
+  currentQuantity Int
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+
+  createdBy User   @relation(fields: [userId], references: [id])
+  userId    String
+
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  UserCoupons UserCoupons[]
+
+  @@map("coupon")
+}
+
+model UserCoupons {
+  id String @id @default(ulid())
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  coupon   Coupon @relation(fields: [couponId], references: [id])
+  couponId String
+
+  @@unique([userId, couponId])
+  @@map("user_coupons")
+}

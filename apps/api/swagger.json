@@ -1,0 +1,206 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/users/search": {
+      "get": {
+        "operationId": "SearchUserController_handle",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": { "minimum": 1, "default": 1, "type": "number" }
+          },
+          {
+            "name": "perPage",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 10,
+              "type": "number"
+            }
+          },
+          {
+            "name": "orderDirection",
+            "required": false,
+            "in": "query",
+            "schema": { "enum": ["asc", "desc"], "type": "string" }
+          },
+          {
+            "name": "orderBy",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "enum": ["createdAt", "updatedAt", "name", "email"],
+              "type": "string"
+            }
+          },
+          {
+            "name": "searchTerm",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a list of users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchUserResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BadRequestErrorDto" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotFoundErrorDto" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ConflictErrorDto" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearer": [] }],
+        "summary": "Search users",
+        "tags": ["users"]
+      }
+    }
+  },
+  "info": {
+    "title": "Ideia do Renan",
+    "description": "Contém a estrutura base para a criação de um backend",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": { "scheme": "bearer", "bearerFormat": "JWT", "type": "http" }
+    },
+    "schemas": {
+      "BadRequestErrorDto": {
+        "type": "object",
+        "properties": {
+          "statusCode": { "type": "number" },
+          "message": { "type": "string" },
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": { "type": "string" },
+                "expected": { "type": "string" },
+                "received": { "type": "string" },
+                "path": { "type": "array", "items": { "type": "string" } },
+                "message": { "type": "string" }
+              },
+              "required": ["code", "expected", "received", "path", "message"]
+            }
+          }
+        },
+        "required": ["statusCode", "message"]
+      },
+      "NotFoundErrorDto": {
+        "type": "object",
+        "properties": {
+          "statusCode": { "type": "number" },
+          "message": { "type": "string" }
+        },
+        "required": ["statusCode", "message"]
+      },
+      "InternalServerErrorDto": {
+        "type": "object",
+        "properties": {
+          "statusCode": { "type": "number" },
+          "message": { "type": "string" }
+        },
+        "required": ["statusCode", "message"]
+      },
+      "UnauthorizedErrorDto": {
+        "type": "object",
+        "properties": {
+          "statusCode": { "type": "number" },
+          "message": { "type": "string" }
+        },
+        "required": ["statusCode", "message"]
+      },
+      "ConflictErrorDto": {
+        "type": "object",
+        "properties": {
+          "statusCode": { "type": "number" },
+          "message": { "type": "string" }
+        },
+        "required": ["statusCode", "message"]
+      },
+      "SearchUserResponseDto": {
+        "type": "object",
+        "properties": {
+          "users": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "name": { "type": "string" },
+                "email": { "type": "string" },
+                "emailVerified": { "type": "boolean" },
+                "banned": { "type": "boolean" },
+                "banExpires": { "type": "string", "nullable": true },
+                "banReason": { "type": "string" },
+                "image": { "type": "string" },
+                "role": { "type": "string" },
+                "createdAt": { "type": "string", "nullable": true },
+                "updatedAt": { "type": "string", "nullable": true }
+              },
+              "required": ["id", "name", "email", "emailVerified"]
+            }
+          },
+          "message": { "type": "string" },
+          "total": { "type": "number" },
+          "pages": { "type": "number" }
+        }
+      }
+    }
+  }
+}
