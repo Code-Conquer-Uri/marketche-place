@@ -32,7 +32,6 @@ model User {
   members     Member[]
   invitations Invitation[]
   Following   Following[]
-  Product     Product[]
   Promotion   Promotion[]
   Coupon      Coupon[]
   UserCoupons UserCoupons[]
@@ -113,6 +112,7 @@ model Organization {
   Product     Product[]
 
   @@unique([slug])
+  @@index([id, name, slug], map: "organization_search_index")
   @@map("organization")
 }
 
@@ -152,10 +152,10 @@ model Invitation {
 model Following {
   id String @id @default(ulid())
 
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
 
-  organization   Organization @relation(fields: [organizationId], references: [id])
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   organizationId String
 
   createdAt DateTime @default(now())
@@ -173,11 +173,11 @@ enum Theme {
 model StoreFront {
   id String @id @default(ulid())
 
-  organization   Organization @relation(fields: [organizationId], references: [id])
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   organizationId String       @unique
 
   logoImage   Bytes @db.ByteA
-  bannerImgae Bytes @db.ByteA
+  bannerImage Bytes @db.ByteA
 
   theme Theme @default(DEFAULT)
 
@@ -187,7 +187,7 @@ model StoreFront {
 model Product {
   id String @id @default(ulid())
 
-  organization   Organization @relation(fields: [organizationId], references: [id])
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   organizationId String
 
   image Bytes @db.ByteA
@@ -197,14 +197,12 @@ model Product {
 
   price Decimal @db.Decimal(10, 2)
 
-  createdBy User   @relation(fields: [userId], references: [id])
-  userId    String
-
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
   Promotion Promotion[]
   Coupon    Coupon[]
 
+  @@index([id, title, description], map: "product_search_index")
   @@map("product")
 }
 
@@ -213,7 +211,7 @@ model Promotion {
 
   discountPercentage Int
 
-  product   Product @relation(fields: [productId], references: [id])
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId String
 
   createdBy User   @relation(fields: [userId], references: [id])
@@ -233,10 +231,10 @@ model Coupon {
   maxQuantity     Int
   currentQuantity Int
 
-  product   Product @relation(fields: [productId], references: [id])
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
   productId String
 
-  createdBy User   @relation(fields: [userId], references: [id])
+  createdBy User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
 
   createdAt   DateTime      @default(now())
@@ -249,10 +247,10 @@ model Coupon {
 model UserCoupons {
   id String @id @default(ulid())
 
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
 
-  coupon   Coupon @relation(fields: [couponId], references: [id])
+  coupon   Coupon @relation(fields: [couponId], references: [id], onDelete: Cascade)
   couponId String
 
   @@unique([userId, couponId])
