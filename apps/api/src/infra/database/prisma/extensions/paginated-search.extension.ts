@@ -40,6 +40,22 @@ const MODEL_SEARCH_CONFIG: Record<string, ModelSearchConfig> = {
     searchFields: ["name", "name_ngram", "email", "email_regex"],
     keyField: "id",
   },
+  organization: {
+    indexName: "organization_search_index",
+    searchFields: ["id", "name", "name_ngram", "slug"],
+    keyField: "id",
+  },
+  product: {
+    indexName: "product_search_index",
+    searchFields: [
+      "id",
+      "title",
+      "title_ngram",
+      "description",
+      "description_icu",
+    ],
+    keyField: "id",
+  },
 } as const;
 
 /**
@@ -129,7 +145,7 @@ export const pgSearchExtension = Prisma.defineExtension((client) => {
 
             const countCondition = config.searchFields.map(
               (field) =>
-                Prisma.sql`${Prisma.raw(config.keyField)} @@@ paradedb.match(${field}, ${cleanedTerm}, distance => 2)`,
+                Prisma.sql`${Prisma.raw(config.keyField)} @@@ paradedb.match(${field}, ${cleanedTerm}, distance => 1)`,
             );
 
             const countWhereClause = Prisma.join(countCondition, " OR ");
@@ -142,7 +158,7 @@ export const pgSearchExtension = Prisma.defineExtension((client) => {
 
             const searchConditions = config.searchFields.map(
               (field) =>
-                Prisma.sql`${Prisma.raw(config.keyField)} @@@ paradedb.match(${field}, ${cleanedTerm}, distance => 2)`,
+                Prisma.sql`${Prisma.raw(config.keyField)} @@@ paradedb.match(${field}, ${cleanedTerm}, distance => 1)`,
             );
 
             const conditions = [Prisma.join(searchConditions, " OR ")];
