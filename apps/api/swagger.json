@@ -104,11 +104,797 @@
         "summary": "Search users",
         "tags": ["users"]
       }
+    },
+    "/store-front": {
+      "post": {
+        "operationId": "CreateStoreFrontController_handle",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateStoreFrontBodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Store front created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateStoreFrontResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BadRequestErrorDto" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotFoundErrorDto" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ConflictErrorDto" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearer": [] }],
+        "summary": "Create a store front",
+        "tags": ["store-front"]
+      },
+      "patch": {
+        "operationId": "UpdateStoreFrontController_handle",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateStoreFrontBodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Store front updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateStoreFrontResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BadRequestErrorDto" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotFoundErrorDto" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ConflictErrorDto" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearer": [] }],
+        "summary": "Update a store front",
+        "tags": ["store-front"]
+      },
+      "get": {
+        "operationId": "GetStoreFrontController_handle",
+        "parameters": [
+          {
+            "name": "organizationId",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the store front",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetStoreFrontResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BadRequestErrorDto" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotFoundErrorDto" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ConflictErrorDto" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get a store front",
+        "tags": ["store-front"]
+      }
+    },
+    "/products": {
+      "post": {
+        "operationId": "CreateProductController_handle",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateProductBodyDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Product created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateProductResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BadRequestErrorDto" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotFoundErrorDto" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ConflictErrorDto" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearer": [] }],
+        "summary": "Create a product",
+        "tags": ["products"]
+      }
+    },
+    "/products/get-by-id/{productId}": {
+      "get": {
+        "operationId": "GetProductController_handle",
+        "parameters": [
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "description": "The ID of the product to retrieve",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the product",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetProductResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BadRequestErrorDto" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotFoundErrorDto" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ConflictErrorDto" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get a product by ID",
+        "tags": ["products"]
+      }
+    },
+    "/products/{productId}": {
+      "patch": {
+        "operationId": "UpdateProductController_handle",
+        "parameters": [
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "description": "The ID of the product to update",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateProductBodyDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Product updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateProductResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BadRequestErrorDto" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotFoundErrorDto" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ConflictErrorDto" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearer": [] }],
+        "summary": "Update a product",
+        "tags": ["products"]
+      },
+      "delete": {
+        "operationId": "DeleteProductController_handle",
+        "parameters": [
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "description": "The ID of the product to delete",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteProductResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BadRequestErrorDto" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotFoundErrorDto" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ConflictErrorDto" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearer": [] }],
+        "summary": "Delete a product",
+        "tags": ["products"]
+      }
+    },
+    "/products/search": {
+      "get": {
+        "operationId": "SearchProductController_handle",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": { "minimum": 1, "default": 1, "type": "number" }
+          },
+          {
+            "name": "perPage",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 10,
+              "type": "number"
+            }
+          },
+          {
+            "name": "orderDirection",
+            "required": false,
+            "in": "query",
+            "schema": { "enum": ["asc", "desc"], "type": "string" }
+          },
+          {
+            "name": "orderBy",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "enum": ["createdAt", "updatedAt", "title", "price"],
+              "type": "string"
+            }
+          },
+          {
+            "name": "searchTerm",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "organizationId",
+            "required": false,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns a list of products",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchProductResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BadRequestErrorDto" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotFoundErrorDto" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ConflictErrorDto" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Search products",
+        "tags": ["products"]
+      }
+    },
+    "/products/organization": {
+      "get": {
+        "operationId": "GetProductsByOrganizationController_handle",
+        "parameters": [
+          {
+            "name": "organizationId",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns products for the specified organization",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetProductsByOrganizationResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BadRequestErrorDto" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotFoundErrorDto" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ConflictErrorDto" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get products by organization",
+        "tags": ["products"]
+      }
+    },
+    "/products/public": {
+      "get": {
+        "operationId": "GetPublicProductsController_handle",
+        "parameters": [
+          {
+            "name": "limitPerOrganization",
+            "required": false,
+            "in": "query",
+            "description": "Maximum number of products per organization",
+            "schema": {
+              "minimum": 1,
+              "maximum": 50,
+              "default": 10,
+              "type": "number"
+            }
+          },
+          {
+            "name": "orderDirection",
+            "required": false,
+            "in": "query",
+            "schema": { "enum": ["asc", "desc"], "type": "string" }
+          },
+          {
+            "name": "orderBy",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "enum": ["createdAt", "updatedAt", "title", "price"],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns public products from all organizations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPublicProductsResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BadRequestErrorDto" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotFoundErrorDto" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ConflictErrorDto" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get public products from all organizations",
+        "tags": ["products"]
+      }
     }
   },
   "info": {
-    "title": "Ideia do Renan",
-    "description": "Contém a estrutura base para a criação de um backend",
+    "title": "MarkeTchêplace",
+    "description": "MarkeTchêplace API description",
     "version": "1.0",
     "contact": {}
   },
@@ -200,6 +986,337 @@
           "total": { "type": "number" },
           "pages": { "type": "number" }
         }
+      },
+      "CreateStoreFrontResponseDto": {
+        "type": "object",
+        "properties": {
+          "storeFront": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "organizationId": { "type": "string" },
+              "logoImage": { "type": "string" },
+              "bannerImage": { "type": "string" },
+              "location": { "type": "string" },
+              "theme": {
+                "type": "string",
+                "enum": ["DEFAULT", "AMETHYST_HAZE", "SOLAR_DUSK"]
+              }
+            },
+            "required": [
+              "id",
+              "organizationId",
+              "logoImage",
+              "bannerImage",
+              "location",
+              "theme"
+            ]
+          },
+          "message": { "type": "string" }
+        },
+        "required": ["storeFront"]
+      },
+      "CreateStoreFrontBodyDto": {
+        "type": "object",
+        "properties": {
+          "organizationId": { "type": "string" },
+          "logoImage": { "type": "string" },
+          "bannerImage": { "type": "string" },
+          "location": { "type": "string" },
+          "theme": {
+            "default": "DEFAULT",
+            "type": "string",
+            "enum": ["DEFAULT", "AMETHYST_HAZE", "SOLAR_DUSK"]
+          }
+        },
+        "required": ["organizationId", "logoImage", "bannerImage", "location"]
+      },
+      "UpdateStoreFrontResponseDto": {
+        "type": "object",
+        "properties": {
+          "storeFront": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "organizationId": { "type": "string" },
+              "logoImage": { "type": "string" },
+              "bannerImage": { "type": "string" },
+              "location": { "type": "string" },
+              "theme": {
+                "type": "string",
+                "enum": ["DEFAULT", "AMETHYST_HAZE", "SOLAR_DUSK"]
+              }
+            },
+            "required": [
+              "id",
+              "organizationId",
+              "logoImage",
+              "bannerImage",
+              "location",
+              "theme"
+            ]
+          },
+          "message": { "type": "string" }
+        },
+        "required": ["storeFront"]
+      },
+      "UpdateStoreFrontBodyDto": {
+        "type": "object",
+        "properties": {
+          "organizationId": { "type": "string" },
+          "logoImage": { "type": "string" },
+          "bannerImage": { "type": "string" },
+          "location": { "type": "string" },
+          "theme": {
+            "type": "string",
+            "enum": ["DEFAULT", "AMETHYST_HAZE", "SOLAR_DUSK"]
+          }
+        },
+        "required": ["organizationId"]
+      },
+      "GetStoreFrontResponseDto": {
+        "type": "object",
+        "properties": {
+          "storeFront": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "organizationId": { "type": "string" },
+              "logoImage": { "type": "string" },
+              "bannerImage": { "type": "string" },
+              "location": { "type": "string" },
+              "theme": {
+                "type": "string",
+                "enum": ["DEFAULT", "AMETHYST_HAZE", "SOLAR_DUSK"]
+              }
+            },
+            "required": [
+              "id",
+              "organizationId",
+              "logoImage",
+              "bannerImage",
+              "location",
+              "theme"
+            ]
+          },
+          "message": { "type": "string" }
+        },
+        "required": ["storeFront"]
+      },
+      "CreateProductResponseDto": {
+        "type": "object",
+        "properties": {
+          "product": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "description": { "type": "string" },
+              "image": { "type": "string" },
+              "imageBlur": { "type": "string" },
+              "price": { "type": "number" },
+              "title": { "type": "string" },
+              "organizationId": { "type": "string" },
+              "createdAt": { "type": "string", "nullable": true },
+              "updatedAt": { "type": "string", "nullable": true }
+            },
+            "required": [
+              "id",
+              "description",
+              "image",
+              "imageBlur",
+              "price",
+              "title",
+              "organizationId"
+            ]
+          },
+          "message": { "type": "string" }
+        },
+        "required": ["product"]
+      },
+      "CreateProductBodyDto": {
+        "type": "object",
+        "properties": {
+          "organizationId": { "type": "string" },
+          "image": { "type": "string" },
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "price": { "type": "number", "exclusiveMinimum": 0 }
+        },
+        "required": ["organizationId", "image", "title", "description", "price"]
+      },
+      "GetProductResponseDto": {
+        "type": "object",
+        "properties": {
+          "product": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "description": { "type": "string" },
+              "image": { "type": "string" },
+              "imageBlur": { "type": "string" },
+              "price": { "type": "number" },
+              "title": { "type": "string" },
+              "organizationId": { "type": "string" },
+              "createdAt": { "type": "string", "nullable": true },
+              "updatedAt": { "type": "string", "nullable": true }
+            },
+            "required": [
+              "id",
+              "description",
+              "image",
+              "imageBlur",
+              "price",
+              "title",
+              "organizationId"
+            ]
+          },
+          "message": { "type": "string" }
+        },
+        "required": ["product"]
+      },
+      "UpdateProductResponseDto": {
+        "type": "object",
+        "properties": {
+          "product": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "description": { "type": "string" },
+              "image": { "type": "string" },
+              "imageBlur": { "type": "string" },
+              "price": { "type": "number" },
+              "title": { "type": "string" },
+              "organizationId": { "type": "string" },
+              "createdAt": { "type": "string", "nullable": true },
+              "updatedAt": { "type": "string", "nullable": true }
+            },
+            "required": [
+              "id",
+              "description",
+              "image",
+              "imageBlur",
+              "price",
+              "title",
+              "organizationId"
+            ]
+          },
+          "message": { "type": "string" }
+        },
+        "required": ["product"]
+      },
+      "UpdateProductBodyDto": {
+        "type": "object",
+        "properties": {
+          "image": { "type": "string" },
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "price": { "type": "number", "exclusiveMinimum": 0 }
+        }
+      },
+      "DeleteProductResponseDto": {
+        "type": "object",
+        "properties": { "message": { "type": "string" } },
+        "required": ["message"]
+      },
+      "SearchProductResponseDto": {
+        "type": "object",
+        "properties": {
+          "products": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "description": { "type": "string" },
+                "image": { "type": "string" },
+                "imageBlur": { "type": "string" },
+                "price": { "type": "number" },
+                "title": { "type": "string" },
+                "organizationId": { "type": "string" },
+                "createdAt": { "type": "string", "nullable": true },
+                "updatedAt": { "type": "string", "nullable": true }
+              },
+              "required": [
+                "id",
+                "description",
+                "image",
+                "imageBlur",
+                "price",
+                "title",
+                "organizationId"
+              ]
+            }
+          },
+          "message": { "type": "string" },
+          "total": { "type": "number" },
+          "pages": { "type": "number" }
+        }
+      },
+      "GetProductsByOrganizationResponseDto": {
+        "type": "object",
+        "properties": {
+          "products": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "description": { "type": "string" },
+                "image": { "type": "string" },
+                "imageBlur": { "type": "string" },
+                "price": { "type": "number" },
+                "title": { "type": "string" },
+                "organizationId": { "type": "string" },
+                "createdAt": { "type": "string", "nullable": true },
+                "updatedAt": { "type": "string", "nullable": true }
+              },
+              "required": [
+                "id",
+                "description",
+                "image",
+                "imageBlur",
+                "price",
+                "title",
+                "organizationId"
+              ]
+            }
+          },
+          "message": { "type": "string" }
+        },
+        "required": ["products"]
+      },
+      "GetPublicProductsResponseDto": {
+        "type": "object",
+        "properties": {
+          "products": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "description": { "type": "string" },
+                "image": { "type": "string" },
+                "imageBlur": { "type": "string" },
+                "price": { "type": "number" },
+                "title": { "type": "string" },
+                "organizationId": { "type": "string" },
+                "createdAt": { "type": "string", "nullable": true },
+                "updatedAt": { "type": "string", "nullable": true }
+              },
+              "required": [
+                "id",
+                "description",
+                "image",
+                "imageBlur",
+                "price",
+                "title",
+                "organizationId"
+              ]
+            }
+          },
+          "message": { "type": "string" }
+        },
+        "required": ["products"]
       }
     }
   }
