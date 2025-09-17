@@ -50,8 +50,8 @@ export const SearchProductsList: FC<{
                   <CardHeader className="p-0">
                     <div className="relative aspect-square">
                       <Image
-                        src={product.image}
-                        blurDataURL={product.imageBlur}
+                        src={product.imageUrl}
+                        blurDataURL={product.imageBlurData}
                         alt={product.title}
                         fill
                         className="object-cover"
@@ -66,7 +66,7 @@ export const SearchProductsList: FC<{
                     <p className="text-sm text-muted-foreground line-clamp-3 mb-3">
                       {product.description}
                     </p>
-                     <p className="text-sm text-muted-foreground line-clamp-3 mb-3">
+                    <p className="text-sm text-muted-foreground line-clamp-3 mb-3">
                       {product.organizationId}
                     </p>
                     <div className="flex items-center justify-between">

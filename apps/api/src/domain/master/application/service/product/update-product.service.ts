@@ -4,8 +4,10 @@ import { type Either, left, right } from "@/core/either";
 import { NotAllowedError } from "@/core/errors/not-allowed-error";
 import { ResourceNotFoundError } from "@/core/errors/resource-not-found-error";
 import { Product } from "@/domain/master/enterprise/entities/product";
+import { processProductImage } from "@/utils/image-processing";
 
 import { PermissionFactory } from "../../permissions/permission-factory";
+import { StorageProvider } from "../../providers/storage.provider";
 import { ProductRepository } from "../../repositories/product.repository";
 
 interface UpdateProductServiceRequest {
@@ -30,6 +32,7 @@ export class UpdateProductService {
   constructor(
     private productRepository: ProductRepository,
     private permissionFactory: PermissionFactory,
+    private storageProvider: StorageProvider,
   ) {}
 
   async execute({
@@ -60,7 +63,24 @@ export class UpdateProductService {
     }
 
     if (image !== undefined) {
-      product.image = image;
+      const { webpBuffer, blurDataUrl, mimeType } = await processProductImage(
+        image,
+        { quality: 85 },
+      );
+      const fileName = `${product.id.toString()}.webp`;
+      const { stream, uploadUrl } = await this.storageProvider.getUploadStream({
+        id: product.id.toString(),
+        fileName,
+        fileType: mimeType,
+        folder: "products",
+      });
+      stream.end(webpBuffer);
+      await new Promise((resolve, reject) => {
+        stream.on("finish", resolve);
+        stream.on("error", reject);
+      });
+      product.imageUrl = uploadUrl;
+      product.imageBlurData = blurDataUrl;
     }
 
     if (title !== undefined) {

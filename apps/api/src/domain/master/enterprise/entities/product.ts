@@ -5,7 +5,8 @@ import { Optional } from "@/core/types/optional";
 export interface ProductProps {
   organizationId: UniqueEntityID;
 
-  image: Buffer;
+  imageUrl: string;
+  imageBlurData: string;
 
   title: string;
   description: string;
@@ -21,8 +22,12 @@ export class Product extends Entity<ProductProps> {
     return this.props.organizationId;
   }
 
-  get image(): ProductProps["image"] {
-    return this.props.image;
+  get imageUrl(): ProductProps["imageUrl"] {
+    return this.props.imageUrl;
+  }
+
+  get imageBlurData(): ProductProps["imageBlurData"] {
+    return this.props.imageBlurData;
   }
 
   get price(): ProductProps["price"] {
@@ -45,8 +50,13 @@ export class Product extends Entity<ProductProps> {
     return this.props.updatedAt;
   }
 
-  set image(image: Buffer) {
-    this.props.image = image;
+  set imageUrl(imageUrl: string) {
+    this.props.imageUrl = imageUrl;
+    this.updateTimestamp();
+  }
+
+  set imageBlurData(imageBlurData: string) {
+    this.props.imageBlurData = imageBlurData;
     this.updateTimestamp();
   }
 

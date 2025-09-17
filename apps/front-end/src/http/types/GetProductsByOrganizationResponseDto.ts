@@ -17,13 +17,13 @@ export type GetProductsByOrganizationResponseDto = {
      */
     description: string;
     /**
-     * @type string
+     * @type string, uri
      */
-    image: string;
+    imageUrl: string;
     /**
      * @type string
      */
-    imageBlur: string;
+    imageBlurData: string;
     /**
      * @type number
      */

@@ -38,6 +38,9 @@
     "auth:gen": "pnpm env:load pnpm dlx @better-auth/cli@latest generate --config ./src/auth/index.ts"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.890.0",
+    "@aws-sdk/lib-storage": "^3.890.0",
+    "@aws-sdk/s3-request-presigner": "^3.890.0",
     "@nestjs/cache-manager": "^3.0.0",
     "@nestjs/common": "^11.1.6",
     "@nestjs/config": "^4.0.1",
