@@ -105,7 +105,7 @@ export default async function RootLayout({
 
         <Toaster
           richColors
-          position="top-right"
+          position="bottom-right"
           toastOptions={{
             style: {
               background: "hsl(var(--background))",

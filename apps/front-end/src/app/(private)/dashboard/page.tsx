@@ -1,218 +1,73 @@
-import { BarChart3, Building2, Search, Shield, Users } from "lucide-react";
-import { Suspense } from "react";
-import { SearchUsers } from "@/components/pages/dashboard/search-user";
-import { SearchUserInput } from "@/components/pages/dashboard/search-user/search-user.input";
-import { LogOutButton } from "@/components/shared/logout.button";
-import { Permission } from "@/components/shared/permission";
-import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
+import { Camera, Package, Plus, Search, Users } from "lucide-react";
+import { Container } from "@/components/container";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { CameraIcon, CameraPlusIcon } from "@phosphor-icons/react/dist/ssr";
 
-type Props = {
-  searchParams: Promise<{ searchTerm?: string }>;
-};
-
-export default async function DashboardPage({ searchParams }: Props) {
+export default async function DashboardPage() {
   return (
-    <div className="min-h-dvh bg-background">
+    <Container className="min-h-dvh py-0 lg:py-0 overflow-hidden">
       {/* Header */}
-      <header className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container mx-auto max-w-7xl px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div className="p-2 bg-primary/10 rounded-lg">
-                <Building2 className="h-6 w-6 text-primary" />
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold text-foreground">
-                  Dashboard Multi-Tenant
-                </h1>
-                <p className="text-sm text-muted-foreground">
-                  Gerencie sua organização e usuários
-                </p>
-              </div>
+      <div className="flex flex-col gap-10 pt-3 lg:pt-6">
+        <div className="flex flex-col gap-2.5 lg:gap-5">
+          {/* Foto capa */}
+          <div className="w-full border-2 border-dashed border-foreground h-[8.5rem] lg:h-64 rounded-md flex items-center justify-center cursor-pointer bg-muted/20 hover:bg-muted/80 transition">
+            <div className="flex flex-col items-center m-auto gap-1 px-5 py-2 text-center">
+              <CameraIcon size={48} />
+              <p className="text-muted-foreground text-sm">
+                Clique aqui para fazer o upload de uma foto para a capa
+              </p>
             </div>
+          </div>
 
-            <div className="flex items-center space-x-3">
-              <Badge variant="secondary" className="hidden sm:flex">
-                <Shield className="mr-1 h-3 w-3" />
-                Admin
-              </Badge>
-              <LogOutButton />
+          {/* Foto capa */}
+          <div className="flex flex-col gap-4 lg:flex-row">
+              <div className="w-20 lg:w-[6.5rem] border-2 border-dashed border-foreground h-20 lg:h-[6.5rem] rounded-md flex items-center justify-center cursor-pointer bg-muted/20 hover:bg-muted/80 transition">
+                <div className="flex flex-col items-center m-auto gap-1">
+                  <CameraIcon size={36} />
+                  <p className="text-muted-foreground text-sm">
+                    Sua Logo
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-1">
+                  <h1 className="text-foreground text-3xl font-semibold">
+                    New Era - ERE
+                  </h1>
+                  <p className="text-muted-foreground">Pequena descrição aqui sobre a organização</p>
+                </div>
+                <div className="flex flex-row gap-3 text-muted-foreground font-bold">
+                  <span>0 Funcionários</span>
+                  <span>0 Produtos</span>
+                </div>
+              </div>
+          </div>
+        </div>
+
+        <div className="w-full flex flex-col gap-0">
+          <div className="flex w-full flex-col gap-3 lg:flex-row lg:justify-between lg:items-center border-x border-t rounded-t-md p-5">
+            <Input 
+              placeholder="Buscar..."
+              className="max-w-sm"
+            />
+            <Button>
+              Adicionar novo produto +
+            </Button>
+          </div>
+          <div className="w-full flex justify-center items-center border-x border-b rounded-b-md p-5 h-full">
+            <div className="flex flex-col gap-1.5 text-center">
+              <span className="text-2xl font-semibold text-muted-foreground">Nenhum produto adicionado ainda</span>
+              <p className="text-muted-foreground">Adicione produtos cliando no botão “Adicionar novo produto + “</p>
             </div>
           </div>
         </div>
-      </header>
+      </div>
 
-      {/* Main Content */}
-      <main className="container mx-auto max-w-7xl px-6 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Stats Cards */}
-          <div className="lg:col-span-3">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <Card className="hover:shadow-md transition-shadow">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium text-muted-foreground">
-                    Total de Usuários
-                  </CardTitle>
-                  <Users className="h-4 w-4 text-primary" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold text-foreground">
-                    1,284
-                  </div>
-                  <p className="text-xs text-muted-foreground">
-                    +12% em relação ao mês passado
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="hover:shadow-md transition-shadow">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium text-muted-foreground">
-                    Tenants Ativos
-                  </CardTitle>
-                  <Building2 className="h-4 w-4 text-primary" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold text-foreground">127</div>
-                  <p className="text-xs text-muted-foreground">
-                    +5% em relação ao mês passado
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="hover:shadow-md transition-shadow">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium text-muted-foreground">
-                    Uptime do Sistema
-                  </CardTitle>
-                  <BarChart3 className="h-4 w-4 text-primary" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold text-foreground">
-                    99.9%
-                  </div>
-                  <p className="text-xs text-muted-foreground">
-                    Últimos 30 dias
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-
-          {/* User Search Section */}
-
-          <div className="lg:col-span-2 space-y-6">
-            <Card>
-              <CardHeader>
-                <div className="flex items-center space-x-2">
-                  <Search className="h-5 w-5 text-primary" />
-                  <CardTitle className="text-foreground">
-                    Buscar Usuários
-                  </CardTitle>
-                </div>
-                <CardDescription className="text-muted-foreground">
-                  Encontre e gerencie usuários em todos os tenants da plataforma
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <Suspense>
-                  <Permission
-                    resource="user"
-                    action="list"
-                    fallback={<div>Sem permissão</div>}
-                  >
-                    <SearchUserInput />
-
-                    <Separator />
-
-                    <div className="space-y-4">
-                      <h3 className="text-sm font-medium text-foreground">
-                        Resultados da Busca
-                      </h3>
-                      <Suspense fallback={<div>Loading ...</div>}>
-                        <SearchUsers searchParams={searchParams} />
-                      </Suspense>
-                    </div>
-                  </Permission>
-                </Suspense>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* System Status */}
-          <div className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-foreground">
-                  Status do Sistema
-                </CardTitle>
-                <CardDescription className="text-muted-foreground">
-                  Monitoramento em tempo real
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">
-                      API Gateway
-                    </span>
-                    <Badge
-                      variant="secondary"
-                      className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100"
-                    >
-                      Online
-                    </Badge>
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">
-                      Database
-                    </span>
-                    <Badge
-                      variant="secondary"
-                      className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100"
-                    >
-                      Online
-                    </Badge>
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">
-                      Cache Redis
-                    </span>
-                    <Badge
-                      variant="secondary"
-                      className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100"
-                    >
-                      Online
-                    </Badge>
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">
-                      File Storage
-                    </span>
-                    <Badge
-                      variant="secondary"
-                      className="bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100"
-                    >
-                      Degraded
-                    </Badge>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </main>
-    </div>
+      
+      
+    </Container>
   );
 }
