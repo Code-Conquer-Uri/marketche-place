@@ -8,7 +8,7 @@ import { GetProductsByOrganizationService } from "@/domain/master/application/se
 import { GetPublicProductsService } from "@/domain/master/application/service/product/get-public-products.service";
 import { SearchProductService } from "@/domain/master/application/service/product/search-product.service";
 import { UpdateProductService } from "@/domain/master/application/service/product/update-product.service";
-
+import { StorageModule } from "@/infra/storage/storage.module";
 import { CryptographyModule } from "../../cryptography/cryptography.module";
 import { DatabaseModule } from "../../database/database.module";
 import { CreateProductController } from "./create-product.controller";
@@ -20,7 +20,7 @@ import { SearchProductController } from "./search-product.controller";
 import { UpdateProductController } from "./update-product.controller";
 
 @Module({
-  imports: [DatabaseModule, CryptographyModule],
+  imports: [DatabaseModule, CryptographyModule, StorageModule],
   controllers: [
     CreateProductController,
     GetProductController,
