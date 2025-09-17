@@ -7,13 +7,19 @@ import {
   Product,
   type ProductProps,
 } from "@/domain/master/enterprise/entities/product";
-
+import {
+  convertToWebPBase64,
+  generateImageBlur,
+} from "@/utils/image-processing";
 import type { ZodCustomShape } from "../../zod-custom-shape";
 
-export const httpProductSchema = z.object<ZodCustomShape<ProductProps>>({
+export const httpProductSchema = z.object<
+  ZodCustomShape<ProductProps & { imageBlur: Buffer }>
+>({
   id: z.string(),
   description: z.string(),
   image: z.string(),
+  imageBlur: z.string(),
   price: z.number(),
 
   title: z.string(),
@@ -60,12 +66,18 @@ export class PrismaProductMapper {
     };
   }
 
-  static toHttp(product: Product): HttpProduct {
+  static async toHttp(product: Product): Promise<HttpProduct> {
+    const [imageBlur, imageUrl] = await Promise.all([
+      generateImageBlur(product.image),
+      convertToWebPBase64(product.image),
+    ]);
+
     const httpProduct = httpProductSchema.parse({
       id: product.id.toString(),
 
       description: product.description,
-      image: product.image.toString("base64"),
+      image: imageUrl,
+      imageBlur,
       organizationId: product.organizationId.toString(),
       price: product.price,
       title: product.title,
@@ -76,6 +88,7 @@ export class PrismaProductMapper {
       id: string;
       organizationId: string;
       image: string;
+      imageBlur: string;
     });
     return httpProduct;
   }
