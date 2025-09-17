@@ -1,3 +1,4 @@
+import * as fs from "node:fs/promises";
 import { faker } from "@faker-js/faker";
 import {
   Coupon,
@@ -8,17 +9,11 @@ import {
   User,
 } from "@prisma/client";
 import { ulid } from "ulid";
-import * as fs from 'node:fs/promises';
-const prisma = new PrismaClient();
 
-async function getFileBufferRemote(url: string) {
-  const response = await fetch(url)
-  return Buffer.from(await response.arrayBuffer())
-}
+const prisma = new PrismaClient();
 
 async function createUsers() {
   console.log("Creating users...");
-
 
   const users = [];
   const roles = ["admin", "seller", "buyer"];
@@ -107,28 +102,25 @@ async function createStoreFronts(organizations: Organization[]) {
 
   const themes: Theme[] = ["DEFAULT", "AMETHYST_HAZE", "SOLAR_DUSK"];
 
-    
-
-const storeFrontPromises = organizations.map(async (org) => {
-    
-        const imageIndex = faker.number.int({ min: 1, max: 2 });
-        const imagePath = `./prisma/product-images/product-${imageIndex}.jpg`;
-        const image = await fs.readFile(imagePath);
-        const logoImage = image; // Using the same image for simplicity
-        const bannerImage = image; // Using the same image for simplicity
+  const storeFrontPromises = organizations.map(async (org) => {
+    const imageIndex = faker.number.int({ min: 1, max: 2 });
+    const imagePath = `./prisma/product-images/product-${imageIndex}.jpg`;
+    const image = await fs.readFile(imagePath);
+    const logoImage = image; // Using the same image for simplicity
+    const bannerImage = image; // Using the same image for simplicity
 
     return prisma.storeFront.create({
-        data: {
-            id: ulid(),
-            organizationId: org.id,
-            logoImage,
-            bannerImage,
-            location: `${faker.location.city()}, ${faker.location.state()}`,
-            theme: faker.helpers.arrayElement(themes),
-        },
+      data: {
+        id: ulid(),
+        organizationId: org.id,
+        logoImage,
+        bannerImage,
+        location: `${faker.location.city()}, ${faker.location.state()}`,
+        theme: faker.helpers.arrayElement(themes),
+      },
     });
-});
-const storeFronts = await Promise.all(storeFrontPromises);
+  });
+  const storeFronts = await Promise.all(storeFrontPromises);
 
   console.log(`Created ${storeFronts.length} store fronts`);
   return storeFronts;
@@ -156,7 +148,11 @@ async function createProducts(organizations: Organization[], _users: User[]) {
             image,
             title: faker.commerce.productName(),
             description: faker.commerce.productDescription(),
-            price: faker.number.float({ min: 10, max: 1000, fractionDigits: 2 }),
+            price: faker.number.float({
+              min: 10,
+              max: 1000,
+              fractionDigits: 2,
+            }),
             createdAt: faker.date.past({ years: 1 }),
             updatedAt: faker.date.recent(),
           },
