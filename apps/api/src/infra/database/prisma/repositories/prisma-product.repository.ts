@@ -83,9 +83,7 @@ export class PrismaProductRepository implements ProductRepository {
     total: number;
     pages: number;
   }> {
-    const whereClause = organizationId
-      ? { organizationId: { organizationId } }
-      : undefined;
+    const whereClause = organizationId ? { organizationId } : undefined;
 
     const result = await this.prisma.extendedClient.product.searchPaginated(
       {
