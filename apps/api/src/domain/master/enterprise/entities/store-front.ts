@@ -9,6 +9,8 @@ export interface StoreFrontProps {
   logoImage: Buffer;
   bannerImage: Buffer;
 
+  location: string;
+
   theme: Theme;
 }
 
@@ -29,6 +31,10 @@ export class StoreFront extends Entity<StoreFrontProps> {
     return this.props.theme;
   }
 
+  get location(): StoreFrontProps["location"] {
+    return this.props.location;
+  }
+
   set theme(theme: Theme) {
     this.props.theme = theme;
   }
@@ -39,6 +45,10 @@ export class StoreFront extends Entity<StoreFrontProps> {
 
   set bannerImage(bannerImage: Buffer) {
     this.props.bannerImage = bannerImage;
+  }
+
+  set location(location: string) {
+    this.props.location = location;
   }
 
   static create(props: StoreFrontProps, id?: UniqueEntityID): StoreFront {
