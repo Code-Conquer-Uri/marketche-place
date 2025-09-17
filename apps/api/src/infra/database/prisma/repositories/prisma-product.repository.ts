@@ -77,18 +77,26 @@ export class PrismaProductRepository implements ProductRepository {
     search = "",
     orderBy = "createdAt",
     orderDirection = "asc",
+    organizationId,
   }: ProductPaginationParams): Promise<{
     products: Product[];
     total: number;
     pages: number;
   }> {
-    const result = await this.prisma.extendedClient.product.searchPaginated({
-      search,
-      page,
-      perPage,
-      orderBy,
-      order: orderDirection,
-    });
+    const whereClause = organizationId
+      ? { organizationId: { organizationId } }
+      : undefined;
+
+    const result = await this.prisma.extendedClient.product.searchPaginated(
+      {
+        search,
+        page,
+        perPage,
+        orderBy,
+        order: orderDirection,
+      },
+      whereClause,
+    );
 
     return {
       products: result.data.map(PrismaProductMapper.toDomain),

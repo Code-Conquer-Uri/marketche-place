@@ -1,41 +1,39 @@
 import { Injectable } from "@nestjs/common";
-
-import type { CouponRepository } from "@/domain/master/application/repositories/coupon.repository";
-import type { Coupon } from "@/domain/master/enterprise/entities/coupon";
-
-import { PrismaCouponMapper } from "../mappers/prisma-coupon.mapper";
+import { UserCouponRepository } from "@/domain/master/application/repositories/user-coupon.repository";
+import { UserCoupon } from "@/domain/master/enterprise/entities/user-coupons";
+import { PrismaUserCouponMapper } from "../mappers/prisma-user-coupon.mapper";
 import { PrismaService } from "../prisma.service";
 
 @Injectable()
-export class PrismaCouponRepository implements CouponRepository {
+export class PrismaUserCouponRepository implements UserCouponRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(coupon: Coupon): Promise<void> {
-    await this.prisma.coupon.create({
-      data: PrismaCouponMapper.toPrisma(coupon),
+  async create(userCoupon: UserCoupon): Promise<void> {
+    await this.prisma.userCoupons.create({
+      data: PrismaUserCouponMapper.toPrisma(userCoupon),
     });
   }
 
-  async findById(id: string): Promise<Coupon | null> {
-    const coupon = await this.prisma.coupon.findUnique({
+  async findById(id: string): Promise<UserCoupon | null> {
+    const userCoupon = await this.prisma.userCoupons.findUnique({
       where: { id },
     });
 
-    if (!coupon) {
+    if (!userCoupon) {
       return null;
     }
 
-    return PrismaCouponMapper.toDomain(coupon);
+    return PrismaUserCouponMapper.toDomain(userCoupon);
   }
 
-  async findAll(): Promise<Coupon[]> {
-    const coupons = await this.prisma.coupon.findMany();
+  async findAll(): Promise<UserCoupon[]> {
+    const usercoupons = await this.prisma.userCoupons.findMany();
 
-    return coupons.map(PrismaCouponMapper.toDomain);
+    return usercoupons.map(PrismaUserCouponMapper.toDomain);
   }
 
-  async findManyByIds(ids: string[]): Promise<Coupon[]> {
-    const coupons = await this.prisma.coupon.findMany({
+  async findManyByIds(ids: string[]): Promise<UserCoupon[]> {
+    const usercoupons = await this.prisma.userCoupons.findMany({
       where: {
         id: {
           in: ids,
@@ -43,38 +41,39 @@ export class PrismaCouponRepository implements CouponRepository {
       },
     });
 
-    return coupons.map(PrismaCouponMapper.toDomain);
+    return usercoupons.map(PrismaUserCouponMapper.toDomain);
   }
 
-  async findManyByProductId(organizationId: string): Promise<Coupon[]> {
-    const coupons = await this.prisma.coupon.findMany({
-      where: { productId: organizationId },
+  async findManyByCouponId(couponId: string): Promise<UserCoupon[]> {
+    const usercoupons = await this.prisma.userCoupons.findMany({
+      where: { couponId },
     });
 
-    return coupons.map(PrismaCouponMapper.toDomain);
+    return usercoupons.map(PrismaUserCouponMapper.toDomain);
   }
 
-  async findManyByProductIds(organizationIds: string[]): Promise<Coupon[]> {
-    const coupons = await this.prisma.coupon.findMany({
+  async findManyByCouponIds(couponIds: string[]): Promise<UserCoupon[]> {
+    const usercoupons = await this.prisma.userCoupons.findMany({
       where: {
-        productId: {
-          in: organizationIds,
+        couponId: {
+          in: couponIds,
         },
       },
     });
-    return coupons.map(PrismaCouponMapper.toDomain);
+
+    return usercoupons.map(PrismaUserCouponMapper.toDomain);
   }
 
-  async findManyByUserId(userId: string): Promise<Coupon[]> {
-    const coupons = await this.prisma.coupon.findMany({
+  async findManyByUserId(userId: string): Promise<UserCoupon[]> {
+    const usercoupons = await this.prisma.userCoupons.findMany({
       where: { userId },
     });
 
-    return coupons.map(PrismaCouponMapper.toDomain);
+    return usercoupons.map(PrismaUserCouponMapper.toDomain);
   }
 
-  async findManyByUserIds(userIds: string[]): Promise<Coupon[]> {
-    const coupons = await this.prisma.coupon.findMany({
+  async findManyByUserIds(userIds: string[]): Promise<UserCoupon[]> {
+    const usercoupons = await this.prisma.userCoupons.findMany({
       where: {
         userId: {
           in: userIds,
@@ -82,19 +81,19 @@ export class PrismaCouponRepository implements CouponRepository {
       },
     });
 
-    return coupons.map(PrismaCouponMapper.toDomain);
+    return usercoupons.map(PrismaUserCouponMapper.toDomain);
   }
 
-  async save(coupon: Coupon): Promise<void> {
-    await this.prisma.coupon.update({
-      where: { id: coupon.id.toString() },
-      data: PrismaCouponMapper.toPrisma(coupon),
+  async save(userCoupon: UserCoupon): Promise<void> {
+    await this.prisma.userCoupons.update({
+      where: { id: userCoupon.id.toString() },
+      data: PrismaUserCouponMapper.toPrisma(userCoupon),
     });
   }
 
-  async delete(coupon: Coupon): Promise<void> {
-    await this.prisma.coupon.delete({
-      where: { id: coupon.id.toString() },
+  async delete(userCoupon: UserCoupon): Promise<void> {
+    await this.prisma.userCoupons.delete({
+      where: { id: userCoupon.id.toString() },
     });
   }
 }
