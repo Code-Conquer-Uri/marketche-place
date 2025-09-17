@@ -58,7 +58,14 @@ const MODEL_SEARCH_CONFIG: Record<string, ModelSearchConfig> = {
       "description_icu",
     ],
     keyField: "id",
-    sortableFields: ["id", "title", "description", "price", "createdAt", "updatedAt"],
+    sortableFields: [
+      "id",
+      "title",
+      "description",
+      "price",
+      "createdAt",
+      "updatedAt",
+    ],
   },
 } as const;
 
@@ -124,7 +131,7 @@ export const pgSearchExtension = Prisma.defineExtension((client) => {
           const context = Prisma.getExtensionContext(this);
           const modelName = context.$name?.toLowerCase();
 
-          console.log(where)
+          console.log(where);
 
           if (!modelName) {
             throw new Error("Could not determine model name");
@@ -159,15 +166,14 @@ export const pgSearchExtension = Prisma.defineExtension((client) => {
             const searchCondition = Prisma.join(countCondition, " OR ");
 
             const whereConditions = where
-              ? Object.entries(where).map(
-                  ([key, value]) => {
+              ? Object.entries(where).map(([key, value]) => {
+                  const processedValue =
+                    typeof value === "object" && value !== null
+                      ? JSON.stringify(value)
+                      : value;
 
-                    const processedValue = typeof value === 'object' && value !== null ? JSON.stringify(value) : value;
-
-                    return Prisma.sql`${Prisma.raw(`"${key}"`)} = ${processedValue}`;
-
-                  },
-                )
+                  return Prisma.sql`${Prisma.raw(`"${key}"`)} = ${processedValue}`;
+                })
               : [];
 
             const countWhereClause =
@@ -232,27 +238,23 @@ export const pgSearchExtension = Prisma.defineExtension((client) => {
             };
           }
 
-            const whereConditions = where
+          const whereConditions = where
+            ? Object.entries(where).map(([key, value]) => {
+                const processedValue =
+                  typeof value === "object" && value !== null
+                    ? JSON.stringify(value)
+                    : value;
 
-              ? Object.entries(where).map(
+                return Prisma.sql`${Prisma.raw(`"${key}"`)} = ${processedValue}`;
+              })
+            : [];
 
-                  ([key, value]) => {
+          const skip = (page - 1) * perPage;
 
-                    const processedValue = typeof value === 'object' && value !== null ? JSON.stringify(value) : value;
-
-                    return Prisma.sql`${Prisma.raw(`"${key}"`)} = ${processedValue}`;
-
-                  },
-
-                )
-
-              : [];          const skip = (page - 1) * perPage;
-
-          const countWhereClause = whereConditions.length > 0
-
-            ? Prisma.sql`WHERE ${Prisma.join(whereConditions, " AND ")}`
-
-            : Prisma.sql``;
+          const countWhereClause =
+            whereConditions.length > 0
+              ? Prisma.sql`WHERE ${Prisma.join(whereConditions, " AND ")}`
+              : Prisma.sql``;
 
           const countQuery = Prisma.sql`
 
@@ -264,11 +266,10 @@ export const pgSearchExtension = Prisma.defineExtension((client) => {
 
           `;
 
-          const dataWhereClause = whereConditions.length > 0
-
-            ? Prisma.sql`WHERE ${Prisma.join(whereConditions, " AND ")}`
-
-            : Prisma.sql``;
+          const dataWhereClause =
+            whereConditions.length > 0
+              ? Prisma.sql`WHERE ${Prisma.join(whereConditions, " AND ")}`
+              : Prisma.sql``;
 
           const dataQuery = Prisma.sql`
 
