@@ -1,7 +1,6 @@
 import {
   ac,
   generalAdmin,
-  organizationAdmin,
   organizationMember,
   organizationOwner,
   user,
@@ -16,7 +15,6 @@ const accessControl = {
     generalAdmin,
     user,
     organizationOwner,
-    organizationAdmin,
     organizationMember,
   },
 };
