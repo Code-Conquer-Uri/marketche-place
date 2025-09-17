@@ -124,6 +124,8 @@ export const pgSearchExtension = Prisma.defineExtension((client) => {
           const context = Prisma.getExtensionContext(this);
           const modelName = context.$name?.toLowerCase();
 
+          console.log(where)
+
           if (!modelName) {
             throw new Error("Could not determine model name");
           }
@@ -158,7 +160,13 @@ export const pgSearchExtension = Prisma.defineExtension((client) => {
 
             const whereConditions = where
               ? Object.entries(where).map(
-                  ([key, value]) => Prisma.sql`${Prisma.raw(key)} = ${value}`,
+                  ([key, value]) => {
+
+                    const processedValue = typeof value === 'object' && value !== null ? JSON.stringify(value) : value;
+
+                    return Prisma.sql`${Prisma.raw(`"${key}"`)} = ${processedValue}`;
+
+                  },
                 )
               : [];
 
@@ -224,19 +232,58 @@ export const pgSearchExtension = Prisma.defineExtension((client) => {
             };
           }
 
-          const skip = (page - 1) * perPage;
+            const whereConditions = where
+
+              ? Object.entries(where).map(
+
+                  ([key, value]) => {
+
+                    const processedValue = typeof value === 'object' && value !== null ? JSON.stringify(value) : value;
+
+                    return Prisma.sql`${Prisma.raw(`"${key}"`)} = ${processedValue}`;
+
+                  },
+
+                )
+
+              : [];          const skip = (page - 1) * perPage;
+
+          const countWhereClause = whereConditions.length > 0
+
+            ? Prisma.sql`WHERE ${Prisma.join(whereConditions, " AND ")}`
+
+            : Prisma.sql``;
 
           const countQuery = Prisma.sql`
+
             SELECT COUNT(*)::int as total
+
             FROM "${Prisma.raw(modelName)}"
+
+            ${countWhereClause}
+
           `;
 
+          const dataWhereClause = whereConditions.length > 0
+
+            ? Prisma.sql`WHERE ${Prisma.join(whereConditions, " AND ")}`
+
+            : Prisma.sql``;
+
           const dataQuery = Prisma.sql`
+
             SELECT *
+
             FROM "${Prisma.raw(modelName)}"
+
+            ${dataWhereClause}
+
             ORDER BY ${Prisma.raw(buildOrderBy(orderBy, order))}
+
             LIMIT ${perPage}
+
             OFFSET ${skip}
+
           `;
 
           const [data, countResult] = await client.$transaction([
