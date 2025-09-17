@@ -42,13 +42,13 @@ export class StoreFront extends Entity<StoreFrontProps> {
   }
 
   static create(props: StoreFrontProps, id?: UniqueEntityID): StoreFront {
-    const acceptedTerms = new StoreFront(
+    const storeFront = new StoreFront(
       {
         ...props,
       },
       id,
     );
 
-    return acceptedTerms;
+    return storeFront;
   }
 }

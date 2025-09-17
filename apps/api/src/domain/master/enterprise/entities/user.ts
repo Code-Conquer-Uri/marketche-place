@@ -66,7 +66,7 @@ export class User extends Entity<UserProps> {
     props: Optional<UserProps, "createdAt" | "updatedAt">,
     id?: UniqueEntityID,
   ): User {
-    const acceptedTerms = new User(
+    const user = new User(
       {
         ...props,
         createdAt: props.createdAt ?? new Date(),
@@ -75,6 +75,6 @@ export class User extends Entity<UserProps> {
       id,
     );
 
-    return acceptedTerms;
+    return user;
   }
 }
