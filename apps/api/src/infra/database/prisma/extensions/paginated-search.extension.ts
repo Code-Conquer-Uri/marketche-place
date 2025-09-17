@@ -32,6 +32,7 @@ interface ModelSearchConfig {
   indexName: string;
   searchFields: string[];
   keyField: string;
+  sortableFields: string[];
 }
 
 const MODEL_SEARCH_CONFIG: Record<string, ModelSearchConfig> = {
@@ -39,11 +40,13 @@ const MODEL_SEARCH_CONFIG: Record<string, ModelSearchConfig> = {
     indexName: "user_search_idx",
     searchFields: ["name", "name_ngram", "email", "email_regex"],
     keyField: "id",
+    sortableFields: ["id", "name", "email", "createdAt", "updatedAt"],
   },
   organization: {
     indexName: "organization_search_index",
     searchFields: ["id", "name", "name_ngram", "slug"],
     keyField: "id",
+    sortableFields: ["id", "name", "slug", "createdAt", "updatedAt"],
   },
   product: {
     indexName: "product_search_index",
@@ -55,6 +58,7 @@ const MODEL_SEARCH_CONFIG: Record<string, ModelSearchConfig> = {
       "description_icu",
     ],
     keyField: "id",
+    sortableFields: ["id", "title", "description", "price", "createdAt", "updatedAt"],
   },
 } as const;
 
@@ -114,6 +118,8 @@ export const pgSearchExtension = Prisma.defineExtension((client) => {
         async searchPaginated<T, TModel = ModelType<T>>(
           this: T,
           params: SearchParams = {},
+          // biome-ignore lint/suspicious/noExplicitAny: Generic Prisma model type
+          where?: Record<string, any>,
         ): Promise<SearchResult<TModel>> {
           const context = Prisma.getExtensionContext(this);
           const modelName = context.$name?.toLowerCase();
@@ -148,7 +154,18 @@ export const pgSearchExtension = Prisma.defineExtension((client) => {
                 Prisma.sql`${Prisma.raw(config.keyField)} @@@ paradedb.match(${field}, ${cleanedTerm}, distance => 1)`,
             );
 
-            const countWhereClause = Prisma.join(countCondition, " OR ");
+            const searchCondition = Prisma.join(countCondition, " OR ");
+
+            const whereConditions = where
+              ? Object.entries(where).map(
+                  ([key, value]) => Prisma.sql`${Prisma.raw(key)} = ${value}`,
+                )
+              : [];
+
+            const countWhereClause =
+              whereConditions.length > 0
+                ? Prisma.sql`${searchCondition} AND ${Prisma.join(whereConditions, " AND ")}`
+                : searchCondition;
 
             const countQuery = Prisma.sql`
               SELECT COUNT(*)::int as total
@@ -168,13 +185,17 @@ export const pgSearchExtension = Prisma.defineExtension((client) => {
               conditions.push(scoreCondition);
             }
 
+            if (whereConditions.length > 0) {
+              conditions.push(...whereConditions);
+            }
+
             const whereClause = Prisma.join(conditions, " AND ");
 
             const mainQuery = Prisma.sql`
               SELECT *
               FROM "${Prisma.raw(modelName)}"
               WHERE ${whereClause}
-              ORDER BY paradedb.score(${Prisma.raw(config.keyField)}) DESC, ${Prisma.raw(buildOrderBy(orderBy, order))}
+              ORDER BY ${Prisma.raw(buildOrderBy(orderBy, order))}, paradedb.score(${Prisma.raw(config.keyField)}) DESC
               LIMIT ${perPage}
               OFFSET ${offset}
             `;
@@ -213,7 +234,7 @@ export const pgSearchExtension = Prisma.defineExtension((client) => {
           const dataQuery = Prisma.sql`
             SELECT *
             FROM "${Prisma.raw(modelName)}"
-            ORDER BY ${buildOrderBy(orderBy, order)}
+            ORDER BY ${Prisma.raw(buildOrderBy(orderBy, order))}
             LIMIT ${perPage}
             OFFSET ${skip}
           `;
