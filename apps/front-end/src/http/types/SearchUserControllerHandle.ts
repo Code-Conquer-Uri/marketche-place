@@ -10,6 +10,14 @@ import type { NotFoundErrorDto } from "./NotFoundErrorDto.ts";
 import type { SearchUserResponseDto } from "./SearchUserResponseDto.ts";
 import type { UnauthorizedErrorDto } from "./UnauthorizedErrorDto.ts";
 
+export const searchUserControllerHandleQueryParamsOrderDirectionEnum = {
+  asc: "asc",
+  desc: "desc",
+} as const;
+
+export type SearchUserControllerHandleQueryParamsOrderDirectionEnum =
+  (typeof searchUserControllerHandleQueryParamsOrderDirectionEnum)[keyof typeof searchUserControllerHandleQueryParamsOrderDirectionEnum];
+
 export const searchUserControllerHandleQueryParamsOrderByEnum = {
   createdAt: "createdAt",
   updatedAt: "updatedAt",
@@ -20,19 +28,24 @@ export const searchUserControllerHandleQueryParamsOrderByEnum = {
 export type SearchUserControllerHandleQueryParamsOrderByEnum =
   (typeof searchUserControllerHandleQueryParamsOrderByEnum)[keyof typeof searchUserControllerHandleQueryParamsOrderByEnum];
 
-export const searchUserControllerHandleQueryParamsOrderDirectionEnum = {
-  asc: "asc",
-  desc: "desc",
-} as const;
-
-export type SearchUserControllerHandleQueryParamsOrderDirectionEnum =
-  (typeof searchUserControllerHandleQueryParamsOrderDirectionEnum)[keyof typeof searchUserControllerHandleQueryParamsOrderDirectionEnum];
-
 export type SearchUserControllerHandleQueryParams = {
+  /**
+   * @minLength 1
+   * @default 1
+   * @type number | undefined
+   */
+  page?: number;
+  /**
+   * @minLength 1
+   * @maxLength 100
+   * @default 10
+   * @type number | undefined
+   */
+  perPage?: number;
   /**
    * @type string | undefined
    */
-  searchTerm?: string;
+  orderDirection?: SearchUserControllerHandleQueryParamsOrderDirectionEnum;
   /**
    * @type string | undefined
    */
@@ -40,15 +53,7 @@ export type SearchUserControllerHandleQueryParams = {
   /**
    * @type string | undefined
    */
-  orderDirection?: SearchUserControllerHandleQueryParamsOrderDirectionEnum;
-  /**
-   * @type number | undefined
-   */
-  perPage?: number;
-  /**
-   * @type number | undefined
-   */
-  page?: number;
+  searchTerm?: string;
 };
 
 /**

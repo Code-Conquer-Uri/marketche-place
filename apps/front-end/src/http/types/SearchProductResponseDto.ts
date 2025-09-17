@@ -3,11 +3,11 @@
  * Do not edit manually.
  */
 
-export type SearchUserResponseDto = {
+export type SearchProductResponseDto = {
   /**
    * @type array | undefined
    */
-  users?: {
+  products?: {
     /**
      * @type string
      */
@@ -15,35 +15,27 @@ export type SearchUserResponseDto = {
     /**
      * @type string
      */
-    name: string;
+    description: string;
     /**
      * @type string
      */
-    email: string;
-    /**
-     * @type boolean
-     */
-    emailVerified: boolean;
-    /**
-     * @type boolean | undefined
-     */
-    banned?: boolean;
+    image: string;
     /**
      * @type string
      */
-    banExpires?: string | null;
+    imageBlur: string;
     /**
-     * @type string | undefined
+     * @type number
      */
-    banReason?: string;
+    price: number;
     /**
-     * @type string | undefined
+     * @type string
      */
-    image?: string;
+    title: string;
     /**
-     * @type string | undefined
+     * @type string
      */
-    role?: string;
+    organizationId: string;
     /**
      * @type string
      */
