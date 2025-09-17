@@ -33,14 +33,14 @@ export class GetPublicProductsService {
     // Para cada organização, busca os produtos e limita
     const allProducts: Product[] = [];
 
-    const promises = organizations.map(organization =>
+    const promises = organizations.map((organization) =>
       this.productRepository.findPaginated({
         page: 1,
         perPage: limitPerOrganization,
         orderBy,
         orderDirection,
         organizationId: organization.id.toString(),
-      })
+      }),
     );
 
     const results = await Promise.all(promises);
@@ -53,6 +53,4 @@ export class GetPublicProductsService {
       products: allProducts,
     };
   }
-
- 
 }
