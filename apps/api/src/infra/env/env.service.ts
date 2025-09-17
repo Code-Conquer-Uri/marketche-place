@@ -21,6 +21,12 @@ type GetEnv<T extends keyof typeof env> = PathValue<
     FACEBOOK_CLIENT_SECRET?: string;
 
     API_URL: string;
+
+    CLOUDFLARE_ACCOUNT_ID: string
+    AWS_ACCESS_KEY_ID: string
+    AWS_SECRET_ACCESS_KEY: string
+    AWS_BUCKET_NAME: string
+    AWS_PUBLIC_BUCKET_NAME: string
   },
   T
 >;

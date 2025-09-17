@@ -138,14 +138,15 @@ async function createProducts(organizations: Organization[], _users: User[]) {
     for (let i = 0; i < numProducts; i++) {
       const promise = (async () => {
         console.log("Fetching image for product...");
-        const imageIndex = faker.number.int({ min: 1, max: 2 });
-        const imagePath = `./prisma/product-images/product-${imageIndex}.jpg`;
-        const image = await fs.readFile(imagePath);
+        const randomId = faker.number.int({ min: 1, max: 400 });
+        const imageUrl = `https://picsum.photos/id/${randomId}/200/300`;
+        const imageBlurData = faker.image.dataUri({ width: 16, height: 16 });
         return prisma.product.create({
           data: {
             id: ulid(),
             organizationId: org.id,
-            image,
+            imageUrl,
+            imageBlurData,
             title: faker.commerce.productName(),
             description: faker.commerce.productDescription(),
             price: faker.number.float({
