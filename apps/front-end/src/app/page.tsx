@@ -9,6 +9,9 @@ import {
   Zap,
 } from "lucide-react";
 import Link from "next/link";
+import { Suspense } from "react";
+import { SearchProducts } from "@/components/pages/landing-page/search-products";
+import { SearchProductsInput } from "@/components/pages/landing-page/search-products/search-products.input";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,7 +24,18 @@ import {
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 
-export default function LandingPage() {
+type Props = {
+  searchParams: Promise<{
+    searchTerm?: string;
+    page?: string;
+    perPage?: string;
+    orderBy?: string;
+    orderDirection?: string;
+    organizationId?: string;
+  }>;
+};
+
+export default function LandingPage({ searchParams }: Props) {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -174,7 +188,7 @@ export default function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="py-20 px-4 bg-muted/30">
+      <section className="py-20 px-4 bg-muted/30">
         <div className="container max-w-6xl mx-auto">
           <div className="text-center space-y-4 mb-16">
             <Badge variant="secondary">Funcionalidades</Badge>
@@ -265,6 +279,26 @@ export default function LandingPage() {
                 </CardDescription>
               </CardContent>
             </Card>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 px-4">
+        <div className="container max-w-6xl mx-auto">
+          <div className="text-center space-y-4 mb-16">
+            <Badge variant="secondary">Procure Produtos</Badge>
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground">
+              Procure nossos produtos
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Teste o search inteligente de produtos por favor
+            </p>
+          </div>
+          <div className="space-y-6">
+            <SearchProductsInput />
+            <Suspense fallback={<div>Loading ...</div>}>
+              <SearchProducts searchParams={searchParams} />
+            </Suspense>
           </div>
         </div>
       </section>

@@ -1,1 +1,11 @@
+export { createProductControllerHandle } from "./createProductControllerHandle.ts";
+export { createStoreFrontControllerHandle } from "./createStoreFrontControllerHandle.ts";
+export { deleteProductControllerHandle } from "./deleteProductControllerHandle.ts";
+export { getProductControllerHandle } from "./getProductControllerHandle.ts";
+export { getProductsByOrganizationControllerHandle } from "./getProductsByOrganizationControllerHandle.ts";
+export { getPublicProductsControllerHandle } from "./getPublicProductsControllerHandle.ts";
+export { getStoreFrontControllerHandle } from "./getStoreFrontControllerHandle.ts";
+export { searchProductControllerHandle } from "./searchProductControllerHandle.ts";
 export { searchUserControllerHandle } from "./searchUserControllerHandle.ts";
+export { updateProductControllerHandle } from "./updateProductControllerHandle.ts";
+export { updateStoreFrontControllerHandle } from "./updateStoreFrontControllerHandle.ts";

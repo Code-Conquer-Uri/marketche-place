@@ -7,15 +7,15 @@ import { SendResetPasswordEmailListener } from "./user/listeners/send-reset-pass
 import { SendVerificationEmailListener } from "./user/listeners/send-verification-email.listener";
 
 @Module({
-	imports: [EnvModule],
-	controllers: [],
-	providers: [
-		MailerService,
-		EventEmitterBridge,
-		SendVerificationEmailListener,
-		SendResetPasswordEmailListener,
-		SendInviteEmailListener,
-	],
-	exports: [],
+  imports: [EnvModule],
+  controllers: [],
+  providers: [
+    MailerService,
+    EventEmitterBridge,
+    SendVerificationEmailListener,
+    SendResetPasswordEmailListener,
+    SendInviteEmailListener,
+  ],
+  exports: [],
 })
 export class EventsModule {}

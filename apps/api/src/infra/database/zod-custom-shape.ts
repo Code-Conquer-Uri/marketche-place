@@ -15,7 +15,9 @@ type ToZodShape<T> = {
             ? z.ZodOptional<z.ZodCoercedString<unknown>>
             : T[K] extends Date
               ? z.ZodString
-              : z.ZodType<T[K]>;
+              : T[K] extends Buffer
+                ? z.ZodString
+                : z.ZodType<T[K]>;
 };
 
 /**

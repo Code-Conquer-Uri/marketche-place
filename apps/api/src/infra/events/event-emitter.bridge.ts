@@ -4,9 +4,9 @@ import { setEventEmitter } from "./event-bus";
 
 @Injectable()
 export class EventEmitterBridge implements OnModuleInit {
-	constructor(private readonly emitter: EventEmitter2) {}
+  constructor(private readonly emitter: EventEmitter2) {}
 
-	onModuleInit() {
-		setEventEmitter(this.emitter);
-	}
+  onModuleInit() {
+    setEventEmitter(this.emitter);
+  }
 }

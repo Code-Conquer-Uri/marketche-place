@@ -5,10 +5,11 @@ export type ProductPaginationParams = {
   page: number;
   perPage: number;
 
-  orderBy?: "createdAt" | "updatedAt" | "name" | "email";
+  orderBy?: "createdAt" | "updatedAt" | "title" | "price";
   orderDirection?: "asc" | "desc";
 
   search?: string;
+  organizationId?: string;
 };
 
 export abstract class ProductRepository extends Repository<Product> {

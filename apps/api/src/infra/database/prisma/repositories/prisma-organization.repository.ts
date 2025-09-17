@@ -1,5 +1,8 @@
 import { Injectable } from "@nestjs/common";
-import { OrganizationRepository } from "@/domain/master/application/repositories/organization.repository";
+import {
+  OrganizationPaginationParams,
+  OrganizationRepository,
+} from "@/domain/master/application/repositories/organization.repository";
 import { Organization } from "@/domain/master/enterprise/entities/organization";
 import { PrismaOrganizationMapper } from "../mappers/prisma-organization.mapper";
 import { PrismaService } from "../prisma.service";
@@ -73,6 +76,32 @@ export class PrismaOrganizationRepository implements OrganizationRepository {
       },
     });
     return organizations.map(PrismaOrganizationMapper.toDomain);
+  }
+
+  async findPaginated({
+    page,
+    perPage,
+    orderBy = "createdAt",
+    orderDirection = "asc",
+    search,
+  }: OrganizationPaginationParams): Promise<{
+    organizations: Organization[];
+    total: number;
+    pages: number;
+  }> {
+    const result = await this.prisma.extendedClient.product.searchPaginated({
+      search,
+      page,
+      perPage,
+      orderBy,
+      order: orderDirection,
+    });
+
+    return {
+      organizations: result.data.map(PrismaOrganizationMapper.toDomain),
+      total: result.total,
+      pages: result.totalPages,
+    };
   }
 
   async save(organization: Organization): Promise<void> {

@@ -179,6 +179,8 @@ model StoreFront {
   logoImage   Bytes @db.ByteA
   bannerImage Bytes @db.ByteA
 
+  location String @db.Text
+
   theme Theme @default(DEFAULT)
 
   @@map("store_front")
@@ -216,6 +218,8 @@ model Promotion {
 
   createdBy User   @relation(fields: [userId], references: [id])
   userId    String
+
+  validUntil DateTime
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

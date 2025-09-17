@@ -67,5 +67,34 @@ export class InMemoryMemberRepository implements MemberRepository {
     }
   }
 
+  async findManyByIds(ids: string[]): Promise<Member[]> {
+    return this.members.filter((member) => ids.includes(member.id.toString()));
+  }
+
+  async findManyByUserIds(userIds: string[]): Promise<Member[]> {
+    return this.members.filter((member) =>
+      userIds.includes(member.userId.toString()),
+    );
+  }
+
+  async findManyByOrganizationIds(
+    organizationIds: string[],
+  ): Promise<Member[]> {
+    return this.members.filter((member) =>
+      organizationIds.includes(member.organizationId.toString()),
+    );
+  }
+
+  async findManyByUserIdsAndOrganizationIds(
+    userIds: string[],
+    organizationIds: string[],
+  ): Promise<Member[]> {
+    return this.members.filter(
+      (member) =>
+        userIds.includes(member.userId.toString()) &&
+        organizationIds.includes(member.organizationId.toString()),
+    );
+  }
+
   private members: Member[] = [];
 }

@@ -31,7 +31,7 @@ export type SearchUserResponseDto = {
     /**
      * @type string
      */
-    banExpires: string | null;
+    banExpires?: string | null;
     /**
      * @type string | undefined
      */
@@ -47,11 +47,11 @@ export type SearchUserResponseDto = {
     /**
      * @type string
      */
-    createdAt: string | null;
+    createdAt?: string | null;
     /**
      * @type string
      */
-    updatedAt: string | null;
+    updatedAt?: string | null;
   }[];
   /**
    * @type string | undefined

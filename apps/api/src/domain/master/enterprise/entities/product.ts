@@ -1,8 +1,9 @@
 import { Entity } from "@/core/entities/entity";
 import { UniqueEntityID } from "@/core/entities/unique-entity-id";
+import { Optional } from "@/core/types/optional";
 
 export interface ProductProps {
-  organizationId: string;
+  organizationId: UniqueEntityID;
 
   image: Buffer;
 
@@ -69,14 +70,19 @@ export class Product extends Entity<ProductProps> {
     this.props.updatedAt = new Date();
   }
 
-  static create(props: ProductProps, id?: UniqueEntityID): Product {
-    const acceptedTerms = new Product(
+  static create(
+    props: Optional<ProductProps, "createdAt" | "updatedAt">,
+    id?: UniqueEntityID,
+  ): Product {
+    const product = new Product(
       {
         ...props,
+        createdAt: props.createdAt ?? new Date(),
+        updatedAt: props.updatedAt ?? new Date(),
       },
       id,
     );
 
-    return acceptedTerms;
+    return product;
   }
 }

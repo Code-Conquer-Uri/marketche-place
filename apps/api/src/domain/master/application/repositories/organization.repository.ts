@@ -5,7 +5,7 @@ export type OrganizationPaginationParams = {
   page: number;
   perPage: number;
 
-  orderBy?: "createdAt" | "updatedAt" | "name" | "email";
+  orderBy?: "createdAt" | "updatedAt" | "name" | "slug";
   orderDirection?: "asc" | "desc";
 
   search?: string;
