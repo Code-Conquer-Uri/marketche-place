@@ -131,8 +131,6 @@ export const pgSearchExtension = Prisma.defineExtension((client) => {
           const context = Prisma.getExtensionContext(this);
           const modelName = context.$name?.toLowerCase();
 
-          console.log(where);
-
           if (!modelName) {
             throw new Error("Could not determine model name");
           }
@@ -160,7 +158,7 @@ export const pgSearchExtension = Prisma.defineExtension((client) => {
 
             const countCondition = config.searchFields.map(
               (field) =>
-                Prisma.sql`${Prisma.raw(config.keyField)} @@@ paradedb.match(${field}, ${cleanedTerm}, distance => 1)`,
+                Prisma.sql`${Prisma.raw(config.keyField)} @@@ paradedb.match(${field}, ${cleanedTerm})`,
             );
 
             const searchCondition = Prisma.join(countCondition, " OR ");
@@ -189,7 +187,7 @@ export const pgSearchExtension = Prisma.defineExtension((client) => {
 
             const searchConditions = config.searchFields.map(
               (field) =>
-                Prisma.sql`${Prisma.raw(config.keyField)} @@@ paradedb.match(${field}, ${cleanedTerm}, distance => 1)`,
+                Prisma.sql`${Prisma.raw(config.keyField)} @@@ paradedb.match(${field}, ${cleanedTerm})`,
             );
 
             const conditions = [Prisma.join(searchConditions, " OR ")];

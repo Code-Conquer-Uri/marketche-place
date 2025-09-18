@@ -92,6 +92,7 @@ export class PrismaProductRepository implements ProductRepository {
         perPage,
         orderBy,
         order: orderDirection,
+        minSimilarity: 0.7,
       },
       whereClause,
     );

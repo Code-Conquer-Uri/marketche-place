@@ -1138,6 +1138,65 @@
         "summary": "Get organization by slug",
         "tags": ["organization"]
       }
+    },
+    "/organization/search": {
+      "get": {
+        "operationId": "SearchOrganizationsController_handle",
+        "parameters": [
+          {
+            "name": "search",
+            "required": false,
+            "in": "query",
+            "description": "Search term to filter organizations by name or slug",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number for pagination (default: 1)",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "perPage",
+            "required": false,
+            "in": "query",
+            "description": "Number of items per page (default: 10)",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "orderBy",
+            "required": false,
+            "in": "query",
+            "description": "Field to order by (default: createdAt)",
+            "schema": {
+              "enum": ["createdAt", "updatedAt", "name", "slug"],
+              "type": "string"
+            }
+          },
+          {
+            "name": "orderDirection",
+            "required": false,
+            "in": "query",
+            "description": "Order direction (default: desc)",
+            "schema": { "enum": ["asc", "desc"], "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns paginated search results for organizations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchOrganizationsResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Search organizations with pagination",
+        "tags": ["organization"]
+      }
     }
   },
   "info": {
@@ -1670,6 +1729,39 @@
           "message": { "type": "string" }
         },
         "required": ["organization"]
+      },
+      "SearchOrganizationsResponseDto": {
+        "type": "object",
+        "properties": {
+          "organizations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "name": { "type": "string" },
+                "slug": { "type": "string", "minLength": 3, "maxLength": 255 },
+                "logo": { "type": "string" },
+                "metadata": { "type": "string" },
+                "createdAt": { "type": "string", "nullable": true },
+                "updatedAt": { "type": "string", "nullable": true }
+              },
+              "required": ["id", "name"]
+            }
+          },
+          "total": { "type": "number" },
+          "pages": { "type": "number" },
+          "currentPage": { "type": "number" },
+          "perPage": { "type": "number" },
+          "message": { "type": "string" }
+        },
+        "required": [
+          "organizations",
+          "total",
+          "pages",
+          "currentPage",
+          "perPage"
+        ]
       }
     }
   }

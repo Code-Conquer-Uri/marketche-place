@@ -89,13 +89,14 @@ export class PrismaOrganizationRepository implements OrganizationRepository {
     total: number;
     pages: number;
   }> {
-    const result = await this.prisma.extendedClient.product.searchPaginated({
-      search,
-      page,
-      perPage,
-      orderBy,
-      order: orderDirection,
-    });
+    const result =
+      await this.prisma.extendedClient.organization.searchPaginated({
+        search,
+        page,
+        perPage,
+        orderBy,
+        order: orderDirection,
+      });
 
     return {
       organizations: result.data.map(PrismaOrganizationMapper.toDomain),
