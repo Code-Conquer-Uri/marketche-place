@@ -177,8 +177,8 @@ export const SearchProductsInput: FC = () => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent className="w-full">
-                    <SelectItem value="desc">Crescente</SelectItem>
-                    <SelectItem value="asc">Decrescente</SelectItem>
+                    <SelectItem value="desc">Decrescente</SelectItem>
+                    <SelectItem value="asc">Crescente</SelectItem>
                   </SelectContent>
                 </Select>
               </FormItem>

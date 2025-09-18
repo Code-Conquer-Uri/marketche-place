@@ -1197,6 +1197,1310 @@
         "summary": "Search organizations with pagination",
         "tags": ["organization"]
       }
+    },
+    "/coupons": {
+      "post": {
+        "operationId": "CreateCouponController_handle",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/CreateCouponBodyDto" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Coupon created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateCouponResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BadRequestErrorDto" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotFoundErrorDto" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ConflictErrorDto" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearer": [] }],
+        "summary": "Create a coupon",
+        "tags": ["coupons"]
+      },
+      "get": {
+        "operationId": "SearchCouponsController_handle",
+        "parameters": [
+          {
+            "name": "productId",
+            "required": false,
+            "in": "query",
+            "description": "Filter by product ID",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "userId",
+            "required": false,
+            "in": "query",
+            "description": "Filter by user ID",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "minDiscountPercentage",
+            "required": false,
+            "in": "query",
+            "description": "Minimum discount percentage",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "maxDiscountPercentage",
+            "required": false,
+            "in": "query",
+            "description": "Maximum discount percentage",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "minQuantity",
+            "required": false,
+            "in": "query",
+            "description": "Minimum quantity",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "maxQuantity",
+            "required": false,
+            "in": "query",
+            "description": "Maximum quantity",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (default: 1)",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (default: 10)",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Coupons retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchCouponsResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BadRequestErrorDto" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotFoundErrorDto" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ConflictErrorDto" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Search coupons with advanced filters",
+        "tags": ["coupons"]
+      }
+    },
+    "/coupons/{id}": {
+      "get": {
+        "operationId": "GetCouponController_handle",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Coupon ID",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Coupon retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCouponResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BadRequestErrorDto" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotFoundErrorDto" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ConflictErrorDto" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearer": [] }],
+        "summary": "Get a coupon by ID",
+        "tags": ["coupons"]
+      },
+      "patch": {
+        "operationId": "UpdateCouponController_handle",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Coupon ID",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UpdateCouponBodyDto" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Coupon updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdateCouponResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BadRequestErrorDto" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotFoundErrorDto" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ConflictErrorDto" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearer": [] }],
+        "summary": "Update a coupon",
+        "tags": ["coupons"]
+      },
+      "delete": {
+        "operationId": "DeleteCouponController_handle",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "description": "Coupon ID",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Coupon deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteCouponResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BadRequestErrorDto" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotFoundErrorDto" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ConflictErrorDto" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearer": [] }],
+        "summary": "Delete a coupon",
+        "tags": ["coupons"]
+      }
+    },
+    "/coupons/product/{productId}": {
+      "get": {
+        "operationId": "GetCouponsByProductIdController_handle",
+        "parameters": [
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Coupons retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCouponsByProductIdResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get coupons by product ID",
+        "tags": ["coupons"]
+      }
+    },
+    "/coupons/products": {
+      "get": {
+        "operationId": "GetCouponsByProductsIdsController_handle",
+        "parameters": [
+          {
+            "name": "productIds",
+            "required": true,
+            "in": "query",
+            "schema": { "type": "array", "items": { "type": "string" } }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Coupons retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCouponsByProductsIdsResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get coupons by multiple product IDs",
+        "tags": ["coupons"]
+      }
+    },
+    "/promotions": {
+      "post": {
+        "operationId": "CreatePromotionController_handle",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePromotionBodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Promotion created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreatePromotionResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BadRequestErrorDto" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotFoundErrorDto" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ConflictErrorDto" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearer": [] }],
+        "summary": "Create a promotion",
+        "tags": ["promotions"]
+      },
+      "get": {
+        "operationId": "SearchPromotionsController_handle",
+        "parameters": [
+          {
+            "name": "productId",
+            "required": false,
+            "in": "query",
+            "description": "Filter by product ID",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "userId",
+            "required": false,
+            "in": "query",
+            "description": "Filter by user ID",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "minDiscountPercentage",
+            "required": false,
+            "in": "query",
+            "description": "Minimum discount percentage",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "maxDiscountPercentage",
+            "required": false,
+            "in": "query",
+            "description": "Maximum discount percentage",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "validFrom",
+            "required": false,
+            "in": "query",
+            "description": "Valid from date (ISO string)",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "validUntil",
+            "required": false,
+            "in": "query",
+            "description": "Valid until date (ISO string)",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "isActive",
+            "required": false,
+            "in": "query",
+            "description": "Filter by active status",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (default: 1)",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (default: 10)",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Promotions retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchPromotionsResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BadRequestErrorDto" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotFoundErrorDto" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ConflictErrorDto" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Search promotions with advanced filters",
+        "tags": ["promotions"]
+      }
+    },
+    "/promotions/{id}": {
+      "get": {
+        "operationId": "GetPromotionController_handle",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Promotion retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPromotionResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BadRequestErrorDto" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotFoundErrorDto" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ConflictErrorDto" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearer": [] }],
+        "summary": "Get a promotion by ID",
+        "tags": ["promotions"]
+      },
+      "patch": {
+        "operationId": "UpdatePromotionController_handle",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePromotionBodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Promotion updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UpdatePromotionResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BadRequestErrorDto" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotFoundErrorDto" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ConflictErrorDto" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearer": [] }],
+        "summary": "Update a promotion",
+        "tags": ["promotions"]
+      },
+      "delete": {
+        "operationId": "DeletePromotionController_handle",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Promotion deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeletePromotionResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BadRequestErrorDto" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotFoundErrorDto" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ConflictErrorDto" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearer": [] }],
+        "summary": "Delete a promotion",
+        "tags": ["promotions"]
+      }
+    },
+    "/promotions/product/{productId}": {
+      "get": {
+        "operationId": "GetPromotionsByProductIdController_handle",
+        "parameters": [
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Promotions retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPromotionsByProductIdResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get promotions by product ID",
+        "tags": ["promotions"]
+      }
+    },
+    "/promotions/products": {
+      "get": {
+        "operationId": "GetPromotionsByProductsIdsController_handle",
+        "parameters": [
+          {
+            "name": "productIds",
+            "required": true,
+            "in": "query",
+            "description": "Array of product IDs",
+            "schema": { "type": "array", "items": { "type": "string" } }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Promotions retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetPromotionsByProductsIdsResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get promotions by product IDs",
+        "tags": ["promotions"]
+      }
+    },
+    "/user-coupons": {
+      "post": {
+        "operationId": "CreateUserCouponController_handle",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserCouponBodyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User coupon created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateUserCouponResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BadRequestErrorDto" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotFoundErrorDto" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ConflictErrorDto" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearer": [] }],
+        "summary": "Create a user coupon",
+        "tags": ["user-coupons"]
+      },
+      "get": {
+        "operationId": "SearchUserCouponsController_handle",
+        "parameters": [
+          {
+            "name": "couponId",
+            "required": false,
+            "in": "query",
+            "description": "Filter by coupon ID",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number (default: 1)",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Items per page (default: 10)",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User coupons retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchUserCouponsResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BadRequestErrorDto" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotFoundErrorDto" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ConflictErrorDto" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearer": [] }],
+        "summary": "Search user coupons with pagination",
+        "tags": ["user-coupons"]
+      }
+    },
+    "/user-coupons/{id}": {
+      "get": {
+        "operationId": "GetUserCouponController_handle",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User coupon retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetUserCouponResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BadRequestErrorDto" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotFoundErrorDto" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ConflictErrorDto" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearer": [] }],
+        "summary": "Get a user coupon by ID",
+        "tags": ["user-coupons"]
+      },
+      "delete": {
+        "operationId": "DeleteUserCouponController_handle",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User coupon deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteUserCouponResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BadRequestErrorDto" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotFoundErrorDto" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ConflictErrorDto" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [{ "bearer": [] }],
+        "summary": "Delete a user coupon",
+        "tags": ["user-coupons"]
+      }
+    },
+    "/user-coupons/coupon/{couponId}": {
+      "get": {
+        "operationId": "GetUserCouponsByCouponIdController_handle",
+        "parameters": [
+          {
+            "name": "couponId",
+            "required": true,
+            "in": "path",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User coupons retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetUserCouponsByCouponIdResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get user coupons by coupon ID",
+        "tags": ["user-coupons"]
+      }
+    },
+    "/user-coupons/coupons": {
+      "get": {
+        "operationId": "GetUserCouponsByCouponsIdsController_handle",
+        "parameters": [
+          {
+            "name": "couponIds",
+            "required": true,
+            "in": "query",
+            "description": "Array of coupon IDs",
+            "schema": { "type": "array", "items": { "type": "string" } }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User coupons retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetUserCouponsByCouponsIdsResponseDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get user coupons by coupon IDs",
+        "tags": ["user-coupons"]
+      }
     }
   },
   "info": {
@@ -1762,6 +3066,490 @@
           "currentPage",
           "perPage"
         ]
+      },
+      "CreateCouponResponseDto": {
+        "type": "object",
+        "properties": {
+          "coupon": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "currentQuantity": { "type": "number" },
+              "discountPercentage": { "type": "number" },
+              "maxQuantity": { "type": "number" },
+              "productId": { "type": "string" },
+              "userId": { "type": "string" },
+              "createdAt": { "type": "string", "nullable": true },
+              "updatedAt": { "type": "string", "nullable": true }
+            },
+            "required": [
+              "id",
+              "currentQuantity",
+              "discountPercentage",
+              "maxQuantity",
+              "productId",
+              "userId"
+            ]
+          },
+          "message": { "type": "string" }
+        },
+        "required": ["coupon"]
+      },
+      "CreateCouponBodyDto": {
+        "type": "object",
+        "properties": {
+          "productId": { "type": "string" },
+          "discountPercentage": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "maxQuantity": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "maximum": 9007199254740991
+          }
+        },
+        "required": ["productId", "discountPercentage", "maxQuantity"]
+      },
+      "GetCouponResponseDto": {
+        "type": "object",
+        "properties": {
+          "coupon": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "currentQuantity": { "type": "number" },
+              "discountPercentage": { "type": "number" },
+              "maxQuantity": { "type": "number" },
+              "productId": { "type": "string" },
+              "userId": { "type": "string" },
+              "createdAt": { "type": "string", "nullable": true },
+              "updatedAt": { "type": "string", "nullable": true }
+            },
+            "required": [
+              "id",
+              "currentQuantity",
+              "discountPercentage",
+              "maxQuantity",
+              "productId",
+              "userId"
+            ]
+          }
+        },
+        "required": ["coupon"]
+      },
+      "UpdateCouponResponseDto": {
+        "type": "object",
+        "properties": {
+          "coupon": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "currentQuantity": { "type": "number" },
+              "discountPercentage": { "type": "number" },
+              "maxQuantity": { "type": "number" },
+              "productId": { "type": "string" },
+              "userId": { "type": "string" },
+              "createdAt": { "type": "string", "nullable": true },
+              "updatedAt": { "type": "string", "nullable": true }
+            },
+            "required": [
+              "id",
+              "currentQuantity",
+              "discountPercentage",
+              "maxQuantity",
+              "productId",
+              "userId"
+            ]
+          },
+          "message": { "type": "string" }
+        },
+        "required": ["coupon"]
+      },
+      "UpdateCouponBodyDto": {
+        "type": "object",
+        "properties": {
+          "discountPercentage": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "maxQuantity": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "maximum": 9007199254740991
+          },
+          "currentQuantity": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        }
+      },
+      "DeleteCouponResponseDto": {
+        "type": "object",
+        "properties": { "message": { "type": "string" } },
+        "required": ["message"]
+      },
+      "SearchCouponsResponseDto": {
+        "type": "object",
+        "properties": {
+          "coupons": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "currentQuantity": { "type": "number" },
+                "discountPercentage": { "type": "number" },
+                "maxQuantity": { "type": "number" },
+                "productId": { "type": "string" },
+                "userId": { "type": "string" },
+                "createdAt": { "type": "string", "nullable": true },
+                "updatedAt": { "type": "string", "nullable": true }
+              },
+              "required": [
+                "id",
+                "currentQuantity",
+                "discountPercentage",
+                "maxQuantity",
+                "productId",
+                "userId"
+              ]
+            }
+          },
+          "total": { "type": "number" },
+          "page": { "type": "number" },
+          "limit": { "type": "number" },
+          "totalPages": { "type": "number" }
+        },
+        "required": ["coupons", "total", "page", "limit", "totalPages"]
+      },
+      "GetCouponsByProductIdResponseDto": {
+        "type": "object",
+        "properties": {
+          "coupons": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "currentQuantity": { "type": "number" },
+                "discountPercentage": { "type": "number" },
+                "maxQuantity": { "type": "number" },
+                "productId": { "type": "string" },
+                "userId": { "type": "string" },
+                "createdAt": { "type": "string", "nullable": true },
+                "updatedAt": { "type": "string", "nullable": true }
+              },
+              "required": [
+                "id",
+                "currentQuantity",
+                "discountPercentage",
+                "maxQuantity",
+                "productId",
+                "userId"
+              ]
+            }
+          }
+        },
+        "required": ["coupons"]
+      },
+      "GetCouponsByProductsIdsResponseDto": {
+        "type": "object",
+        "properties": {
+          "coupons": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "currentQuantity": { "type": "number" },
+                "discountPercentage": { "type": "number" },
+                "maxQuantity": { "type": "number" },
+                "productId": { "type": "string" },
+                "userId": { "type": "string" },
+                "createdAt": { "type": "string", "nullable": true },
+                "updatedAt": { "type": "string", "nullable": true }
+              },
+              "required": [
+                "id",
+                "currentQuantity",
+                "discountPercentage",
+                "maxQuantity",
+                "productId",
+                "userId"
+              ]
+            }
+          }
+        },
+        "required": ["coupons"]
+      },
+      "CreatePromotionResponseDto": {
+        "type": "object",
+        "properties": {
+          "promotion": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "discountPercentage": { "type": "number" },
+              "productId": { "type": "string" },
+              "userId": { "type": "string" },
+              "validUntil": { "type": "string", "nullable": true },
+              "createdAt": { "type": "string", "nullable": true },
+              "updatedAt": { "type": "string", "nullable": true }
+            },
+            "required": ["id", "discountPercentage", "productId", "userId"]
+          },
+          "message": { "type": "string" }
+        },
+        "required": ["promotion"]
+      },
+      "CreatePromotionBodyDto": {
+        "type": "object",
+        "properties": {
+          "productId": { "type": "string" },
+          "discountPercentage": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "validUntil": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
+          }
+        },
+        "required": ["productId", "discountPercentage", "validUntil"]
+      },
+      "GetPromotionResponseDto": {
+        "type": "object",
+        "properties": {
+          "promotion": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "discountPercentage": { "type": "number" },
+              "productId": { "type": "string" },
+              "userId": { "type": "string" },
+              "validUntil": { "type": "string", "nullable": true },
+              "createdAt": { "type": "string", "nullable": true },
+              "updatedAt": { "type": "string", "nullable": true }
+            },
+            "required": ["id", "discountPercentage", "productId", "userId"]
+          }
+        },
+        "required": ["promotion"]
+      },
+      "UpdatePromotionResponseDto": {
+        "type": "object",
+        "properties": {
+          "promotion": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "discountPercentage": { "type": "number" },
+              "productId": { "type": "string" },
+              "userId": { "type": "string" },
+              "validUntil": { "type": "string", "nullable": true },
+              "createdAt": { "type": "string", "nullable": true },
+              "updatedAt": { "type": "string", "nullable": true }
+            },
+            "required": ["id", "discountPercentage", "productId", "userId"]
+          },
+          "message": { "type": "string" }
+        },
+        "required": ["promotion"]
+      },
+      "UpdatePromotionBodyDto": {
+        "type": "object",
+        "properties": {
+          "discountPercentage": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "validUntil": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d(?::[0-5]\\d(?:\\.\\d+)?)?(?:Z))$"
+          }
+        }
+      },
+      "DeletePromotionResponseDto": {
+        "type": "object",
+        "properties": { "message": { "type": "string" } },
+        "required": ["message"]
+      },
+      "SearchPromotionsResponseDto": {
+        "type": "object",
+        "properties": {
+          "promotions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "discountPercentage": { "type": "number" },
+                "productId": { "type": "string" },
+                "userId": { "type": "string" },
+                "validUntil": { "type": "string", "nullable": true },
+                "createdAt": { "type": "string", "nullable": true },
+                "updatedAt": { "type": "string", "nullable": true }
+              },
+              "required": ["id", "discountPercentage", "productId", "userId"]
+            }
+          },
+          "total": { "type": "number" },
+          "page": { "type": "number" },
+          "limit": { "type": "number" },
+          "totalPages": { "type": "number" }
+        },
+        "required": ["promotions", "total", "page", "limit", "totalPages"]
+      },
+      "GetPromotionsByProductIdResponseDto": {
+        "type": "object",
+        "properties": {
+          "promotions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "discountPercentage": { "type": "number" },
+                "productId": { "type": "string" },
+                "userId": { "type": "string" },
+                "validUntil": { "type": "string", "nullable": true },
+                "createdAt": { "type": "string", "nullable": true },
+                "updatedAt": { "type": "string", "nullable": true }
+              },
+              "required": ["id", "discountPercentage", "productId", "userId"]
+            }
+          }
+        },
+        "required": ["promotions"]
+      },
+      "GetPromotionsByProductsIdsResponseDto": {
+        "type": "object",
+        "properties": {
+          "promotions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "discountPercentage": { "type": "number" },
+                "productId": { "type": "string" },
+                "userId": { "type": "string" },
+                "validUntil": { "type": "string", "nullable": true },
+                "createdAt": { "type": "string", "nullable": true },
+                "updatedAt": { "type": "string", "nullable": true }
+              },
+              "required": ["id", "discountPercentage", "productId", "userId"]
+            }
+          }
+        },
+        "required": ["promotions"]
+      },
+      "CreateUserCouponResponseDto": {
+        "type": "object",
+        "properties": {
+          "userCoupon": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "couponId": { "type": "string" },
+              "userId": { "type": "string" }
+            },
+            "required": ["id", "couponId", "userId"]
+          },
+          "message": { "type": "string" }
+        },
+        "required": ["userCoupon"]
+      },
+      "CreateUserCouponBodyDto": {
+        "type": "object",
+        "properties": { "couponId": { "type": "string" } },
+        "required": ["couponId"]
+      },
+      "GetUserCouponResponseDto": {
+        "type": "object",
+        "properties": {
+          "userCoupon": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "couponId": { "type": "string" },
+              "userId": { "type": "string" }
+            },
+            "required": ["id", "couponId", "userId"]
+          }
+        },
+        "required": ["userCoupon"]
+      },
+      "DeleteUserCouponResponseDto": {
+        "type": "object",
+        "properties": { "message": { "type": "string" } },
+        "required": ["message"]
+      },
+      "SearchUserCouponsResponseDto": {
+        "type": "object",
+        "properties": {
+          "userCoupons": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "couponId": { "type": "string" },
+                "userId": { "type": "string" }
+              },
+              "required": ["id", "couponId", "userId"]
+            }
+          },
+          "total": { "type": "number" },
+          "page": { "type": "number" },
+          "limit": { "type": "number" },
+          "totalPages": { "type": "number" }
+        },
+        "required": ["userCoupons", "total", "page", "limit", "totalPages"]
+      },
+      "GetUserCouponsByCouponIdResponseDto": {
+        "type": "object",
+        "properties": {
+          "userCoupons": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "couponId": { "type": "string" },
+                "userId": { "type": "string" }
+              },
+              "required": ["id", "couponId", "userId"]
+            }
+          }
+        },
+        "required": ["userCoupons"]
+      },
+      "GetUserCouponsByCouponsIdsResponseDto": {
+        "type": "object",
+        "properties": {
+          "userCoupons": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "couponId": { "type": "string" },
+                "userId": { "type": "string" }
+              },
+              "required": ["id", "couponId", "userId"]
+            }
+          }
+        },
+        "required": ["userCoupons"]
       }
     }
   }
