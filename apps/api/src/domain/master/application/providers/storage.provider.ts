@@ -35,6 +35,7 @@ export abstract class StorageProvider {
     stream: Writable;
     uploadId: string;
     uploadUrl: string;
+    downloadUrl: string;
     done: Promise<
       CompleteMultipartUploadCommandOutput | PutObjectCommandOutput
     >;
