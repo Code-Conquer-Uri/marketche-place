@@ -9,7 +9,6 @@ export default async function OrganizationPage({
   params,
 }: PageProps<"/dashboard/organization/[slug]/[path]">) {
   const { path, slug } = await params;
-  console.log(path);
   return (
     <main className="container p-4 md:p-6">
       <OrganizationView path={path} slug={slug} />
