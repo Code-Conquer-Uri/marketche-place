@@ -2,9 +2,9 @@ import { Suspense } from "react";
 import { getOrganizationBySlugAction } from "@/actions/organization";
 import { OrganizationHeader } from "./organization-header";
 import { OrganizationHeaderSkeleton } from "./organization-header.skeleton";
-import { OrganizationProductsList } from "./organization-products-list";
-import { OrganizationProductsListSkeleton } from "./organization-products-list.skeleton";
 import { OrganizationProductsSearchInput } from "./organization-products-search-input";
+import { OrganizationProductsTable } from "./organization-products-table";
+import { OrganizationProductsTableSkeleton } from "./organization-products-table.skeleton";
 
 export async function OrganizationDashboard({
   searchParams,
@@ -45,10 +45,10 @@ export async function OrganizationDashboard({
         <OrganizationProductsSearchInput />
 
         <Suspense
-          fallback={<OrganizationProductsListSkeleton />}
+          fallback={<OrganizationProductsTableSkeleton />}
           key={productsKey}
         >
-          <OrganizationProductsList
+          <OrganizationProductsTable
             organizationId={organizationId}
             searchTerm={searchTerm}
             page={page}

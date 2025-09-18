@@ -22,7 +22,7 @@ export const OrganizationItem: FC<{ organization: Organization }> = async ({
 
   return (
     <Link
-      href={`/loja/${organization.slug}` as Route}
+      href={`/stores/${organization.id}` as Route}
       className="flex h-40 w-full items-center justify-center bg-[#F8FAFC] transition-all hover:bg-slate-200/80 hover:shadow-inner"
     >
       <div className="h-[5.125rem] w-[13.375rem]">
