@@ -1,10 +1,7 @@
 import { ArrowRight } from "lucide-react";
-import { Route } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
-import { getPublicProductsAction } from "@/actions/product";
-import { Container } from "@/components/container";
+import { OurOrganizations } from "@/components/pages/landing-page/our-organizations";
 import { SearchProducts } from "@/components/pages/landing-page/search-products";
 import { SearchProductsInput } from "@/components/pages/landing-page/search-products/search-products.input";
 import Prism from "@/components/prism";
@@ -24,16 +21,6 @@ type Props = {
 };
 
 export default async function LandingPage({ searchParams }: Props) {
-  const products = await getPublicProductsAction({
-    limitPerOrganization: 3,
-  });
-
-  if (!products) {
-    return null;
-  }
-
-  const productsArray = products[1]?.products || [];
-
   return (
     <>
       <div className="w-full h-20"></div>
@@ -115,34 +102,7 @@ export default async function LandingPage({ searchParams }: Props) {
         </section>
 
         {/* CTA Section */}
-        <Container>
-          <article className="flex flex-col gap-5 text-center">
-            <h2 className="text-3xl font-bold text-scharb-base-900">
-              Veja algumas marcas
-            </h2>
-
-            <div className="grid gap-1 sm:grid-cols-2 lg:grid-cols-3">
-              {productsArray.slice(0, 6).map((product) => (
-                <Link
-                  href={`/product/${product.id}` as Route}
-                  key={product.id}
-                  className="flex h-40 w-full items-center justify-center bg-[#F8FAFC] transition-all hover:bg-slate-200/80 hover:shadow-inner"
-                >
-                  <div className="h-[5.125rem] w-[13.375rem]">
-                    <Image
-                      src={product.imageUrl}
-                      alt={product.title}
-                      blurDataURL={product.imageBlurData}
-                      width={214}
-                      height={82}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </article>
-        </Container>
+        <OurOrganizations />
 
         {/* Footer */}
         <footer className="border-t border-border bg-muted/30 py-12 px-4">
