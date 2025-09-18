@@ -60,11 +60,13 @@ export default async function LandingPage({ searchParams }: Props) {
             </div>
             <article className="text-center">
               <h1 className="text-balance text-5xl font-semibold tracking-tight text-white sm:text-6xl">
-                O melhor em materiais de construção
+                MarkeTchê - O Comércio Local de Erechim na Palma da Sua Mão
               </h1>
               <p className="mt-2.5 text-pretty text-slate-300">
-                Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui
-                lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat.
+                Conectamos consumidores e comerciantes de Erechim em uma
+                plataforma digital que valoriza o comércio local. Encontre
+                produtos frescos, promoções exclusivas e apoie os negócios da
+                sua cidade com praticidade e conveniência.
               </p>
               <div className="mt-14 flex flex-col items-center justify-center gap-2.5 gap-x-6 sm:flex-row">
                 <Link href="/" className="w-full sm:w-56 cursor-pointer">
@@ -85,10 +87,11 @@ export default async function LandingPage({ searchParams }: Props) {
             <div className="flex flex-col gap-5 lg:flex-row lg:justify-between lg:items-center mb-5">
               <div className="flex flex-col gap-3">
                 <h4 className="text-foreground font-semibold text-2xl">
-                  Aqui você só encontra o que tem de melhor
+                  Descubra o Melhor do Comércio Local
                 </h4>
                 <p className="text-muted-foreground">
-                  Encontre seu produto aqui e acesse
+                  Explore produtos de lojas parceiras, compare preços e encontre
+                  exatamente o que você precisa na sua cidade
                 </p>
               </div>
               <SearchProductsInput />
@@ -121,7 +124,7 @@ export default async function LandingPage({ searchParams }: Props) {
                   </span>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  O futuro dos lojistas de Erechim
+                  Conectando consumidores e comerciantes de Erechim
                 </p>
               </div>
 

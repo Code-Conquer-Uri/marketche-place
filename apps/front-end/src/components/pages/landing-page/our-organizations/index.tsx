@@ -8,7 +8,7 @@ export const OurOrganizations: FC = () => {
     <Container>
       <article className="flex flex-col gap-5 text-center">
         <h2 className="text-3xl font-bold text-scharb-base-900">
-          Veja algumas marcas
+          Lojas Parceiras em Erechim
         </h2>
 
         <Suspense fallback={<OrganizationListSkeleton />}>

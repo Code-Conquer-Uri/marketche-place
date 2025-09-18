@@ -1,5 +1,5 @@
 {
-  "name": "template-multi-tenant",
+  "name": "marketche-place",
   "private": true,
   "scripts": {
     "build": "turbo run build",
