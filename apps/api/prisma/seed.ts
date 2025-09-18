@@ -103,18 +103,21 @@ async function createStoreFronts(organizations: Organization[]) {
   const themes: Theme[] = ["DEFAULT", "AMETHYST_HAZE", "SOLAR_DUSK"];
 
   const storeFrontPromises = organizations.map(async (org) => {
-    const imageIndex = faker.number.int({ min: 1, max: 2 });
-    const imagePath = `./prisma/product-images/product-${imageIndex}.jpg`;
-    const image = await fs.readFile(imagePath);
-    const logoImage = image; // Using the same image for simplicity
-    const bannerImage = image; // Using the same image for simplicity
+    const randomId1 = faker.number.int({ min: 1, max: 400 });
+    const randomId2 = faker.number.int({ min: 1, max: 400 });
+    const logoImageUrl = `https://picsum.photos/id/${randomId1}/200/300`;
+    const bannerImageUrl = `https://picsum.photos/id/${randomId2}/200/300`;
+        const imageBlurData = faker.image.dataUri({ width: 16, height: 16 });
+
 
     return prisma.storeFront.create({
       data: {
         id: ulid(),
         organizationId: org.id,
-        logoImage,
-        bannerImage,
+        logoImageUrl,
+        bannerImageBlurData:imageBlurData,
+        logoImageBlurData:imageBlurData,
+        bannerImageUrl,
         location: `${faker.location.city()}, ${faker.location.state()}`,
         theme: faker.helpers.arrayElement(themes),
       },
