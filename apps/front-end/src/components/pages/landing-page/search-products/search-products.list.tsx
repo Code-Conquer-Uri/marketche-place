@@ -1,9 +1,9 @@
+import { Route } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import type { FC } from "react";
 import { searchProductAction } from "@/actions/product";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Route } from "next";
 
 export const SearchProductsList: FC<{
   searchTerm?: string;

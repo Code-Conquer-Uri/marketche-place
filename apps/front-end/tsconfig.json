@@ -14,13 +14,14 @@
     "strictNullChecks": true
   },
   "include": [
-    "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "sanity.types.ts",
+    "next-env.d.ts",
     "next.config.ts",
-    "reset.d.ts"
+    "reset.d.ts",
+    "sanity.types.ts",
+    "**/*.mts"
   ],
   "exclude": ["node_modules"]
 }
