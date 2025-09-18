@@ -6,8 +6,12 @@ type Theme = "DEFAULT" | "AMETHYST_HAZE" | "SOLAR_DUSK";
 export interface StoreFrontProps {
   organizationId: string;
 
-  logoImage: Buffer;
-  bannerImage: Buffer;
+  logoImageUrl: string;
+  logoImageBlurData: string;
+  bannerImageUrl: string;
+  bannerImageBlurData: string;
+
+  whatsappNumber?: string;
 
   location: string;
 
@@ -19,12 +23,24 @@ export class StoreFront extends Entity<StoreFrontProps> {
     return this.props.organizationId;
   }
 
-  get logoImage(): StoreFrontProps["logoImage"] {
-    return this.props.logoImage;
+  get logoImageUrl(): StoreFrontProps["logoImageUrl"] {
+    return this.props.logoImageUrl;
   }
 
-  get bannerImage(): StoreFrontProps["bannerImage"] {
-    return this.props.bannerImage;
+  get logoImageBlurData(): StoreFrontProps["logoImageBlurData"] {
+    return this.props.logoImageBlurData;
+  }
+
+  get bannerImageUrl(): StoreFrontProps["bannerImageUrl"] {
+    return this.props.bannerImageUrl;
+  }
+
+  get bannerImageBlurData(): StoreFrontProps["bannerImageBlurData"] {
+    return this.props.bannerImageBlurData;
+  }
+
+  get whatsappNumber(): StoreFrontProps["whatsappNumber"] {
+    return this.props.whatsappNumber;
   }
 
   get theme(): StoreFrontProps["theme"] {
@@ -39,12 +55,24 @@ export class StoreFront extends Entity<StoreFrontProps> {
     this.props.theme = theme;
   }
 
-  set logoImage(logoImage: Buffer) {
-    this.props.logoImage = logoImage;
+  set logoImageUrl(logoImageUrl: string) {
+    this.props.logoImageUrl = logoImageUrl;
   }
 
-  set bannerImage(bannerImage: Buffer) {
-    this.props.bannerImage = bannerImage;
+  set logoImageBlurData(logoImageBlurData: string) {
+    this.props.logoImageBlurData = logoImageBlurData;
+  }
+
+  set bannerImageUrl(bannerImageUrl: string) {
+    this.props.bannerImageUrl = bannerImageUrl;
+  }
+
+  set bannerImageBlurData(bannerImageBlurData: string) {
+    this.props.bannerImageBlurData = bannerImageBlurData;
+  }
+
+  set whatsappNumber(whatsappNumber: string | undefined) {
+    this.props.whatsappNumber = whatsappNumber;
   }
 
   set location(location: string) {
