@@ -8,6 +8,8 @@ import { GetProductsByOrganizationService } from "@/domain/master/application/se
 import { GetPublicProductsService } from "@/domain/master/application/service/product/get-public-products.service";
 import { SearchProductService } from "@/domain/master/application/service/product/search-product.service";
 import { UpdateProductService } from "@/domain/master/application/service/product/update-product.service";
+import { GetFeaturedProductsService } from "@/domain/master/application/service/product/get-featured-products.service";
+import { GetSimilarProductsService } from "@/domain/master/application/service/product/get-similar-products.service";
 import { StorageModule } from "@/infra/storage/storage.module";
 import { CryptographyModule } from "../../cryptography/cryptography.module";
 import { DatabaseModule } from "../../database/database.module";
@@ -18,6 +20,8 @@ import { GetProductsByOrganizationController } from "./get-products-by-organizat
 import { GetPublicProductsController } from "./get-public-products.controller";
 import { SearchProductController } from "./search-product.controller";
 import { UpdateProductController } from "./update-product.controller";
+import { GetFeaturedProductsController } from "./get-featured-products.controller";
+import { GetSimilarProductsController } from "./get-similar-products.controller";
 
 @Module({
   imports: [DatabaseModule, CryptographyModule, StorageModule],
@@ -29,6 +33,8 @@ import { UpdateProductController } from "./update-product.controller";
     SearchProductController,
     GetProductsByOrganizationController,
     GetPublicProductsController,
+    GetFeaturedProductsController,
+    GetSimilarProductsController,
   ],
   providers: [
     PermissionFactory,
@@ -39,6 +45,8 @@ import { UpdateProductController } from "./update-product.controller";
     SearchProductService,
     GetProductsByOrganizationService,
     GetPublicProductsService,
+    GetFeaturedProductsService,
+    GetSimilarProductsService,
   ],
   exports: [],
 })

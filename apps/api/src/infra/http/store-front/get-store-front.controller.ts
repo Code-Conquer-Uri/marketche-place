@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Controller,
   Get,
+  NotFoundException,
   Query,
   UnauthorizedException,
 } from "@nestjs/common";
@@ -82,7 +83,7 @@ export class GetStoreFrontController {
         case NotAllowedError:
           throw new UnauthorizedException(error.message);
         case ResourceNotFoundError:
-          throw new BadRequestException("Store front not found");
+          throw new NotFoundException("Store front not found");
         default:
           throw new BadRequestException(error.message);
       }
@@ -91,7 +92,7 @@ export class GetStoreFrontController {
     const { storeFront } = result.value;
 
     return {
-      storeFront: PrismaStoreFrontMapper.toHttp(storeFront),
+      storeFront: await PrismaStoreFrontMapper.toHttp(storeFront),
       message: "Store front retrieved successfully",
     };
   }

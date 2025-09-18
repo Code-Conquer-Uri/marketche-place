@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Body,
   Controller,
+  NotFoundException,
   Patch,
   UnauthorizedException,
 } from "@nestjs/common";
@@ -32,6 +33,7 @@ const updateStoreFrontBodySchema = z.object({
   organizationId: z.string(),
   logoImage: z.string().optional(), // base64 encoded image
   bannerImage: z.string().optional(), // base64 encoded image
+  whatsappNumber: z.string().optional(),
   location: z.string().optional(),
   theme: z.enum(["DEFAULT", "AMETHYST_HAZE", "SOLAR_DUSK"]).optional(),
 });
@@ -73,7 +75,14 @@ export class UpdateStoreFrontController {
     @Session() session: UserSession,
     @Body() body: UpdateStoreFrontBodyDto,
   ): Promise<UpdateStoreFrontResponseDto> {
-    const { organizationId, logoImage, bannerImage, location, theme } = body;
+    const {
+      organizationId,
+      logoImage,
+      bannerImage,
+      whatsappNumber,
+      location,
+      theme,
+    } = body;
 
     const currentUser = session.user.id;
 
@@ -90,6 +99,7 @@ export class UpdateStoreFrontController {
       organizationId,
       logoImage: logoImageBuffer,
       bannerImage: bannerImageBuffer,
+      whatsappNumber,
       location,
       theme,
     });
@@ -101,7 +111,7 @@ export class UpdateStoreFrontController {
         case NotAllowedError:
           throw new UnauthorizedException(error.message);
         case ResourceNotFoundError:
-          throw new BadRequestException("Store front not found");
+          throw new NotFoundException("Store front not found");
         default:
           throw new BadRequestException(error.message);
       }
@@ -110,7 +120,7 @@ export class UpdateStoreFrontController {
     const { storeFront } = result.value;
 
     return {
-      storeFront: PrismaStoreFrontMapper.toHttp(storeFront),
+      storeFront: await PrismaStoreFrontMapper.toHttp(storeFront),
       message: "Store front updated successfully",
     };
   }

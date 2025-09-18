@@ -31,6 +31,7 @@ const createStoreFrontBodySchema = z.object({
   organizationId: z.string(),
   logoImage: z.string(), // base64 encoded image
   bannerImage: z.string(), // base64 encoded image
+  whatsappNumber: z.string().optional(),
   location: z.string(),
   theme: z.enum(["DEFAULT", "AMETHYST_HAZE", "SOLAR_DUSK"]).default("DEFAULT"),
 });
@@ -72,7 +73,7 @@ export class CreateStoreFrontController {
     @Session() session: UserSession,
     @Body() body: CreateStoreFrontBodyDto,
   ): Promise<CreateStoreFrontResponseDto> {
-    const { organizationId, logoImage, bannerImage, location, theme } = body;
+    const { organizationId, logoImage, bannerImage, whatsappNumber, location, theme } = body;
 
     const currentUser = session.user.id;
 
@@ -85,6 +86,7 @@ export class CreateStoreFrontController {
       organizationId,
       logoImage: logoImageBuffer,
       bannerImage: bannerImageBuffer,
+      whatsappNumber,
       location,
       theme,
     });
@@ -103,7 +105,7 @@ export class CreateStoreFrontController {
     const { storeFront } = result.value;
 
     return {
-      storeFront: PrismaStoreFrontMapper.toHttp(storeFront),
+      storeFront: await PrismaStoreFrontMapper.toHttp(storeFront),
       message: "Store front created successfully",
     };
   }

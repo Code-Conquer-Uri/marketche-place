@@ -1,5 +1,5 @@
 import { Module } from "@nestjs/common";
-
+import { OrganizationModule } from "@/infra/http/organization/organization.module";
 import { CryptographyModule } from "../cryptography/cryptography.module";
 import { DatabaseModule } from "../database/database.module";
 import { ProductModule } from "./product/product.module";
@@ -13,6 +13,7 @@ import { UserModule } from "./user/user.module";
     UserModule,
     StoreFrontModule,
     ProductModule,
+    OrganizationModule,
   ],
   controllers: [],
   providers: [],

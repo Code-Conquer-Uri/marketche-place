@@ -7,12 +7,13 @@ import { UpdateStoreFrontService } from "@/domain/master/application/service/sto
 
 import { CryptographyModule } from "../../cryptography/cryptography.module";
 import { DatabaseModule } from "../../database/database.module";
+import { StorageModule } from "../../storage/storage.module";
 import { CreateStoreFrontController } from "./create-store-front.controller";
 import { GetStoreFrontController } from "./get-store-front.controller";
 import { UpdateStoreFrontController } from "./update-store-front.controller";
 
 @Module({
-  imports: [DatabaseModule, CryptographyModule],
+  imports: [DatabaseModule, CryptographyModule, StorageModule],
   controllers: [
     CreateStoreFrontController,
     UpdateStoreFrontController,
