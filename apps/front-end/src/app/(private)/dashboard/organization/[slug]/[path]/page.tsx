@@ -1,5 +1,6 @@
 import { OrganizationView } from "@daveyplate/better-auth-ui";
 import { organizationViewPaths } from "@daveyplate/better-auth-ui/server";
+import { Container } from "@/components/container";
 
 export function generateStaticParams() {
   return Object.values(organizationViewPaths).map((path) => ({ path }));
@@ -10,8 +11,8 @@ export default async function OrganizationPage({
 }: PageProps<"/dashboard/organization/[slug]/[path]">) {
   const { path, slug } = await params;
   return (
-    <main className="container p-4 md:p-6">
+    <Container>
       <OrganizationView path={path} slug={slug} />
-    </main>
+    </Container>
   );
 }

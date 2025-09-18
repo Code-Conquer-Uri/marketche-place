@@ -28,7 +28,7 @@ export async function OrganizationDashboard({
 
   const organizationId = organization?.organization.id;
 
-  if (!organizationId) {
+  if (!organizationId || !organization) {
     return null;
   }
 
@@ -38,7 +38,7 @@ export async function OrganizationDashboard({
   return (
     <div className="space-y-6">
       <Suspense fallback={<OrganizationHeaderSkeleton />} key={headerKey}>
-        <OrganizationHeader organizationId={organizationId} />
+        <OrganizationHeader organization={organization.organization} />
       </Suspense>
 
       <div className="space-y-4">

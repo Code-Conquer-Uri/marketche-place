@@ -56,7 +56,7 @@ export function ClientProviders({ children }: { children: ReactNode }) {
       navigate={router.push as any}
       replace={router.replace as any}
       onSessionChange={() => {
-        router.refresh();
+        window.location.reload();
       }}
       Link={Link as any}
       account={{

@@ -1,5 +1,7 @@
+import { ArrowBendUpRightIcon } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import Link from "next/link";
+import { getCouponsByProductIdAction } from "@/actions/coupon";
 import { searchProductAction } from "@/actions/product";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -72,47 +74,51 @@ export async function OrganizationProductsTable({
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {data.products.map((p) => (
-                  <TableRow key={p.id} className="align-top">
-                    <TableCell>
-                      <div className="relative h-12 w-16 rounded-md overflow-hidden border bg-muted">
-                        <Image
-                          src={p.imageUrl}
-                          alt={p.title}
-                          blurDataURL={p.imageBlurData}
-                          fill
-                          className="object-cover"
-                          sizes="64px"
-                        />
-                      </div>
-                    </TableCell>
-                    <TableCell className="font-medium max-w-[180px] truncate">
-                      {p.title}
-                    </TableCell>
-                    <TableCell className="text-muted-foreground max-w-[360px] truncate">
-                      {p.description}
-                    </TableCell>
-                    <TableCell>R$ {p.price.toFixed(2)}</TableCell>
-                    <TableCell className="text-right">
-                      <div className="flex items-center justify-end gap-1">
-                        <Link href={`/product/${p.id}`}>
-                          <Button
-                            variant="default"
-                            size="sm"
-                            className="h-8 px-2"
-                            aria-label="abrir"
-                          >
-                            ↗
-                          </Button>
-                        </Link>
-                        <ProductCardDropdown
-                          productId={p.id}
-                          productTitle={p.title}
-                        />
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                {data.products.map((p) => {
+                  const productCoupon = getCouponsByProductIdAction(p.id);
+
+                  return (
+                    <TableRow key={p.id} className="align-top">
+                      <TableCell>
+                        <div className="relative h-12 w-16 rounded-md overflow-hidden border bg-muted">
+                          <Image
+                            src={p.imageUrl}
+                            alt={p.title}
+                            blurDataURL={p.imageBlurData}
+                            fill
+                            className="object-cover"
+                            sizes="64px"
+                          />
+                        </div>
+                      </TableCell>
+                      <TableCell className="font-medium max-w-[180px] truncate">
+                        {p.title}
+                      </TableCell>
+                      <TableCell className="text-muted-foreground max-w-[360px] truncate">
+                        {p.description}
+                      </TableCell>
+                      <TableCell>R$ {p.price.toFixed(2)}</TableCell>
+                      <TableCell className="text-right">
+                        <div className="flex items-center justify-end gap-1">
+                          <Link href={`/product/${p.id}`}>
+                            <Button
+                              variant="default"
+                              size="icon"
+                              className=""
+                              aria-label="abrir"
+                            >
+                              <ArrowBendUpRightIcon />
+                            </Button>
+                          </Link>
+                          <ProductCardDropdown
+                            productId={p.id}
+                            productTitle={p.title}
+                          />
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
               </TableBody>
             </Table>
           </div>

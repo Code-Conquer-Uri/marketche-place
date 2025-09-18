@@ -22,6 +22,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { CouponModal } from "./coupon-modal";
 import { EditProductModal } from "./edit-product-modal";
 
 interface ProductCardDropdownProps {
@@ -35,6 +36,8 @@ export const ProductCardDropdown: React.FC<ProductCardDropdownProps> = ({
 }) => {
   const router = useRouter();
   const [isDeleting, setIsDeleting] = useState(false);
+
+  const data = null;
 
   const handleDelete = async () => {
     try {
@@ -61,6 +64,28 @@ export const ProductCardDropdown: React.FC<ProductCardDropdownProps> = ({
             Editar
           </DropdownMenuItem>
         </EditProductModal>
+        {data ? (
+          <>
+            <CouponModal productId={productId} mode="edit">
+              <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                Modificar Cupom
+              </DropdownMenuItem>
+            </CouponModal>
+
+            <CouponModal productId={productId} mode="delete">
+              <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                Remover Cupom
+              </DropdownMenuItem>
+            </CouponModal>
+          </>
+        ) : (
+          <CouponModal productId={productId} mode="create">
+            <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+              Adicionar Cupom
+            </DropdownMenuItem>
+          </CouponModal>
+        )}
+
         <AlertDialog>
           <AlertDialogTrigger asChild>
             <DropdownMenuItem

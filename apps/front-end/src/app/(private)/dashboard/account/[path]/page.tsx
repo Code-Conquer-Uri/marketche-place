@@ -1,6 +1,7 @@
 import { AccountView } from "@daveyplate/better-auth-ui";
 import { accountViewPaths } from "@daveyplate/better-auth-ui/server";
 import { Suspense } from "react";
+import { Container } from "@/components/container";
 
 export const dynamicParams = false;
 
@@ -16,10 +17,10 @@ export default async function AccountPage({
   const { path } = await params;
 
   return (
-    <main className="container p-4 md:p-6">
+    <Container>
       <Suspense>
         <AccountView path={path} />
       </Suspense>
-    </main>
+    </Container>
   );
 }

@@ -2,17 +2,20 @@ import { CameraIcon } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import type { FC } from "react";
 import { getStoreFrontAction } from "@/actions/store-front";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
+import { GetOrganizationBySlugResponseDto } from "@/http";
 import { AddOrganizationHeaderModal } from "./add-organization-header-modal";
 
 export const OrganizationHeader: FC<{
-  organizationId: string;
-}> = async ({ organizationId }) => {
-  const [error, data] = await getStoreFrontAction({ organizationId });
+  organization: GetOrganizationBySlugResponseDto["organization"];
+}> = async ({ organization }) => {
+  const [error, data] = await getStoreFrontAction({
+    organizationId: organization.id,
+  });
 
   if (error) {
     return (
-      <AddOrganizationHeaderModal organizationId={organizationId}>
+      <AddOrganizationHeaderModal organizationId={organization.id}>
         <div className="w-full border-2 border-dashed border-foreground h-[8.5rem] lg:h-64 rounded-md flex items-center justify-center cursor-pointer bg-muted/20 hover:bg-muted/80 transition">
           <div className="flex flex-col items-center m-auto gap-1 px-5 py-2 text-center">
             <CameraIcon size={48} />
@@ -38,9 +41,9 @@ export const OrganizationHeader: FC<{
   const { storeFront } = data;
 
   return (
-    <Card>
-      <CardHeader className="p-0">
-        <div className="relative h-48 w-full">
+    <div className="flex flex-col gap-10 pt-3 lg:pt-6">
+      <div className="flex flex-col gap-2.5 lg:gap-5">
+        <div className="relative w-full h-[8.5rem] lg:h-64 rounded-md overflow-hidden">
           <Image
             src={storeFront.bannerImageUrl}
             blurDataURL={storeFront.bannerImageBlurData}
@@ -49,39 +52,30 @@ export const OrganizationHeader: FC<{
             className="object-cover"
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-          <div className="absolute bottom-4 left-4 flex items-center gap-4">
-            <div className="relative h-16 w-16 rounded-full overflow-hidden border-2 border-white">
-              <Image
-                src={storeFront.logoImageUrl}
-                blurDataURL={storeFront.logoImageBlurData}
-                alt={`${storeFront.location} logo`}
-                fill
-                className="object-cover"
-                sizes="64px"
-              />
-            </div>
-            <div className="text-white">
-              <h1 className="text-2xl font-bold">{storeFront.location}</h1>
-              <p className="text-sm opacity-90">Organization Dashboard</p>
+        </div>
+
+        <div className="flex flex-col gap-4 lg:flex-row">
+          <div className="relative w-20 lg:w-[6.5rem] h-20 lg:h-[6.5rem] rounded-md overflow-hidden">
+            <Image
+              src={storeFront.logoImageUrl}
+              blurDataURL={storeFront.logoImageBlurData}
+              alt={`${storeFront.location} logo`}
+              fill
+              className="object-cover"
+              sizes="104px"
+            />
+          </div>
+
+          <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-1">
+              <h1 className="text-foreground text-3xl font-semibold">
+                {organization.name}
+              </h1>
+              <p className="text-muted-foreground">{storeFront.location}</p>
             </div>
           </div>
         </div>
-      </CardHeader>
-      <CardContent className="p-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-lg font-semibold">Welcome to your dashboard</h2>
-            <p className="text-muted-foreground">
-              Manage your products and store settings
-            </p>
-          </div>
-          <div className="text-right">
-            <p className="text-sm text-muted-foreground">Theme</p>
-            <p className="text-sm font-medium">{storeFront.theme}</p>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
