@@ -54,3 +54,57 @@ Micro, pequenas e médias lojas de Erechim que buscam fortalecer sua presença d
 - Node.js 18+
 - pnpm
 - Docker e Docker Compose
+
+### Instalação
+
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/Code-Conquer-Uri/marketche-place.git
+   cd marketche-place
+   ```
+
+2. Instale as dependências:
+   ```bash
+   pnpm install
+   ```
+
+3. Configure as variáveis de ambiente:
+   - Copie o arquivo de exemplo de configuração de ambiente
+   - Preencha as variáveis necessárias (banco de dados, autenticação, etc.)
+
+4. Inicie os serviços com Docker:
+   ```bash
+   docker-compose up -d
+   ```
+
+5. Execute as migrações do banco de dados:
+   ```bash
+   cd apps/api
+   pnpm migrate
+   pnpm seed
+   ```
+
+### Executando o Projeto
+
+1. Inicie o backend (API):
+   ```bash
+   cd apps/api
+   pnpm run dev
+   ```
+   A API estará disponível em `http://localhost:3333`
+
+2. Inicie o frontend:
+   ```bash
+   cd apps/front-end
+   pnpm run dev
+   ```
+   O frontend estará disponível em `http://localhost:3000`
+
+### Desenvolvimento
+
+- **Linting**: `pnpm run lint`
+- **Build**: `pnpm run build`
+- **Testes**: `pnpm run test` (usa Vitest)
+- **Testes E2E**: `pnpm run test:e2e`
+
+
