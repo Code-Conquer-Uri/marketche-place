@@ -37,8 +37,6 @@ export const OrganizationHeader: FC<{
 
   const { storeFront } = data;
 
-  console.log(storeFront);
-
   return (
     <Card>
       <CardHeader className="p-0">

@@ -8,7 +8,7 @@ import { FC, ReactNode, useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { createStoreFrontAction } from "@/actions/store-front";
+import { createProductAction } from "@/actions/product";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -27,48 +27,38 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
+import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 
-const storeFrontSchema = z.object({
-  logoImage: z
+const productSchema = z.object({
+  image: z
     .instanceof(File)
     .refine(
       (file) => file.size <= 5 * 1024 * 1024,
-      "Logo deve ter no máximo 5MB",
+      "Imagem deve ter no máximo 5MB",
     )
     .refine(
       (file) =>
         ["image/jpeg", "image/jpg", "image/png", "image/webp"].includes(
           file.type,
         ),
-      "Logo deve ser uma imagem (JPEG, PNG ou WebP)",
+      "Imagem deve ser uma imagem (JPEG, PNG ou WebP)",
     ),
-  bannerImage: z
-    .instanceof(File)
-    .refine(
-      (file) => file.size <= 10 * 1024 * 1024,
-      "Banner deve ter no máximo 10MB",
-    )
-    .refine(
-      (file) =>
-        ["image/jpeg", "image/jpg", "image/png", "image/webp"].includes(
-          file.type,
-        ),
-      "Banner deve ser uma imagem (JPEG, PNG ou WebP)",
-    ),
-  location: z
+  title: z
     .string()
-    .min(1, "Localização é obrigatória")
-    .max(100, "Localização deve ter no máximo 100 caracteres"),
-  whatsappNumber: z
+    .min(1, "Título é obrigatório")
+    .max(100, "Título deve ter no máximo 100 caracteres"),
+  description: z
     .string()
-    .min(1, "WhatsApp é obrigatório")
-    .regex(/^\+?[\d\s\-()]+$/, "Número do WhatsApp inválido")
-    .max(20, "Número do WhatsApp deve ter no máximo 20 caracteres"),
+    .min(1, "Descrição é obrigatória")
+    .max(500, "Descrição deve ter no máximo 500 caracteres"),
+  price: z
+    .number()
+    .min(0.01, "Preço deve ser maior que zero")
+    .max(999999.99, "Preço deve ser menor que R$ 999.999,99"),
 });
 
-type StoreFrontFormData = z.infer<typeof storeFrontSchema>;
+type ProductFormData = z.infer<typeof productSchema>;
 
 interface FileUploadAreaProps {
   label: string;
@@ -93,7 +83,7 @@ const FileUploadArea: FC<FileUploadAreaProps> = ({
     onDrop,
     accept: { [accept]: [] },
     multiple: false,
-    maxSize: accept.includes("logo") ? 5 * 1024 * 1024 : 10 * 1024 * 1024,
+    maxSize: 5 * 1024 * 1024,
     onDragEnter: () => setIsDragActive(true),
     onDragLeave: () => setIsDragActive(false),
   });
@@ -172,7 +162,7 @@ const FileUploadArea: FC<FileUploadAreaProps> = ({
   );
 };
 
-export const AddOrganizationHeaderModal: FC<{
+export const AddProductModal: FC<{
   organizationId: string;
   children: ReactNode;
 }> = ({ children, organizationId }) => {
@@ -180,74 +170,55 @@ export const AddOrganizationHeaderModal: FC<{
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
 
-  const form = useForm<StoreFrontFormData>({
-    resolver: zodResolver(storeFrontSchema),
+  const form = useForm<ProductFormData>({
+    resolver: zodResolver(productSchema),
     defaultValues: {
-      location: "",
-      whatsappNumber: "",
+      title: "",
+      description: "",
+      price: 0,
     },
   });
 
-  const [logoFile, setLogoFile] = useState<File | null>(null);
-  const [bannerFile, setBannerFile] = useState<File | null>(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
-  const onLogoDrop = useCallback(
+  const onImageDrop = useCallback(
     (acceptedFiles: File[]) => {
       if (acceptedFiles.length > 0) {
         const file = acceptedFiles[0];
-        setLogoFile(file);
-        form.setValue("logoImage", file);
-        form.clearErrors("logoImage");
+        setImageFile(file);
+        form.setValue("image", file);
+        form.clearErrors("image");
       }
     },
     [form],
   );
 
-  const onBannerDrop = useCallback(
-    (acceptedFiles: File[]) => {
-      if (acceptedFiles.length > 0) {
-        const file = acceptedFiles[0];
-        setBannerFile(file);
-        form.setValue("bannerImage", file);
-        form.clearErrors("bannerImage");
-      }
-    },
-    [form],
-  );
-
-  const removeLogo = () => {
-    setLogoFile(null);
-    form.setValue("logoImage", {} as File);
+  const removeImage = () => {
+    setImageFile(null);
+    form.setValue("image", {} as File);
   };
 
-  const removeBanner = () => {
-    setBannerFile(null);
-    form.setValue("bannerImage", {} as File);
-  };
-
-  const onSubmit = async (data: StoreFrontFormData) => {
+  const onSubmit = async (data: ProductFormData) => {
     try {
       setIsSubmitting(true);
 
-      const logoBase64 = await fileToBase64(data.logoImage);
-      const bannerBase64 = await fileToBase64(data.bannerImage);
+      const imageBase64 = await fileToBase64(data.image);
 
-      await createStoreFrontAction({
+      await createProductAction({
         organizationId,
-        logoImage: logoBase64,
-        bannerImage: bannerBase64,
-        location: data.location,
-        whatsappNumber: data.whatsappNumber,
+        image: imageBase64,
+        title: data.title,
+        description: data.description,
+        price: data.price,
       });
 
       // Reset form and close modal on success
       form.reset();
-      setLogoFile(null);
-      setBannerFile(null);
+      setImageFile(null);
       setIsOpen(false);
       router.refresh();
     } catch (error) {
-      console.error("Error creating storefront:", error);
+      console.error("Error creating product:", error);
     } finally {
       setIsSubmitting(false);
     }
@@ -255,7 +226,6 @@ export const AddOrganizationHeaderModal: FC<{
 
   const fileToBase64 = async (file: File): Promise<string> => {
     const buffer = Buffer.from(await file.arrayBuffer());
-
     return buffer.toString("base64");
   };
 
@@ -266,46 +236,33 @@ export const AddOrganizationHeaderModal: FC<{
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-xl font-semibold">
-            Configurar Loja
+            Adicionar Produto
           </DialogTitle>
         </DialogHeader>
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            {/* File Upload Areas */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <FileUploadArea
-                label="Logo da Loja"
-                accept="image/*"
-                onDrop={onLogoDrop}
-                uploadedFile={logoFile}
-                onRemove={removeLogo}
-                maxSizeText="Máx. 5MB (JPEG, PNG, WebP)"
-              />
-
-              <FileUploadArea
-                label="Banner da Loja"
-                accept="image/*"
-                onDrop={onBannerDrop}
-                uploadedFile={bannerFile}
-                onRemove={removeBanner}
-                maxSizeText="Máx. 10MB (JPEG, PNG, WebP)"
-              />
-            </div>
-
-            <Separator />
+            {/* Image Upload */}
+            <FileUploadArea
+              label="Imagem do Produto"
+              accept="image/*"
+              onDrop={onImageDrop}
+              uploadedFile={imageFile}
+              onRemove={removeImage}
+              maxSizeText="Máx. 5MB (JPEG, PNG, WebP)"
+            />
 
             {/* Form Fields */}
             <div className="space-y-4">
               <FormField
                 control={form.control}
-                name="location"
+                name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Localização</FormLabel>
+                    <FormLabel>Título do Produto</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Ex: São Paulo, SP"
+                        placeholder="Ex: Camiseta Básica"
                         {...field}
                         className="h-11"
                       />
@@ -317,14 +274,38 @@ export const AddOrganizationHeaderModal: FC<{
 
               <FormField
                 control={form.control}
-                name="whatsappNumber"
+                name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Número do WhatsApp</FormLabel>
+                    <FormLabel>Descrição</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="Descreva o produto..."
+                        {...field}
+                        className="min-h-[100px] resize-none"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="price"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Preço (R$)</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Ex: +55 11 99999-9999"
+                        type="number"
+                        step="0.01"
+                        min="0"
+                        placeholder="0,00"
                         {...field}
+                        onChange={(e) =>
+                          field.onChange(parseFloat(e.target.value) || 0)
+                        }
                         className="h-11"
                       />
                     </FormControl>
@@ -341,8 +322,7 @@ export const AddOrganizationHeaderModal: FC<{
                 variant="outline"
                 onClick={() => {
                   form.reset();
-                  setLogoFile(null);
-                  setBannerFile(null);
+                  setImageFile(null);
                 }}
                 disabled={isSubmitting}
               >
@@ -350,7 +330,7 @@ export const AddOrganizationHeaderModal: FC<{
               </Button>
               <Button
                 type="submit"
-                disabled={isSubmitting || !logoFile || !bannerFile}
+                disabled={isSubmitting || !imageFile}
                 className="min-w-[120px]"
               >
                 {isSubmitting ? (
