@@ -25,7 +25,11 @@ export default async function AuthLayout({
 
               <div>
                 <Suspense>
-                  <OrganizationSwitcher className="h-10 bg-transparent text-foreground font-medium hover:bg-muted/50 w-full lg:w-52 cursor-pointer" />
+                  <OrganizationSwitcher
+                    className="h-10 bg-transparent text-foreground font-medium hover:bg-muted/50 w-full lg:w-52 cursor-pointer"
+                    size="sm"
+                    hidePersonal
+                  />
                 </Suspense>
               </div>
 
