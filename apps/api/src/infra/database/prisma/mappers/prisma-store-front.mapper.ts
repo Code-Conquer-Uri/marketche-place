@@ -7,7 +7,6 @@ import {
   StoreFront,
   type StoreFrontProps,
 } from "@/domain/master/enterprise/entities/store-front";
-
 import type { ZodCustomShape } from "../../zod-custom-shape";
 
 export const httpStoreFrontSchema = z.object<ZodCustomShape<StoreFrontProps>>({
@@ -15,8 +14,11 @@ export const httpStoreFrontSchema = z.object<ZodCustomShape<StoreFrontProps>>({
 
   organizationId: z.string(),
 
-  logoImage: z.string(),
-  bannerImage: z.string(),
+  logoImageUrl: z.string(),
+  logoImageBlurData: z.string(),
+  bannerImageUrl: z.string(),
+  bannerImageBlurData: z.string(),
+  whatsappNumber: z.string().optional(),
   location: z.string(),
   theme: z.enum(["DEFAULT", "AMETHYST_HAZE", "SOLAR_DUSK"]),
 });
@@ -28,8 +30,11 @@ export class PrismaStoreFrontMapper {
     return StoreFront.create(
       {
         organizationId: raw.organizationId,
-        logoImage: Buffer.from(raw.logoImage),
-        bannerImage: Buffer.from(raw.bannerImage),
+        logoImageUrl: raw.logoImageUrl ?? "",
+        logoImageBlurData: raw.logoImageBlurData ?? "",
+        bannerImageUrl: raw.bannerImageUrl ?? "",
+        bannerImageBlurData: raw.bannerImageBlurData ?? "",
+        whatsappNumber: raw.whatsappNumber ?? undefined,
         location: raw.location,
         theme: raw.theme,
       },
@@ -43,28 +48,27 @@ export class PrismaStoreFrontMapper {
     return {
       id: storeFront.id.toString(),
       organizationId: storeFront.organizationId,
-      logoImage: storeFront.logoImage,
-      bannerImage: storeFront.bannerImage,
+      logoImageUrl: storeFront.logoImageUrl,
+      logoImageBlurData: storeFront.logoImageBlurData,
+      bannerImageUrl: storeFront.bannerImageUrl,
+      bannerImageBlurData: storeFront.bannerImageBlurData,
+      whatsappNumber: storeFront.whatsappNumber,
       location: storeFront.location,
       theme: storeFront.theme,
     };
   }
 
-  static toHttp(storeFront: StoreFront): HttpStoreFront {
-    const base64LogoImage = storeFront.logoImage.toString("base64");
-    const base64BannerImage = storeFront.bannerImage.toString("base64");
-
+  static async toHttp(storeFront: StoreFront): Promise<HttpStoreFront> {
     const httpStoreFront = httpStoreFrontSchema.parse({
       id: storeFront.id.toString(),
       organizationId: storeFront.organizationId,
-      logoImage: `data:image/jpeg;base64,${base64LogoImage}`,
-      bannerImage: `data:image/jpeg;base64,${base64BannerImage}`,
+      logoImageUrl: storeFront.logoImageUrl,
+      logoImageBlurData: storeFront.logoImageBlurData,
+      bannerImageUrl: storeFront.bannerImageUrl,
+      bannerImageBlurData: storeFront.bannerImageBlurData,
+      whatsappNumber: storeFront.whatsappNumber,
       location: storeFront.location,
       theme: storeFront.theme,
-    } satisfies Omit<StoreFrontProps, "logoImage" | "bannerImage"> & {
-      id: string;
-      logoImage: string;
-      bannerImage: string;
     });
     return httpStoreFront;
   }

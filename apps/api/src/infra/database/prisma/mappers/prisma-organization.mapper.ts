@@ -19,7 +19,7 @@ export const httpOrganizationSchema = z.object<
   id: z.string(),
 
   name: z.string(),
-  slug: z.string().min(3).max(255),
+  slug: z.string().min(3).max(255).optional(),
 
   logo: z.string().optional(),
   metadata: z.string().optional(),
@@ -66,6 +66,7 @@ export class PrismaOrganizationMapper {
 
   static toHttp(organization: Organization): HttpOrganization {
     const httpOrganization = httpOrganizationSchema.parse({
+      id: organization.id.toString(),
       name: organization.name,
       slug: organization.slug,
 
@@ -74,7 +75,7 @@ export class PrismaOrganizationMapper {
 
       createdAt: organization.createdAt,
       updatedAt: organization.updatedAt,
-    } satisfies OrganizationProps);
+    });
     return httpOrganization;
   }
 }
