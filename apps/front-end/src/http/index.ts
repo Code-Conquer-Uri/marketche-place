@@ -8,6 +8,7 @@ export { getProductsByOrganizationControllerHandle } from "./requests/getProduct
 export { getPublicProductsControllerHandle } from "./requests/getPublicProductsControllerHandle.ts";
 export { getSimilarProductsControllerHandle } from "./requests/getSimilarProductsControllerHandle.ts";
 export { getStoreFrontControllerHandle } from "./requests/getStoreFrontControllerHandle.ts";
+export { searchOrganizationsControllerHandle } from "./requests/searchOrganizationsControllerHandle.ts";
 export { searchProductControllerHandle } from "./requests/searchProductControllerHandle.ts";
 export { searchUserControllerHandle } from "./requests/searchUserControllerHandle.ts";
 export { updateProductControllerHandle } from "./requests/updateProductControllerHandle.ts";
@@ -163,6 +164,19 @@ export type {
 export { storeFrontThemeEnum3 } from "./types/GetStoreFrontResponseDto.ts";
 export type { InternalServerErrorDto } from "./types/InternalServerErrorDto.ts";
 export type { NotFoundErrorDto } from "./types/NotFoundErrorDto.ts";
+export type {
+  SearchOrganizationsControllerHandle200,
+  SearchOrganizationsControllerHandleQuery,
+  SearchOrganizationsControllerHandleQueryParams,
+  SearchOrganizationsControllerHandleQueryParamsOrderByEnum,
+  SearchOrganizationsControllerHandleQueryParamsOrderDirectionEnum,
+  SearchOrganizationsControllerHandleQueryResponse,
+} from "./types/SearchOrganizationsControllerHandle.ts";
+export {
+  searchOrganizationsControllerHandleQueryParamsOrderByEnum,
+  searchOrganizationsControllerHandleQueryParamsOrderDirectionEnum,
+} from "./types/SearchOrganizationsControllerHandle.ts";
+export type { SearchOrganizationsResponseDto } from "./types/SearchOrganizationsResponseDto.ts";
 export type {
   SearchProductControllerHandle200,
   SearchProductControllerHandle400,

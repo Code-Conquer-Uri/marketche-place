@@ -150,6 +150,19 @@ export { storeFrontThemeEnum3 } from "./GetStoreFrontResponseDto.ts";
 export type { InternalServerErrorDto } from "./InternalServerErrorDto.ts";
 export type { NotFoundErrorDto } from "./NotFoundErrorDto.ts";
 export type {
+  SearchOrganizationsControllerHandle200,
+  SearchOrganizationsControllerHandleQuery,
+  SearchOrganizationsControllerHandleQueryParams,
+  SearchOrganizationsControllerHandleQueryParamsOrderByEnum,
+  SearchOrganizationsControllerHandleQueryParamsOrderDirectionEnum,
+  SearchOrganizationsControllerHandleQueryResponse,
+} from "./SearchOrganizationsControllerHandle.ts";
+export {
+  searchOrganizationsControllerHandleQueryParamsOrderByEnum,
+  searchOrganizationsControllerHandleQueryParamsOrderDirectionEnum,
+} from "./SearchOrganizationsControllerHandle.ts";
+export type { SearchOrganizationsResponseDto } from "./SearchOrganizationsResponseDto.ts";
+export type {
   SearchProductControllerHandle200,
   SearchProductControllerHandle400,
   SearchProductControllerHandle401,

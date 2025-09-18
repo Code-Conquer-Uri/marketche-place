@@ -8,6 +8,7 @@ export { getProductsByOrganizationControllerHandle } from "./getProductsByOrgani
 export { getPublicProductsControllerHandle } from "./getPublicProductsControllerHandle.ts";
 export { getSimilarProductsControllerHandle } from "./getSimilarProductsControllerHandle.ts";
 export { getStoreFrontControllerHandle } from "./getStoreFrontControllerHandle.ts";
+export { searchOrganizationsControllerHandle } from "./searchOrganizationsControllerHandle.ts";
 export { searchProductControllerHandle } from "./searchProductControllerHandle.ts";
 export { searchUserControllerHandle } from "./searchUserControllerHandle.ts";
 export { updateProductControllerHandle } from "./updateProductControllerHandle.ts";
