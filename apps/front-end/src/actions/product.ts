@@ -57,7 +57,6 @@ export async function deleteProductAction(productId: string) {
 export async function searchProductAction(
   params: SearchProductControllerHandleQueryParams,
 ) {
-  console.log(params);
   return searchProductControllerHandle(params);
 }
 
