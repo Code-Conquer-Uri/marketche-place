@@ -6,7 +6,7 @@ export default async function AuthLayout({ children }: LayoutProps<"/auth">) {
   return (
     <>
       <Suspense>
-        <Auth allow="Unauthenticated-Only" redirectTo="/dashboard" />
+        <Auth allow="Unauthenticated-Only" redirectTo={"/dashboard"} />
       </Suspense>
       <div className="grid min-h-screen grid-cols-1 px-5 lg:max-h-screen lg:grid-cols-2 lg:px-0">
         {/* Left side - Image and testimonial */}
