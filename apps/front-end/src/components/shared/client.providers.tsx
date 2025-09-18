@@ -31,8 +31,8 @@ export function ClientProviders({ children }: { children: ReactNode }) {
         RESET_PASSWORD_DESCRIPTION: "Insira seu email para redefinir sua senha",
         SIGN_IN_USERNAME_DESCRIPTION: "Insira seu email para entrar",
         USERNAME: "Usuário",
-        SIGN_UP_ACTION: "Já possui uma conta? Entre",
-        SIGN_IN_ACTION: "Cadastre-se",
+        SIGN_UP_ACTION: "Cadastre-se",
+        SIGN_IN_ACTION: "Entrar",
         RESET_PASSWORD_ACTION: "Lembrou sua senha? Entre",
         FORGOT_PASSWORD_ACTION: "Esqueci minha senha",
         FORGOT_PASSWORD_EMAIL: "Enviar email de redefinição",
@@ -64,6 +64,7 @@ export function ClientProviders({ children }: { children: ReactNode }) {
       }}
       organization={{
         basePath: "/dashboard/organization",
+        pathMode: "slug",
         customRoles: [
           {
             label: "Dono da organização",

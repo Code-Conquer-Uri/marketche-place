@@ -1,6 +1,7 @@
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { ReactNode } from "react";
-import { isUserAuthenticated } from "@/lib/get-token";
+import { authClient } from "@/lib/auth-client";
 
 export async function Auth({
   children,
@@ -15,16 +16,20 @@ export async function Auth({
     return children;
   }
 
-  const isAuthenticated = await isUserAuthenticated();
+  const { data: session } = await authClient.getSession({
+    fetchOptions: {
+      headers: await headers(),
+    },
+  });
 
   if (allow === "Authenticated-Only") {
-    if (!isAuthenticated) {
+    if (!session) {
       redirect(redirectTo);
     }
   }
 
   if (allow === "Unauthenticated-Only") {
-    if (isAuthenticated) {
+    if (session) {
       redirect(redirectTo);
     }
   }
