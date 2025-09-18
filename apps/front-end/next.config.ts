@@ -7,6 +7,9 @@ const nextConfig: NextConfig = {
     ppr: "incremental",
     globalNotFound: true,
     // turbopackPersistentCaching: true,
+    serverActions: {
+      bodySizeLimit: "5mb",
+    },
   },
 
   images: {
@@ -14,6 +17,13 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "picsum.photos",
+        port: "",
+        pathname: "/**",
+      },
+
+      {
+        protocol: "https",
+        hostname: "pub-2a82de7327c54a5aae15dd2b462bbe32.r2.dev",
         port: "",
         pathname: "/**",
       },

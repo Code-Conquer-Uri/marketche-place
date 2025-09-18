@@ -7,7 +7,15 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": ["**", "!node_modules", "!.next", "!dist", "!build"]
+    "experimentalScannerIgnores": ["node_modules", ".next"],
+    "includes": [
+      "**",
+      "!**/node_modules/**/*",
+      "!**/.next",
+      "!**/dist",
+      "!**/out",
+      "!**/.vercel"
+    ]
   },
   "formatter": {
     "enabled": true,
