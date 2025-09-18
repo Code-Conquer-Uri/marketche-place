@@ -12,7 +12,12 @@ const routeConfig: Array<{
     redirectTo: "/auth",
   },
   {
-    allow: "Unauthenticated-Only",
+    allow: "Authenticated-Only",
+    route: "/auth/sign-out",
+    redirectTo: "/auth",
+  },
+  {
+    allow: "Both",
     route: "/auth",
     redirectTo: "/dashboard",
   },

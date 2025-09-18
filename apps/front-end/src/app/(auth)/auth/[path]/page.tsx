@@ -3,8 +3,6 @@ import { authViewPaths } from "@daveyplate/better-auth-ui/server";
 import LabeledLogo from "@/components/labeled-logo";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 
-export const dynamicParams = false;
-
 export function generateStaticParams() {
   return Object.values(authViewPaths).map((path) => ({ path }));
 }
