@@ -11,4 +11,16 @@ export abstract class PromotionRepository extends Repository<Promotion> {
   abstract findManyByUserId(userId: string): Promise<Promotion[]>;
 
   abstract findManyByUserIds(userIds: string[]): Promise<Promotion[]>;
+
+  abstract search(params: {
+    productId?: string;
+    userId?: string;
+    minDiscountPercentage?: number;
+    maxDiscountPercentage?: number;
+    validFrom?: Date;
+    validUntil?: Date;
+    isActive?: boolean;
+    page?: number;
+    limit?: number;
+  }): Promise<{ promotions: Promotion[]; total: number }>;
 }
