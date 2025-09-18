@@ -1,6 +1,18 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.2.2/schema.json",
   "extends": ["../../biome.json"],
+  "files": {
+    "ignoreUnknown": true,
+    "experimentalScannerIgnores": ["node_modules", ".next"],
+    "includes": [
+      "src/**/*.{js,jsx,ts,tsx,json,md,mdx,yml,yaml,html,css,scss,sass}",
+      "!**/node_modules/**/*",
+      "!**/.next",
+      "!**/dist",
+      "!**/out",
+      "!**/.vercel"
+    ]
+  },
   "assist": {
     "enabled": true,
     "actions": {

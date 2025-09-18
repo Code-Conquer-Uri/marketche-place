@@ -890,6 +890,254 @@
         "summary": "Get public products from all organizations",
         "tags": ["products"]
       }
+    },
+    "/products/featured": {
+      "get": {
+        "operationId": "GetFeaturedProductsController_handle",
+        "parameters": [
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Maximum number of featured products to return",
+            "schema": {
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20,
+              "type": "number"
+            }
+          },
+          {
+            "name": "orderDirection",
+            "required": false,
+            "in": "query",
+            "schema": { "enum": ["asc", "desc"], "type": "string" }
+          },
+          {
+            "name": "orderBy",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "enum": ["createdAt", "updatedAt", "title", "price"],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns featured products from all organizations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetFeaturedProductsResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BadRequestErrorDto" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotFoundErrorDto" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ConflictErrorDto" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get featured products from all organizations",
+        "tags": ["products"]
+      }
+    },
+    "/products/{productId}/similar": {
+      "get": {
+        "operationId": "GetSimilarProductsController_handle",
+        "parameters": [
+          {
+            "name": "productId",
+            "required": true,
+            "in": "path",
+            "description": "ID of the product to find similar products for",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "description": "Maximum number of similar products to return",
+            "schema": {
+              "minimum": 1,
+              "maximum": 50,
+              "default": 10,
+              "type": "number"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "description": "Page number for pagination",
+            "schema": { "minimum": 1, "default": 1, "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns similar products",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetSimilarProductsResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BadRequestErrorDto" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorDto"
+                }
+              }
+            }
+          },
+          "404": { "description": "Product not found" },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ConflictErrorDto" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get similar products based on description",
+        "tags": ["products"]
+      }
+    },
+    "/organization/by-slug/{slug}": {
+      "get": {
+        "operationId": "GetOrganizationBySlugController_handle",
+        "parameters": [
+          {
+            "name": "slug",
+            "required": true,
+            "in": "path",
+            "description": "Organization slug",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns the organization",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetOrganizationBySlugResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/BadRequestErrorDto" }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedErrorDto"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/NotFoundErrorDto" }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ConflictErrorDto" }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerErrorDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Get organization by slug",
+        "tags": ["organization"]
+      }
     }
   },
   "info": {
@@ -995,8 +1243,11 @@
             "properties": {
               "id": { "type": "string" },
               "organizationId": { "type": "string" },
-              "logoImage": { "type": "string" },
-              "bannerImage": { "type": "string" },
+              "logoImageUrl": { "type": "string" },
+              "logoImageBlurData": { "type": "string" },
+              "bannerImageUrl": { "type": "string" },
+              "bannerImageBlurData": { "type": "string" },
+              "whatsappNumber": { "type": "string" },
               "location": { "type": "string" },
               "theme": {
                 "type": "string",
@@ -1006,8 +1257,10 @@
             "required": [
               "id",
               "organizationId",
-              "logoImage",
-              "bannerImage",
+              "logoImageUrl",
+              "logoImageBlurData",
+              "bannerImageUrl",
+              "bannerImageBlurData",
               "location",
               "theme"
             ]
@@ -1022,6 +1275,7 @@
           "organizationId": { "type": "string" },
           "logoImage": { "type": "string" },
           "bannerImage": { "type": "string" },
+          "whatsappNumber": { "type": "string" },
           "location": { "type": "string" },
           "theme": {
             "default": "DEFAULT",
@@ -1039,8 +1293,11 @@
             "properties": {
               "id": { "type": "string" },
               "organizationId": { "type": "string" },
-              "logoImage": { "type": "string" },
-              "bannerImage": { "type": "string" },
+              "logoImageUrl": { "type": "string" },
+              "logoImageBlurData": { "type": "string" },
+              "bannerImageUrl": { "type": "string" },
+              "bannerImageBlurData": { "type": "string" },
+              "whatsappNumber": { "type": "string" },
               "location": { "type": "string" },
               "theme": {
                 "type": "string",
@@ -1050,8 +1307,10 @@
             "required": [
               "id",
               "organizationId",
-              "logoImage",
-              "bannerImage",
+              "logoImageUrl",
+              "logoImageBlurData",
+              "bannerImageUrl",
+              "bannerImageBlurData",
               "location",
               "theme"
             ]
@@ -1066,6 +1325,7 @@
           "organizationId": { "type": "string" },
           "logoImage": { "type": "string" },
           "bannerImage": { "type": "string" },
+          "whatsappNumber": { "type": "string" },
           "location": { "type": "string" },
           "theme": {
             "type": "string",
@@ -1082,8 +1342,11 @@
             "properties": {
               "id": { "type": "string" },
               "organizationId": { "type": "string" },
-              "logoImage": { "type": "string" },
-              "bannerImage": { "type": "string" },
+              "logoImageUrl": { "type": "string" },
+              "logoImageBlurData": { "type": "string" },
+              "bannerImageUrl": { "type": "string" },
+              "bannerImageBlurData": { "type": "string" },
+              "whatsappNumber": { "type": "string" },
               "location": { "type": "string" },
               "theme": {
                 "type": "string",
@@ -1093,8 +1356,10 @@
             "required": [
               "id",
               "organizationId",
-              "logoImage",
-              "bannerImage",
+              "logoImageUrl",
+              "logoImageBlurData",
+              "bannerImageUrl",
+              "bannerImageBlurData",
               "location",
               "theme"
             ]
@@ -1317,6 +1582,94 @@
           "message": { "type": "string" }
         },
         "required": ["products"]
+      },
+      "GetFeaturedProductsResponseDto": {
+        "type": "object",
+        "properties": {
+          "products": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "description": { "type": "string" },
+                "imageUrl": { "type": "string", "format": "uri" },
+                "imageBlurData": { "type": "string" },
+                "price": { "type": "number" },
+                "title": { "type": "string" },
+                "organizationId": { "type": "string" },
+                "createdAt": { "type": "string", "nullable": true },
+                "updatedAt": { "type": "string", "nullable": true }
+              },
+              "required": [
+                "id",
+                "description",
+                "imageUrl",
+                "imageBlurData",
+                "price",
+                "title",
+                "organizationId"
+              ]
+            }
+          },
+          "message": { "type": "string" }
+        },
+        "required": ["products"]
+      },
+      "GetSimilarProductsResponseDto": {
+        "type": "object",
+        "properties": {
+          "products": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": { "type": "string" },
+                "description": { "type": "string" },
+                "imageUrl": { "type": "string", "format": "uri" },
+                "imageBlurData": { "type": "string" },
+                "price": { "type": "number" },
+                "title": { "type": "string" },
+                "organizationId": { "type": "string" },
+                "createdAt": { "type": "string", "nullable": true },
+                "updatedAt": { "type": "string", "nullable": true }
+              },
+              "required": [
+                "id",
+                "description",
+                "imageUrl",
+                "imageBlurData",
+                "price",
+                "title",
+                "organizationId"
+              ]
+            }
+          },
+          "total": { "type": "number" },
+          "pages": { "type": "number" },
+          "message": { "type": "string" }
+        },
+        "required": ["products", "total", "pages"]
+      },
+      "GetOrganizationBySlugResponseDto": {
+        "type": "object",
+        "properties": {
+          "organization": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" },
+              "slug": { "type": "string", "minLength": 3, "maxLength": 255 },
+              "logo": { "type": "string" },
+              "metadata": { "type": "string" },
+              "createdAt": { "type": "string", "nullable": true },
+              "updatedAt": { "type": "string", "nullable": true }
+            },
+            "required": ["id", "name"]
+          },
+          "message": { "type": "string" }
+        },
+        "required": ["organization"]
       }
     }
   }
