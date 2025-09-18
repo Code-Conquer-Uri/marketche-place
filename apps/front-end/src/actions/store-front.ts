@@ -26,7 +26,9 @@ export async function getStoreFrontAction(
  * @summary Create a store front
  */
 export async function createStoreFrontAction(data: CreateStoreFrontBodyDto) {
-  return createStoreFrontControllerHandle(data);
+  const promise = createStoreFrontControllerHandle(data);
+
+  return promise;
 }
 
 /**
