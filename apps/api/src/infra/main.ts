@@ -1,6 +1,7 @@
 import { NestFactory } from "@nestjs/core";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { apiReference } from "@scalar/nestjs-api-reference";
+import { json, urlencoded } from "express";
 import { cleanupOpenApiDoc } from "nestjs-zod";
 
 import { AppModule } from "./app.module";
@@ -10,12 +11,13 @@ import { otelSDK } from "./tracing.service";
 async function bootstrap(): Promise<void> {
   await otelSDK.start();
 
-  const app = await NestFactory.create(AppModule, {
-    // logger: false,$
-    bodyParser: false,
-  });
+  const app = await NestFactory.create(AppModule);
   const configService = app.get(EnvService);
   const port = configService.get("PORT");
+
+  // Configure body parser with higher limits
+  app.use(json({ limit: "10mb" }));
+  app.use(urlencoded({ limit: "10mb", extended: true }));
 
   const config = new DocumentBuilder()
     .addBearerAuth({ type: "http" })

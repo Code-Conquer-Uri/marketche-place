@@ -155,6 +155,7 @@ export class R2StorageProvider implements StorageProvider {
     stream: Writable;
     uploadId: string;
     uploadUrl: string;
+    downloadUrl: string;
     done: Promise<
       CompleteMultipartUploadCommandOutput | PutObjectCommandOutput
     >;
@@ -184,11 +185,13 @@ export class R2StorageProvider implements StorageProvider {
 
     // Construct the public URL using your publicBucket env var
     const uploadUrl = `https://${this.publicBucket}/${fileKey}`;
+    const downloadUrl = `https://${this.publicBucket}.r2.dev/${fileKey}`;
 
     return {
       stream: passThrough,
       uploadId: fileKey,
       uploadUrl,
+      downloadUrl,
       done: donePromise,
     };
   }
