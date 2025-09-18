@@ -1,5 +1,18 @@
 export type { BadRequestErrorDto } from "./BadRequestErrorDto.ts";
 export type { ConflictErrorDto } from "./ConflictErrorDto.ts";
+export type { CreateCouponBodyDto } from "./CreateCouponBodyDto.ts";
+export type {
+  CreateCouponControllerHandle201,
+  CreateCouponControllerHandle400,
+  CreateCouponControllerHandle401,
+  CreateCouponControllerHandle404,
+  CreateCouponControllerHandle409,
+  CreateCouponControllerHandle500,
+  CreateCouponControllerHandleMutation,
+  CreateCouponControllerHandleMutationRequest,
+  CreateCouponControllerHandleMutationResponse,
+} from "./CreateCouponControllerHandle.ts";
+export type { CreateCouponResponseDto } from "./CreateCouponResponseDto.ts";
 export type { CreateProductBodyDto } from "./CreateProductBodyDto.ts";
 export type {
   CreateProductControllerHandle201,
@@ -13,6 +26,19 @@ export type {
   CreateProductControllerHandleMutationResponse,
 } from "./CreateProductControllerHandle.ts";
 export type { CreateProductResponseDto } from "./CreateProductResponseDto.ts";
+export type { CreatePromotionBodyDto } from "./CreatePromotionBodyDto.ts";
+export type {
+  CreatePromotionControllerHandle201,
+  CreatePromotionControllerHandle400,
+  CreatePromotionControllerHandle401,
+  CreatePromotionControllerHandle404,
+  CreatePromotionControllerHandle409,
+  CreatePromotionControllerHandle500,
+  CreatePromotionControllerHandleMutation,
+  CreatePromotionControllerHandleMutationRequest,
+  CreatePromotionControllerHandleMutationResponse,
+} from "./CreatePromotionControllerHandle.ts";
+export type { CreatePromotionResponseDto } from "./CreatePromotionResponseDto.ts";
 export type {
   CreateStoreFrontBodyDto,
   CreateStoreFrontBodyDtoThemeEnum,
@@ -34,6 +60,31 @@ export type {
   StoreFrontThemeEnum,
 } from "./CreateStoreFrontResponseDto.ts";
 export { storeFrontThemeEnum } from "./CreateStoreFrontResponseDto.ts";
+export type { CreateUserCouponBodyDto } from "./CreateUserCouponBodyDto.ts";
+export type {
+  CreateUserCouponControllerHandle201,
+  CreateUserCouponControllerHandle400,
+  CreateUserCouponControllerHandle401,
+  CreateUserCouponControllerHandle404,
+  CreateUserCouponControllerHandle409,
+  CreateUserCouponControllerHandle500,
+  CreateUserCouponControllerHandleMutation,
+  CreateUserCouponControllerHandleMutationRequest,
+  CreateUserCouponControllerHandleMutationResponse,
+} from "./CreateUserCouponControllerHandle.ts";
+export type { CreateUserCouponResponseDto } from "./CreateUserCouponResponseDto.ts";
+export type {
+  DeleteCouponControllerHandle200,
+  DeleteCouponControllerHandle400,
+  DeleteCouponControllerHandle401,
+  DeleteCouponControllerHandle404,
+  DeleteCouponControllerHandle409,
+  DeleteCouponControllerHandle500,
+  DeleteCouponControllerHandleMutation,
+  DeleteCouponControllerHandleMutationResponse,
+  DeleteCouponControllerHandlePathParams,
+} from "./DeleteCouponControllerHandle.ts";
+export type { DeleteCouponResponseDto } from "./DeleteCouponResponseDto.ts";
 export type {
   DeleteProductControllerHandle200,
   DeleteProductControllerHandle400,
@@ -46,6 +97,56 @@ export type {
   DeleteProductControllerHandlePathParams,
 } from "./DeleteProductControllerHandle.ts";
 export type { DeleteProductResponseDto } from "./DeleteProductResponseDto.ts";
+export type {
+  DeletePromotionControllerHandle200,
+  DeletePromotionControllerHandle400,
+  DeletePromotionControllerHandle401,
+  DeletePromotionControllerHandle404,
+  DeletePromotionControllerHandle409,
+  DeletePromotionControllerHandle500,
+  DeletePromotionControllerHandleMutation,
+  DeletePromotionControllerHandleMutationResponse,
+  DeletePromotionControllerHandlePathParams,
+} from "./DeletePromotionControllerHandle.ts";
+export type { DeletePromotionResponseDto } from "./DeletePromotionResponseDto.ts";
+export type {
+  DeleteUserCouponControllerHandle200,
+  DeleteUserCouponControllerHandle400,
+  DeleteUserCouponControllerHandle401,
+  DeleteUserCouponControllerHandle404,
+  DeleteUserCouponControllerHandle409,
+  DeleteUserCouponControllerHandle500,
+  DeleteUserCouponControllerHandleMutation,
+  DeleteUserCouponControllerHandleMutationResponse,
+  DeleteUserCouponControllerHandlePathParams,
+} from "./DeleteUserCouponControllerHandle.ts";
+export type { DeleteUserCouponResponseDto } from "./DeleteUserCouponResponseDto.ts";
+export type {
+  GetCouponControllerHandle200,
+  GetCouponControllerHandle400,
+  GetCouponControllerHandle401,
+  GetCouponControllerHandle404,
+  GetCouponControllerHandle409,
+  GetCouponControllerHandle500,
+  GetCouponControllerHandlePathParams,
+  GetCouponControllerHandleQuery,
+  GetCouponControllerHandleQueryResponse,
+} from "./GetCouponControllerHandle.ts";
+export type { GetCouponResponseDto } from "./GetCouponResponseDto.ts";
+export type {
+  GetCouponsByProductIdControllerHandle200,
+  GetCouponsByProductIdControllerHandlePathParams,
+  GetCouponsByProductIdControllerHandleQuery,
+  GetCouponsByProductIdControllerHandleQueryResponse,
+} from "./GetCouponsByProductIdControllerHandle.ts";
+export type { GetCouponsByProductIdResponseDto } from "./GetCouponsByProductIdResponseDto.ts";
+export type {
+  GetCouponsByProductsIdsControllerHandle200,
+  GetCouponsByProductsIdsControllerHandleQuery,
+  GetCouponsByProductsIdsControllerHandleQueryParams,
+  GetCouponsByProductsIdsControllerHandleQueryResponse,
+} from "./GetCouponsByProductsIdsControllerHandle.ts";
+export type { GetCouponsByProductsIdsResponseDto } from "./GetCouponsByProductsIdsResponseDto.ts";
 export type {
   GetFeaturedProductsControllerHandle200,
   GetFeaturedProductsControllerHandle400,
@@ -101,6 +202,32 @@ export type {
 } from "./GetProductsByOrganizationControllerHandle.ts";
 export type { GetProductsByOrganizationResponseDto } from "./GetProductsByOrganizationResponseDto.ts";
 export type {
+  GetPromotionControllerHandle200,
+  GetPromotionControllerHandle400,
+  GetPromotionControllerHandle401,
+  GetPromotionControllerHandle404,
+  GetPromotionControllerHandle409,
+  GetPromotionControllerHandle500,
+  GetPromotionControllerHandlePathParams,
+  GetPromotionControllerHandleQuery,
+  GetPromotionControllerHandleQueryResponse,
+} from "./GetPromotionControllerHandle.ts";
+export type { GetPromotionResponseDto } from "./GetPromotionResponseDto.ts";
+export type {
+  GetPromotionsByProductIdControllerHandle200,
+  GetPromotionsByProductIdControllerHandlePathParams,
+  GetPromotionsByProductIdControllerHandleQuery,
+  GetPromotionsByProductIdControllerHandleQueryResponse,
+} from "./GetPromotionsByProductIdControllerHandle.ts";
+export type { GetPromotionsByProductIdResponseDto } from "./GetPromotionsByProductIdResponseDto.ts";
+export type {
+  GetPromotionsByProductsIdsControllerHandle200,
+  GetPromotionsByProductsIdsControllerHandleQuery,
+  GetPromotionsByProductsIdsControllerHandleQueryParams,
+  GetPromotionsByProductsIdsControllerHandleQueryResponse,
+} from "./GetPromotionsByProductsIdsControllerHandle.ts";
+export type { GetPromotionsByProductsIdsResponseDto } from "./GetPromotionsByProductsIdsResponseDto.ts";
+export type {
   GetPublicProductsControllerHandle200,
   GetPublicProductsControllerHandle400,
   GetPublicProductsControllerHandle401,
@@ -147,8 +274,46 @@ export type {
   StoreFrontThemeEnum3,
 } from "./GetStoreFrontResponseDto.ts";
 export { storeFrontThemeEnum3 } from "./GetStoreFrontResponseDto.ts";
+export type {
+  GetUserCouponControllerHandle200,
+  GetUserCouponControllerHandle400,
+  GetUserCouponControllerHandle401,
+  GetUserCouponControllerHandle404,
+  GetUserCouponControllerHandle409,
+  GetUserCouponControllerHandle500,
+  GetUserCouponControllerHandlePathParams,
+  GetUserCouponControllerHandleQuery,
+  GetUserCouponControllerHandleQueryResponse,
+} from "./GetUserCouponControllerHandle.ts";
+export type { GetUserCouponResponseDto } from "./GetUserCouponResponseDto.ts";
+export type {
+  GetUserCouponsByCouponIdControllerHandle200,
+  GetUserCouponsByCouponIdControllerHandlePathParams,
+  GetUserCouponsByCouponIdControllerHandleQuery,
+  GetUserCouponsByCouponIdControllerHandleQueryResponse,
+} from "./GetUserCouponsByCouponIdControllerHandle.ts";
+export type { GetUserCouponsByCouponIdResponseDto } from "./GetUserCouponsByCouponIdResponseDto.ts";
+export type {
+  GetUserCouponsByCouponsIdsControllerHandle200,
+  GetUserCouponsByCouponsIdsControllerHandleQuery,
+  GetUserCouponsByCouponsIdsControllerHandleQueryParams,
+  GetUserCouponsByCouponsIdsControllerHandleQueryResponse,
+} from "./GetUserCouponsByCouponsIdsControllerHandle.ts";
+export type { GetUserCouponsByCouponsIdsResponseDto } from "./GetUserCouponsByCouponsIdsResponseDto.ts";
 export type { InternalServerErrorDto } from "./InternalServerErrorDto.ts";
 export type { NotFoundErrorDto } from "./NotFoundErrorDto.ts";
+export type {
+  SearchCouponsControllerHandle200,
+  SearchCouponsControllerHandle400,
+  SearchCouponsControllerHandle401,
+  SearchCouponsControllerHandle404,
+  SearchCouponsControllerHandle409,
+  SearchCouponsControllerHandle500,
+  SearchCouponsControllerHandleQuery,
+  SearchCouponsControllerHandleQueryParams,
+  SearchCouponsControllerHandleQueryResponse,
+} from "./SearchCouponsControllerHandle.ts";
+export type { SearchCouponsResponseDto } from "./SearchCouponsResponseDto.ts";
 export type {
   SearchOrganizationsControllerHandle200,
   SearchOrganizationsControllerHandleQuery,
@@ -181,6 +346,18 @@ export {
 } from "./SearchProductControllerHandle.ts";
 export type { SearchProductResponseDto } from "./SearchProductResponseDto.ts";
 export type {
+  SearchPromotionsControllerHandle200,
+  SearchPromotionsControllerHandle400,
+  SearchPromotionsControllerHandle401,
+  SearchPromotionsControllerHandle404,
+  SearchPromotionsControllerHandle409,
+  SearchPromotionsControllerHandle500,
+  SearchPromotionsControllerHandleQuery,
+  SearchPromotionsControllerHandleQueryParams,
+  SearchPromotionsControllerHandleQueryResponse,
+} from "./SearchPromotionsControllerHandle.ts";
+export type { SearchPromotionsResponseDto } from "./SearchPromotionsResponseDto.ts";
+export type {
   SearchUserControllerHandle200,
   SearchUserControllerHandle400,
   SearchUserControllerHandle401,
@@ -197,8 +374,34 @@ export {
   searchUserControllerHandleQueryParamsOrderByEnum,
   searchUserControllerHandleQueryParamsOrderDirectionEnum,
 } from "./SearchUserControllerHandle.ts";
+export type {
+  SearchUserCouponsControllerHandle200,
+  SearchUserCouponsControllerHandle400,
+  SearchUserCouponsControllerHandle401,
+  SearchUserCouponsControllerHandle404,
+  SearchUserCouponsControllerHandle409,
+  SearchUserCouponsControllerHandle500,
+  SearchUserCouponsControllerHandleQuery,
+  SearchUserCouponsControllerHandleQueryParams,
+  SearchUserCouponsControllerHandleQueryResponse,
+} from "./SearchUserCouponsControllerHandle.ts";
+export type { SearchUserCouponsResponseDto } from "./SearchUserCouponsResponseDto.ts";
 export type { SearchUserResponseDto } from "./SearchUserResponseDto.ts";
 export type { UnauthorizedErrorDto } from "./UnauthorizedErrorDto.ts";
+export type { UpdateCouponBodyDto } from "./UpdateCouponBodyDto.ts";
+export type {
+  UpdateCouponControllerHandle200,
+  UpdateCouponControllerHandle400,
+  UpdateCouponControllerHandle401,
+  UpdateCouponControllerHandle404,
+  UpdateCouponControllerHandle409,
+  UpdateCouponControllerHandle500,
+  UpdateCouponControllerHandleMutation,
+  UpdateCouponControllerHandleMutationRequest,
+  UpdateCouponControllerHandleMutationResponse,
+  UpdateCouponControllerHandlePathParams,
+} from "./UpdateCouponControllerHandle.ts";
+export type { UpdateCouponResponseDto } from "./UpdateCouponResponseDto.ts";
 export type { UpdateProductBodyDto } from "./UpdateProductBodyDto.ts";
 export type {
   UpdateProductControllerHandle200,
@@ -213,6 +416,20 @@ export type {
   UpdateProductControllerHandlePathParams,
 } from "./UpdateProductControllerHandle.ts";
 export type { UpdateProductResponseDto } from "./UpdateProductResponseDto.ts";
+export type { UpdatePromotionBodyDto } from "./UpdatePromotionBodyDto.ts";
+export type {
+  UpdatePromotionControllerHandle200,
+  UpdatePromotionControllerHandle400,
+  UpdatePromotionControllerHandle401,
+  UpdatePromotionControllerHandle404,
+  UpdatePromotionControllerHandle409,
+  UpdatePromotionControllerHandle500,
+  UpdatePromotionControllerHandleMutation,
+  UpdatePromotionControllerHandleMutationRequest,
+  UpdatePromotionControllerHandleMutationResponse,
+  UpdatePromotionControllerHandlePathParams,
+} from "./UpdatePromotionControllerHandle.ts";
+export type { UpdatePromotionResponseDto } from "./UpdatePromotionResponseDto.ts";
 export type {
   UpdateStoreFrontBodyDto,
   UpdateStoreFrontBodyDtoThemeEnum,
