@@ -68,18 +68,19 @@ export class UpdateProductService {
         { quality: 85 },
       );
       const fileName = `${product.id.toString()}.webp`;
-      const { stream, uploadUrl } = await this.storageProvider.getUploadStream({
-        id: product.id.toString(),
-        fileName,
-        fileType: mimeType,
-        folder: "products",
-      });
+      const { stream, downloadUrl } =
+        await this.storageProvider.getUploadStream({
+          id: product.id.toString(),
+          fileName,
+          fileType: mimeType,
+          folder: "products",
+        });
       stream.end(webpBuffer);
       await new Promise((resolve, reject) => {
         stream.on("finish", resolve);
         stream.on("error", reject);
       });
-      product.imageUrl = uploadUrl;
+      product.imageUrl = downloadUrl;
       product.imageBlurData = blurDataUrl;
     }
 
