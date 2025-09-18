@@ -96,4 +96,44 @@ export class PrismaUserCouponRepository implements UserCouponRepository {
       where: { id: userCoupon.id.toString() },
     });
   }
+
+  async search(params: {
+    userId?: string;
+    couponId?: string;
+    page?: number;
+    limit?: number;
+  }): Promise<{ userCoupons: UserCoupon[]; total: number }> {
+    const { userId, couponId, page = 1, limit = 10 } = params;
+
+    const where: {
+      userId?: string;
+      couponId?: string;
+    } = {};
+
+    if (userId) {
+      where.userId = userId;
+    }
+
+    if (couponId) {
+      where.couponId = couponId;
+    }
+
+    const skip = (page - 1) * limit;
+
+    const [userCoupons, total] = await Promise.all([
+      this.prisma.userCoupons.findMany({
+        where,
+        skip,
+        take: limit,
+      }),
+      this.prisma.userCoupons.count({
+        where,
+      }),
+    ]);
+
+    return {
+      userCoupons: userCoupons.map(PrismaUserCouponMapper.toDomain),
+      total,
+    };
+  }
 }

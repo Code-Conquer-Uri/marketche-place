@@ -97,4 +97,85 @@ export class PrismaCouponRepository implements CouponRepository {
       where: { id: coupon.id.toString() },
     });
   }
+
+  async search(params: {
+    productId?: string;
+    userId?: string;
+    minDiscountPercentage?: number;
+    maxDiscountPercentage?: number;
+    minQuantity?: number;
+    maxQuantity?: number;
+    page?: number;
+    limit?: number;
+  }): Promise<{ coupons: Coupon[]; total: number }> {
+    const {
+      productId,
+      userId,
+      minDiscountPercentage,
+      maxDiscountPercentage,
+      minQuantity,
+      maxQuantity,
+      page = 1,
+      limit = 10,
+    } = params;
+
+    const where: {
+      productId?: string;
+      userId?: string;
+      discountPercentage?: { gte?: number; lte?: number };
+      maxQuantity?: { gte?: number; lte?: number };
+    } = {};
+
+    if (productId) {
+      where.productId = productId;
+    }
+
+    if (userId) {
+      where.userId = userId;
+    }
+
+    if (
+      minDiscountPercentage !== undefined ||
+      maxDiscountPercentage !== undefined
+    ) {
+      where.discountPercentage = {};
+      if (minDiscountPercentage !== undefined) {
+        where.discountPercentage.gte = minDiscountPercentage;
+      }
+      if (maxDiscountPercentage !== undefined) {
+        where.discountPercentage.lte = maxDiscountPercentage;
+      }
+    }
+
+    if (minQuantity !== undefined || maxQuantity !== undefined) {
+      where.maxQuantity = {};
+      if (minQuantity !== undefined) {
+        where.maxQuantity.gte = minQuantity;
+      }
+      if (maxQuantity !== undefined) {
+        where.maxQuantity.lte = maxQuantity;
+      }
+    }
+
+    const skip = (page - 1) * limit;
+
+    const [coupons, total] = await Promise.all([
+      this.prisma.coupon.findMany({
+        where,
+        skip,
+        take: limit,
+        orderBy: {
+          createdAt: "desc",
+        },
+      }),
+      this.prisma.coupon.count({
+        where,
+      }),
+    ]);
+
+    return {
+      coupons: coupons.map(PrismaCouponMapper.toDomain),
+      total,
+    };
+  }
 }

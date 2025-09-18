@@ -97,4 +97,102 @@ export class PrismaPromotionRepository implements PromotionRepository {
       where: { id: promotion.id.toString() },
     });
   }
+
+  async search(params: {
+    productId?: string;
+    userId?: string;
+    minDiscountPercentage?: number;
+    maxDiscountPercentage?: number;
+    validFrom?: Date;
+    validUntil?: Date;
+    isActive?: boolean;
+    page?: number;
+    limit?: number;
+  }): Promise<{ promotions: Promotion[]; total: number }> {
+    const {
+      productId,
+      userId,
+      minDiscountPercentage,
+      maxDiscountPercentage,
+      validFrom,
+      validUntil,
+      isActive,
+      page = 1,
+      limit = 10,
+    } = params;
+
+    const where: {
+      productId?: string;
+      userId?: string;
+      discountPercentage?: { gte?: number; lte?: number };
+      validUntil?: { gte?: Date; lte?: Date; lt?: Date };
+    } = {};
+
+    if (productId) {
+      where.productId = productId;
+    }
+
+    if (userId) {
+      where.userId = userId;
+    }
+
+    if (
+      minDiscountPercentage !== undefined ||
+      maxDiscountPercentage !== undefined
+    ) {
+      where.discountPercentage = {};
+      if (minDiscountPercentage !== undefined) {
+        where.discountPercentage.gte = minDiscountPercentage;
+      }
+      if (maxDiscountPercentage !== undefined) {
+        where.discountPercentage.lte = maxDiscountPercentage;
+      }
+    }
+
+    if (validFrom || validUntil) {
+      where.validUntil = {};
+      if (validFrom) {
+        where.validUntil.gte = validFrom;
+      }
+      if (validUntil) {
+        where.validUntil.lte = validUntil;
+      }
+    }
+
+    if (isActive !== undefined) {
+      const now = new Date();
+      if (isActive) {
+        where.validUntil = {
+          ...where.validUntil,
+          gte: now,
+        };
+      } else {
+        where.validUntil = {
+          ...where.validUntil,
+          lt: now,
+        };
+      }
+    }
+
+    const skip = (page - 1) * limit;
+
+    const [promotions, total] = await Promise.all([
+      this.prisma.promotion.findMany({
+        where,
+        skip,
+        take: limit,
+        orderBy: {
+          createdAt: "desc",
+        },
+      }),
+      this.prisma.promotion.count({
+        where,
+      }),
+    ]);
+
+    return {
+      promotions: promotions.map(PrismaPromotionMapper.toDomain),
+      total,
+    };
+  }
 }
