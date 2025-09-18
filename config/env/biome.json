@@ -1,7 +1,15 @@
 {
 	"extends": ["../../biome.json"],
 	"files": {
-		"ignoreUnknown": true,
-		"includes": ["**", "!node_modules", "!.next", "!dist", "!build"]
-	}
+    "ignoreUnknown": true,
+    "experimentalScannerIgnores": ["node_modules", ".next"],
+    "includes": [
+      "**",
+      "!**/node_modules/**/*",
+      "!**/.next",
+      "!**/dist",
+      "!**/out",
+      "!**/.vercel"
+    ]
+  }
 }
