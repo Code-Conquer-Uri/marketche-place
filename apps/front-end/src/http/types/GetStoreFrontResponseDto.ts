@@ -28,11 +28,23 @@ export type GetStoreFrontResponseDto = {
     /**
      * @type string
      */
-    logoImage: string;
+    logoImageUrl: string;
     /**
      * @type string
      */
-    bannerImage: string;
+    logoImageBlurData: string;
+    /**
+     * @type string
+     */
+    bannerImageUrl: string;
+    /**
+     * @type string
+     */
+    bannerImageBlurData: string;
+    /**
+     * @type string | undefined
+     */
+    whatsappNumber?: string;
     /**
      * @type string
      */

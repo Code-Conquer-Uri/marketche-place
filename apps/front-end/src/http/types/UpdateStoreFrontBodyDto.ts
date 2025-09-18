@@ -28,6 +28,10 @@ export type UpdateStoreFrontBodyDto = {
   /**
    * @type string | undefined
    */
+  whatsappNumber?: string;
+  /**
+   * @type string | undefined
+   */
   location?: string;
   /**
    * @type string | undefined

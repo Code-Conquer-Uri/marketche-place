@@ -26,6 +26,10 @@ export type CreateStoreFrontBodyDto = {
    */
   bannerImage: string;
   /**
+   * @type string | undefined
+   */
+  whatsappNumber?: string;
+  /**
    * @type string
    */
   location: string;

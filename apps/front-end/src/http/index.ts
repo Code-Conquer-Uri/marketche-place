@@ -1,9 +1,12 @@
 export { createProductControllerHandle } from "./requests/createProductControllerHandle.ts";
 export { createStoreFrontControllerHandle } from "./requests/createStoreFrontControllerHandle.ts";
 export { deleteProductControllerHandle } from "./requests/deleteProductControllerHandle.ts";
+export { getFeaturedProductsControllerHandle } from "./requests/getFeaturedProductsControllerHandle.ts";
+export { getOrganizationBySlugControllerHandle } from "./requests/getOrganizationBySlugControllerHandle.ts";
 export { getProductControllerHandle } from "./requests/getProductControllerHandle.ts";
 export { getProductsByOrganizationControllerHandle } from "./requests/getProductsByOrganizationControllerHandle.ts";
 export { getPublicProductsControllerHandle } from "./requests/getPublicProductsControllerHandle.ts";
+export { getSimilarProductsControllerHandle } from "./requests/getSimilarProductsControllerHandle.ts";
 export { getStoreFrontControllerHandle } from "./requests/getStoreFrontControllerHandle.ts";
 export { searchProductControllerHandle } from "./requests/searchProductControllerHandle.ts";
 export { searchUserControllerHandle } from "./requests/searchUserControllerHandle.ts";
@@ -58,6 +61,36 @@ export type {
 } from "./types/DeleteProductControllerHandle.ts";
 export type { DeleteProductResponseDto } from "./types/DeleteProductResponseDto.ts";
 export type {
+  GetFeaturedProductsControllerHandle200,
+  GetFeaturedProductsControllerHandle400,
+  GetFeaturedProductsControllerHandle401,
+  GetFeaturedProductsControllerHandle404,
+  GetFeaturedProductsControllerHandle409,
+  GetFeaturedProductsControllerHandle500,
+  GetFeaturedProductsControllerHandleQuery,
+  GetFeaturedProductsControllerHandleQueryParams,
+  GetFeaturedProductsControllerHandleQueryParamsOrderByEnum,
+  GetFeaturedProductsControllerHandleQueryParamsOrderDirectionEnum,
+  GetFeaturedProductsControllerHandleQueryResponse,
+} from "./types/GetFeaturedProductsControllerHandle.ts";
+export {
+  getFeaturedProductsControllerHandleQueryParamsOrderByEnum,
+  getFeaturedProductsControllerHandleQueryParamsOrderDirectionEnum,
+} from "./types/GetFeaturedProductsControllerHandle.ts";
+export type { GetFeaturedProductsResponseDto } from "./types/GetFeaturedProductsResponseDto.ts";
+export type {
+  GetOrganizationBySlugControllerHandle200,
+  GetOrganizationBySlugControllerHandle400,
+  GetOrganizationBySlugControllerHandle401,
+  GetOrganizationBySlugControllerHandle404,
+  GetOrganizationBySlugControllerHandle409,
+  GetOrganizationBySlugControllerHandle500,
+  GetOrganizationBySlugControllerHandlePathParams,
+  GetOrganizationBySlugControllerHandleQuery,
+  GetOrganizationBySlugControllerHandleQueryResponse,
+} from "./types/GetOrganizationBySlugControllerHandle.ts";
+export type { GetOrganizationBySlugResponseDto } from "./types/GetOrganizationBySlugResponseDto.ts";
+export type {
   GetProductControllerHandle200,
   GetProductControllerHandle400,
   GetProductControllerHandle401,
@@ -99,6 +132,19 @@ export {
   getPublicProductsControllerHandleQueryParamsOrderDirectionEnum,
 } from "./types/GetPublicProductsControllerHandle.ts";
 export type { GetPublicProductsResponseDto } from "./types/GetPublicProductsResponseDto.ts";
+export type {
+  GetSimilarProductsControllerHandle200,
+  GetSimilarProductsControllerHandle400,
+  GetSimilarProductsControllerHandle401,
+  GetSimilarProductsControllerHandle404,
+  GetSimilarProductsControllerHandle409,
+  GetSimilarProductsControllerHandle500,
+  GetSimilarProductsControllerHandlePathParams,
+  GetSimilarProductsControllerHandleQuery,
+  GetSimilarProductsControllerHandleQueryParams,
+  GetSimilarProductsControllerHandleQueryResponse,
+} from "./types/GetSimilarProductsControllerHandle.ts";
+export type { GetSimilarProductsResponseDto } from "./types/GetSimilarProductsResponseDto.ts";
 export type {
   GetStoreFrontControllerHandle200,
   GetStoreFrontControllerHandle400,
