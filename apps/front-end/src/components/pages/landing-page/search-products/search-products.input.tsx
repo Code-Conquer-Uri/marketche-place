@@ -107,16 +107,19 @@ export const SearchProductsInput: FC = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
-        <div className="flex flex-col sm:flex-row gap-2">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="w-full lg:self-end lg:justify-end lg:justify-self-end"
+      >
+        <div className="flex flex-col sm:flex-row gap-2 lg:justify-self-end">
           <FormField
             control={form.control}
             name="search"
             render={({ field }) => (
-              <FormItem className="flex-1">
+              <FormItem className="flex-1 lg:max-w-56">
                 <FormControl>
                   <Input
-                    placeholder="Search products..."
+                    placeholder="Pesquise aqui..."
                     {...field}
                     onChange={(e) => {
                       field.onChange(e);
@@ -141,15 +144,15 @@ export const SearchProductsInput: FC = () => {
                   defaultValue={field.value}
                 >
                   <FormControl>
-                    <SelectTrigger className="w-32">
-                      <SelectValue placeholder="Order by" />
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Ordene por" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
-                    <SelectItem value="createdAt">Date</SelectItem>
-                    <SelectItem value="title">Title</SelectItem>
-                    <SelectItem value="price">Price</SelectItem>
-                    <SelectItem value="updatedAt">Updated</SelectItem>
+                  <SelectContent className="w-full">
+                    <SelectItem value="createdAt">Data</SelectItem>
+                    <SelectItem value="title">Título</SelectItem>
+                    <SelectItem value="price">Preço</SelectItem>
+                    <SelectItem value="updatedAt">Atualizado</SelectItem>
                   </SelectContent>
                 </Select>
               </FormItem>
@@ -169,13 +172,13 @@ export const SearchProductsInput: FC = () => {
                   defaultValue={field.value}
                 >
                   <FormControl>
-                    <SelectTrigger className="w-24">
+                    <SelectTrigger className="w-full">
                       <SelectValue placeholder="Dir" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
-                    <SelectItem value="desc">Desc</SelectItem>
-                    <SelectItem value="asc">Asc</SelectItem>
+                  <SelectContent className="w-full">
+                    <SelectItem value="desc">Crescente</SelectItem>
+                    <SelectItem value="asc">Decrescente</SelectItem>
                   </SelectContent>
                 </Select>
               </FormItem>
@@ -195,11 +198,11 @@ export const SearchProductsInput: FC = () => {
                   defaultValue={field.value}
                 >
                   <FormControl>
-                    <SelectTrigger className="w-20">
+                    <SelectTrigger className="w-full">
                       <SelectValue placeholder="Per page" />
                     </SelectTrigger>
                   </FormControl>
-                  <SelectContent>
+                  <SelectContent className="w-full">
                     <SelectItem value="5">5</SelectItem>
                     <SelectItem value="10">10</SelectItem>
                     <SelectItem value="20">20</SelectItem>
@@ -212,6 +215,7 @@ export const SearchProductsInput: FC = () => {
 
           <Button
             type="submit"
+            className="cursor-pointer"
             disabled={form.formState.isSubmitting || form.formState.disabled}
           >
             Search

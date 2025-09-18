@@ -12,7 +12,7 @@ export default async function AuthLayout({ children }: LayoutProps<"/auth">) {
         {/* Left side - Image and testimonial */}
         <div className="relative hidden bg-primary lg:block">
           <div className="relative flex h-full w-full items-center justify-center">
-            <Logo color="var(--color-background)" />
+            <Logo color="var(--primary)" />
           </div>
         </div>
 

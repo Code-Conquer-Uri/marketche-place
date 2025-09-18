@@ -9,7 +9,7 @@ const LabeledLogo: React.FC<SVGProps<SVGSVGElement>> = ({ ...props }) => {
       width="350"
       height="75"
       viewBox="0 0 350 75"
-      fill="none"
+      fill={props.color}
     >
       <title>Marketchê Place</title>
       <path

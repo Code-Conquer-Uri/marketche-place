@@ -16,7 +16,7 @@ export default async function AuthLayout({
         <header className="w-full h-20 shadow-sm border-b bg-background">
           <div className="mx-auto max-w-7xl px-5 xl:px-0 flex items-center gap-4 justify-between h-full">
             <div>
-              <SmallLogo color="var(--primary" />
+              <SmallLogo color="var(--primary)" />
             </div>
             <div className="flex items-center gap-2">
               <div>
