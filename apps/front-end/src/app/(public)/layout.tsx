@@ -12,7 +12,7 @@ import {
 
 export default async function AuthLayout({ children }: LayoutProps<"/">) {
   return (
-    <SidebarProvider>
+    <SidebarProvider defaultOpen={false}>
       <AppSidebar />
       <SidebarInset>
         <main className="min-h-dvh w-full">

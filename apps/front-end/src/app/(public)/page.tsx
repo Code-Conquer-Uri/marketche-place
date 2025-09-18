@@ -60,13 +60,11 @@ export default async function LandingPage({ searchParams }: Props) {
             </div>
             <article className="text-center">
               <h1 className="text-balance text-5xl font-semibold tracking-tight text-white sm:text-6xl">
-                MarkeTchê - O Comércio Local de Erechim na Palma da Sua Mão
+                MarkeTchê
               </h1>
-              <p className="mt-2.5 text-pretty text-slate-300">
+              <p className="mt-2.5 text-pretty text-white">
                 Conectamos consumidores e comerciantes de Erechim em uma
-                plataforma digital que valoriza o comércio local. Encontre
-                produtos frescos, promoções exclusivas e apoie os negócios da
-                sua cidade com praticidade e conveniência.
+                plataforma digital que valoriza o comércio local.
               </p>
               <div className="mt-14 flex flex-col items-center justify-center gap-2.5 gap-x-6 sm:flex-row">
                 <Link href="/" className="w-full sm:w-56 cursor-pointer">

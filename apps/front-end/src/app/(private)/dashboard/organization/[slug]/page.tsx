@@ -6,7 +6,7 @@ export default async function DashboardPage({
   params,
 }: PageProps<"/dashboard/organization/[slug]">) {
   return (
-    <div className="container mx-auto py-6">
+    <div className="container max-w-7xl! mx-auto py-6">
       <Suspense>
         <OrganizationDashboard searchParams={searchParams} params={params} />
       </Suspense>

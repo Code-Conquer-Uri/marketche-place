@@ -54,19 +54,6 @@ export class CreateUserCouponService {
 
     const organizationId = product.organizationId.toString();
 
-    const permission = await this.permissionFactory.userCan(
-      "validate",
-      "coupon",
-      {
-        userId,
-        organizationId,
-      },
-    );
-
-    if (!permission.success) {
-      return left(new NotAllowedError(permission.error?.message));
-    }
-
     const userCoupon = UserCoupon.create({
       couponId: new UniqueEntityID(couponId),
       userId: new UniqueEntityID(userId),

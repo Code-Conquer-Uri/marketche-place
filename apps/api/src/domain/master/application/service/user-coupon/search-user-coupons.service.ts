@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 
-import { type Either, left, right } from "@/core/either";
+import { type Either, right } from "@/core/either";
 import { NotAllowedError } from "@/core/errors/not-allowed-error";
 import { UserCoupon } from "@/domain/master/enterprise/entities/user-coupons";
 
@@ -38,18 +38,6 @@ export class SearchUserCouponsService {
     page = 1,
     limit = 10,
   }: SearchUserCouponsServiceRequest): Promise<SearchUserCouponsServiceResponse> {
-    const permission = await this.permissionFactory.userCan(
-      "create",
-      "coupon",
-      {
-        userId,
-      },
-    );
-
-    if (!permission.success) {
-      return left(new NotAllowedError(permission.error?.message));
-    }
-
     const { userCoupons, total } = await this.userCouponRepository.search({
       userId,
       couponId,
