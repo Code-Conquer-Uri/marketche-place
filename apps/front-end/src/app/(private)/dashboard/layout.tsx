@@ -11,7 +11,7 @@ export default async function AuthLayout({
   children,
 }: LayoutProps<"/dashboard">) {
   return (
-    <SidebarProvider>
+    <SidebarProvider defaultOpen={false}>
       <Suspense>
         <Auth allow="Authenticated-Only" redirectTo="/auth" />
       </Suspense>

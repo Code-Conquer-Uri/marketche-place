@@ -53,10 +53,12 @@ export class PrismaUserCouponRepository implements UserCouponRepository {
   }
 
   async findManyByCouponIds(couponIds: string[]): Promise<UserCoupon[]> {
+    const ids = Array.isArray(couponIds) ? couponIds : [couponIds];
+
     const usercoupons = await this.prisma.userCoupons.findMany({
       where: {
         couponId: {
-          in: couponIds,
+          in: ids,
         },
       },
     });

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { searchProductAction, searchCouponsAction } from "@/actions/product";
+import { searchCouponsAction, searchProductAction } from "@/actions/product";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export async function ProductsGrid({

@@ -34,7 +34,7 @@ export class GetUserCouponResponseDto extends createZodDto(
 ) {}
 
 @ApiTags("user-coupons")
-@Controller("/user-coupons")
+@Controller("/user-coupons/by-id")
 @ApiBearerAuth()
 export class GetUserCouponController {
   constructor(private getUserCouponService: GetUserCouponService) {}

@@ -18,13 +18,13 @@ import type {
 function getGetUserCouponControllerHandleUrl(
   id: GetUserCouponControllerHandlePathParams["id"],
 ) {
-  const res = { method: "GET", url: `/user-coupons/${id}` as const };
+  const res = { method: "GET", url: `/user-coupons/by-id/${id}` as const };
   return res;
 }
 
 /**
  * @summary Get a user coupon by ID
- * {@link /user-coupons/:id}
+ * {@link /user-coupons/by-id/:id}
  */
 export async function getUserCouponControllerHandle(
   id: GetUserCouponControllerHandlePathParams["id"],

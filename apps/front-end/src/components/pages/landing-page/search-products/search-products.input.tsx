@@ -34,6 +34,7 @@ export const SearchProductsInput: FC = () => {
     "searchTerm",
     parseAsString.withOptions({
       shallow: false,
+      scroll: false,
       clearOnDefault: false,
     }),
   );
@@ -42,6 +43,7 @@ export const SearchProductsInput: FC = () => {
     "page",
     parseAsString.withOptions({
       shallow: false,
+      scroll: false,
       clearOnDefault: false,
     }),
   );
@@ -49,6 +51,7 @@ export const SearchProductsInput: FC = () => {
   const [perPage, setPerPage] = useQueryState(
     "perPage",
     parseAsString.withOptions({
+      scroll: false,
       shallow: false,
       clearOnDefault: false,
     }),
@@ -58,6 +61,7 @@ export const SearchProductsInput: FC = () => {
     "orderBy",
     parseAsString.withOptions({
       shallow: false,
+      scroll: false,
       clearOnDefault: false,
     }),
   );
@@ -66,6 +70,7 @@ export const SearchProductsInput: FC = () => {
     "orderDirection",
     parseAsString.withOptions({
       shallow: false,
+      scroll: false,
       clearOnDefault: false,
     }),
   );
@@ -75,6 +80,7 @@ export const SearchProductsInput: FC = () => {
     parseAsString.withOptions({
       shallow: false,
       clearOnDefault: false,
+      scroll: false,
     }),
   );
 

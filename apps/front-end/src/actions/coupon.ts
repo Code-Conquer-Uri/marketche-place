@@ -4,8 +4,10 @@ import {
   type CreateCouponBodyDto,
   createCouponControllerHandle,
   deleteCouponControllerHandle,
+  GetUserCouponsByCouponsIdsControllerHandleQueryParams,
   getCouponControllerHandle,
   getCouponsByProductIdControllerHandle,
+  getUserCouponsByCouponsIdsControllerHandle,
   type UpdateCouponBodyDto,
   updateCouponControllerHandle,
 } from "@/http";
@@ -47,4 +49,10 @@ export async function getCouponAction(couponId: string) {
 
 export async function getCouponsByProductIdAction(productId: string) {
   return getCouponsByProductIdControllerHandle(productId);
+}
+
+export async function getUsersCouponsByCouponsAction(
+  params: GetUserCouponsByCouponsIdsControllerHandleQueryParams,
+) {
+  return getUserCouponsByCouponsIdsControllerHandle(params);
 }

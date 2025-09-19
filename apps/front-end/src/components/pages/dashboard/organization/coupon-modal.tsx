@@ -276,70 +276,69 @@ export const CouponModal: FC<CouponModalProps> = ({
       );
     }
 
-    const isEdit = mode === "edit";
-    const form = isEdit ? updateForm : createForm;
-    const onSubmit = isEdit ? handleUpdateSubmit : handleCreateSubmit;
-
-    return (
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          {isLoading ? (
-            <div className="flex items-center justify-center py-8">
-              <p className="text-muted-foreground">Carregando cupom...</p>
-            </div>
-          ) : (
-            <div className="space-y-4">
-              <FormField
-                control={form.control}
-                name="discountPercentage"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Desconto (%)</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="number"
-                        step="0.01"
-                        min="0"
-                        max="100"
-                        placeholder="10.00"
-                        {...field}
-                        onChange={(e) =>
-                          field.onChange(parseFloat(e.target.value) || 0)
-                        }
-                        className="h-11"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="maxQuantity"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Quantidade Máxima</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="number"
-                        min="1"
-                        placeholder="100"
-                        {...field}
-                        onChange={(e) =>
-                          field.onChange(parseInt(e.target.value) || 0)
-                        }
-                        className="h-11"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              {isEdit && (
+    if (mode === "edit") {
+      return (
+        <Form {...updateForm}>
+          <form
+            onSubmit={updateForm.handleSubmit(handleUpdateSubmit)}
+            className="space-y-6"
+          >
+            {isLoading ? (
+              <div className="flex items-center justify-center py-8">
+                <p className="text-muted-foreground">Carregando cupom...</p>
+              </div>
+            ) : (
+              <div className="space-y-4">
                 <FormField
-                  control={form.control}
+                  control={updateForm.control}
+                  name="discountPercentage"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Desconto (%)</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          step="0.01"
+                          min="0"
+                          max="100"
+                          placeholder="10.00"
+                          {...field}
+                          onChange={(e) =>
+                            field.onChange(parseFloat(e.target.value) || 0)
+                          }
+                          className="h-11"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={updateForm.control}
+                  name="maxQuantity"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Quantidade Máxima</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          min="1"
+                          placeholder="100"
+                          {...field}
+                          onChange={(e) =>
+                            field.onChange(parseInt(e.target.value) || 0)
+                          }
+                          className="h-11"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={updateForm.control}
                   name="currentQuantity"
                   render={({ field }) => (
                     <FormItem>
@@ -366,9 +365,95 @@ export const CouponModal: FC<CouponModalProps> = ({
                     </FormItem>
                   )}
                 />
-              )}
+              </div>
+            )}
+
+            {/* Action Buttons */}
+            <div className="flex justify-end gap-3 pt-4">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => handleOpenChange(false)}
+                disabled={isSubmitting}
+              >
+                Cancelar
+              </Button>
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                className="min-w-[120px]"
+              >
+                {isSubmitting ? (
+                  "Salvando..."
+                ) : (
+                  <>
+                    <Check className="w-4 h-4 mr-2" />
+                    Salvar
+                  </>
+                )}
+              </Button>
             </div>
-          )}
+          </form>
+        </Form>
+      );
+    }
+
+    // mode === "create"
+    return (
+      <Form {...createForm}>
+        <form
+          onSubmit={createForm.handleSubmit(handleCreateSubmit)}
+          className="space-y-6"
+        >
+          <div className="space-y-4">
+            <FormField
+              control={createForm.control}
+              name="discountPercentage"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Desconto (%)</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="number"
+                      step="0.01"
+                      min="0"
+                      max="100"
+                      placeholder="10.00"
+                      {...field}
+                      onChange={(e) =>
+                        field.onChange(parseFloat(e.target.value) || 0)
+                      }
+                      className="h-11"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={createForm.control}
+              name="maxQuantity"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Quantidade Máxima</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="number"
+                      min="1"
+                      placeholder="100"
+                      {...field}
+                      onChange={(e) =>
+                        field.onChange(parseInt(e.target.value) || 0)
+                      }
+                      className="h-11"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
 
           {/* Action Buttons */}
           <div className="flex justify-end gap-3 pt-4">
@@ -390,7 +475,7 @@ export const CouponModal: FC<CouponModalProps> = ({
               ) : (
                 <>
                   <Check className="w-4 h-4 mr-2" />
-                  {isEdit ? "Salvar" : "Criar"}
+                  Criar
                 </>
               )}
             </Button>

@@ -2305,7 +2305,7 @@
         "tags": ["user-coupons"]
       }
     },
-    "/user-coupons/{id}": {
+    "/user-coupons/by-id/{id}": {
       "get": {
         "operationId": "GetUserCouponController_handle",
         "parameters": [
@@ -2375,7 +2375,9 @@
         "security": [{ "bearer": [] }],
         "summary": "Get a user coupon by ID",
         "tags": ["user-coupons"]
-      },
+      }
+    },
+    "/user-coupons/{id}": {
       "delete": {
         "operationId": "DeleteUserCouponController_handle",
         "parameters": [

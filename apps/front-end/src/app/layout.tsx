@@ -33,7 +33,7 @@ const playfairDisplay = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Multi-Tenant Platform",
+  title: "Marketche",
   description:
     "Plataforma robusta para construir aplicações SaaS multi-tenant com isolamento completo de dados",
   keywords: ["multi-tenant", "saas", "platform", "enterprise", "scalable"],
